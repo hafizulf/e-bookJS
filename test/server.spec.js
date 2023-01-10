@@ -1,17 +1,14 @@
 const request = require('supertest')
 
 describe('App server test', () => {
-  let app
+  let app = require('../src/server')
 
-  beforeEach(() => {
-    app = require('../src/server')
-  })
-
-  afterEach(done => {
-    app.close(done)
-  })
-
-  it('should return hello world', () => {
-    return request(app).get('/').expect(200)
+  it('should return E-bookJS App!', () => {
+    return request(app)
+      .get('/')
+      .expect(200)
+      .then(res => {
+        expect(res.text).toBe('E-bookJS App!')
+      })
   })
 })
