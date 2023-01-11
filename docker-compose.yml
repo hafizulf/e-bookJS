@@ -5,3 +5,27 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile.dev
+    depends_on:
+      - mysql_db
+    networks:
+      - ebookjs-net
+
+  mysql_db:
+    image: mysql
+    networks:
+      - ebookjs-net
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - mysql:/var/lib/mysql
+    command: --default-authentication-plugin=caching_sha2_password
+
+networks:
+  ebookjs-net:
+
+
+volumes:
+  mysql:

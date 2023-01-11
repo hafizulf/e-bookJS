@@ -1,7 +1,7 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: Node.js CI
+name: e-bookJS CI
 
 on:
   push:
@@ -12,14 +12,39 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql
+        ports:
+          - 33306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Use Node.js 18.x
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run build --if-present
-      - run: npm run ci_test
+
+      - name: Run npm install
+        run: npm install
+
+      - name: Create .env file
+        run: |
+          touch .env
+          echo DB_HOST=0.0.0.0 >> .env
+          echo DB_PORT=33306 >> .env
+          echo DB_USER='skuy' >> .env
+          echo DB_PASSWORD='pass' >> .env
+          echo DB_DATABASE='ebookjs_db' >> .env
+          cat .env
+
+      - name: Run npm test
+        run: npm run ci_test
+
+      - name: Run npm build
+        run: npm run build --if-present

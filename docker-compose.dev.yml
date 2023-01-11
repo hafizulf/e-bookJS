@@ -2,9 +2,24 @@ version: '3'
 
 services:
   ebookjs-app:
-    ports:
-      - 3000:3000
+    environment:
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     volumes:
-      - '.:/app'
-      - '/app/node_modules'
+      - ".:/app"
+      - "/app/node_modules"
+    ports:
+      - "3000:3000"
     command: npm run dev
+
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql_db
+    ports:
+      - 8081:8080
+    networks:
+      - ebookjs-net
