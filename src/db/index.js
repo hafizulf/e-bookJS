@@ -8,7 +8,14 @@ const connectionOptions = {
   password: DB_PASSWORD,
   database: DB_DATABASE
 }
-const connection = mysql.createConnection(connectionOptions)
+
+let connection
+try {
+  connection = mysql.createConnection(connectionOptions)
+  console.log('connected to mysql!')
+} catch (error) {
+  console.log(error)
+}
 
 module.exports = {
   mysql: connection
