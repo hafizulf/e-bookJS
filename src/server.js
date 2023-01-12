@@ -3,7 +3,7 @@ const { mysql } = require('./db')
 
 const app = express()
 
-const { NODE_ENV } = require('./config')
+const { NODE_ENV, APP_PORT } = require('./config')
 
 app.get('/', (req, res) => {
   res.send('E-bookJS App!')
@@ -20,8 +20,8 @@ app.get('/koneksi', (req, res) => {
 })
 
 if (NODE_ENV !== 'test') {
-  app.listen(3000, () => {
-    console.log(`Listening on port http://localhost:3000`)
+  app.listen(APP_PORT, () => {
+    console.log(`Listening on port http://localhost:${APP_PORT}`)
   })
 }
 

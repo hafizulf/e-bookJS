@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  ebookjs-app:
+  node_app:
     build:
       context: .
       dockerfile: ./Dockerfile.dev

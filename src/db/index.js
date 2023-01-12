@@ -1,20 +1,34 @@
 const mysql = require('mysql2')
 
-const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE } = require('../config/db')
+const {
+  NODE_ENV,
+  DB_HOST,
+  DB_USER,
+  DB_PASSWORD,
+  DB_DATABASE
+} = require('../config/db')
 
-const connectionOptions = {
-  host: DB_HOST,
-  user: DB_USER,
-  password: DB_PASSWORD,
-  database: DB_DATABASE
+let connectionOptions
+if (NODE_ENV == 'test') {
+  connectionOptions = {
+    host: DB_HOST,
+    user: DB_USER,
+    database: DB_DATABASE
+  }
+} else {
+  connectionOptions = {
+    host: DB_HOST,
+    user: DB_USER,
+    password: DB_PASSWORD,
+    database: DB_DATABASE
+  }
 }
 
 let connection
 try {
   connection = mysql.createConnection(connectionOptions)
-  console.log('connected to mysql!')
 } catch (error) {
-  console.log(error)
+  throw error
 }
 
 module.exports = {

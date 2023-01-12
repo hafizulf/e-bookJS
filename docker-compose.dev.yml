@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  ebookjs-app:
+  node_app:
     environment:
       MYSQL_HOST: ${MYSQL_HOST}
       MYSQL_USER: ${MYSQL_USER}
@@ -11,7 +11,7 @@ services:
       - ".:/app"
       - "/app/node_modules"
     ports:
-      - "3000:3000"
+      - "${NODE_APP_PORT}:3000"
     command: npm run dev
 
   adminer:

@@ -8,6 +8,9 @@ docker-build:
 docker-run-dev:
 	docker-compose ${DOCKER_DEV} up -d
 
+docker-run-dev-build:
+	docker-compose ${DOCKER_DEV} up -d --build
+
 docker-stop-dev:
 	docker-compose ${DOCKER_DEV} down
 
