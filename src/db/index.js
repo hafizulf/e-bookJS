@@ -1,19 +1,25 @@
-const mysql = require('mysql2')
+const mysql = require('mysql')
+require('dotenv').config()
 
+const { NODE_ENV } = require('../config')
 const {
-  NODE_ENV,
   DB_HOST,
   DB_USER,
   DB_PASSWORD,
-  DB_DATABASE
-} = require('../config/db')
+  DB_DATABASE,
+  TEST_DB_HOST,
+  TEST_DB_USER,
+  TEST_DB_PASSWORD,
+  TEST_DB_DATABASE
+} = process.env
 
 let connectionOptions
 if (NODE_ENV == 'test') {
   connectionOptions = {
-    host: DB_HOST,
-    user: DB_USER,
-    database: DB_DATABASE
+    host: TEST_DB_HOST,
+    user: TEST_DB_USER,
+    password: TEST_DB_PASSWORD,
+    database: TEST_DB_DATABASE
   }
 } else {
   connectionOptions = {
