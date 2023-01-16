@@ -21,6 +21,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
+      
+      - name: Setup MySQL
+      - uses: shogo82148/actions-setup-mysql@v1
+        with:
+          mysql-version: '8.0'
+          
+      - name: Start MySQL
+        run: | 
+          mysql -e 'CREATE DATABASE ebookjs_dbtest;' -uebookjs_test -pebookjs_test
+          mysql -e 'SHOW DATABASES;' -uroot -proot -h127.0.0.1 -e 'SELECT version()'
 
       - name: Run npm install
         run: npm install
@@ -33,15 +43,7 @@ jobs:
           echo TEST_DB_PASSWORD='ebookjs_test' >> .env
           echo TEST_DB_DATABASE='ebookjs_dbtest' >> .env
           cat .env
-          
-      - name: Setup MySQL
-      - uses: shogo82148/actions-setup-mysql@v1
-        with:
-          mysql-version: '8.0'
-      - run: |
-          mysql -e 'CREATE DATABASE ebookjs_dbtest;' -uebookjs_test -pebookjs_test
-            mysql -e 'SHOW DATABASES;' -uroot -proot -h127.0.0.1 -e 'SELECT version()'
-
+    
       - name: Run npm test
         run: npm run ci_test
 
