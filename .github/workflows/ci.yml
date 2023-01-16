@@ -17,12 +17,7 @@ jobs:
         image: mysql
         ports:
           - 3306:3306
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_USER: ebookjs_test
-          MYSQL_PASSWORD: ebookjs_test
-          MYSQL_DATABASE: ebookjs_dbtest
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5 --entrypoint sh mysql -c "exec docker-entrypoint.sh mysqld --default-authentication-plugin=mysql_native_password"
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5 -e MYSQL_ROOT_PASSWORD=ebookjs_test -e MYSQL_USER=ebookjs_test -e MYSQL_PASSWORD=ebookjs_test -e MYSQL_DATABASE=ebookjs_test --entrypoint sh mysql -c "exec docker-entrypoint.sh mysqld --default-authentication-plugin=mysql_native_password"
 
     steps:
       - name: Checkout
