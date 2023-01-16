@@ -19,7 +19,10 @@ jobs:
           - 3306:3306
         env:
           MYSQL_ROOT_PASSWORD: root
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+          MYSQL_USER: ebookjs_test
+          MYSQL_PASSWORD: ebookjs_test
+          MYSQL_DATABASE: ebookjs_dbtest
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5 --entrypoint sh mysql -c "exec docker-entrypoint.sh mysqld --default-authentication-plugin=mysql_native_password"
 
     steps:
       - name: Checkout
@@ -36,9 +39,10 @@ jobs:
       - name: Create .env file
         run: |
           touch .env
-          echo DB_HOST=0.0.0.0 >> .env
-          echo DB_USER='root' >> .env
-          echo DB_DATABASE='ebookjs_dbtest' >> .env
+          echo TEST_DB_HOST=0.0.0.0 >> .env
+          echo TEST_DB_USER='ebookjs_test' >> .env
+          echo TEST_DB_PASSWORD='ebookjs_test' >> .env
+          echo TEST_DB_DATABASE='ebookjs_dbtest' >> .env
           cat .env
 
       - name: Run npm test
