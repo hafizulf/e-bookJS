@@ -37,7 +37,7 @@ jobs:
       - name: Set up MySQL
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE ebookjs_dbtest;' -u ebookjs_test -p ebookjs_test
+          mysql -e 'CREATE DATABASE ebookjs_dbtest;' -uebookjs_test -pebookjs_test
 
       - name: Run npm test
         run: npm run ci_test
