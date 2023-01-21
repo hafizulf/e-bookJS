@@ -7,7 +7,11 @@
     "start": "node src/server.js",
     "dev": "nodemon --ignore test/ -L src/server.js",
     "test": "cross-env NODE_ENV=test jest --watchAll --detectOpenHandles",
-    "ci_test": "cross-env NODE_ENV=test jest --forceExit --detectOpenHandles"
+    "ci_test": "cross-env NODE_ENV=test jest --forceExit --detectOpenHandles",
+    "migrate:make": "knex --cwd=src migrate:make",
+    "migrate": "knex --cwd=src migrate:latest",
+    "migrate:rollback": "knex --cwd=src migrate:rollback",
+    "migrate:refresh": "npm run migrate:rollback && npm run migrate"
   },
   "keywords": [],
   "author": "",
