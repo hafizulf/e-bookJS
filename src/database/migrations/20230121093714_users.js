@@ -13,6 +13,7 @@ exports.up = async knex => {
     table.string('email', 50).notNullable()
     table.string('password', 128).notNullable()
     table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable()
+    table.integer('is_active', 9).notNullable().defaultTo(1)
   })
 }
 
