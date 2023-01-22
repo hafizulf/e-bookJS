@@ -1,12 +1,6 @@
-const express = require('express')
-
-const app = express()
+const app = require('./app')
 
 const { NODE_ENV, APP_PORT } = require('./config')
-
-app.get('/', (req, res) => {
-  res.send('E-bookJS App!')
-})
 
 if (NODE_ENV !== 'test') {
   app.listen(APP_PORT, () => {
