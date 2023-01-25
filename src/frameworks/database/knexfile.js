@@ -1,6 +1,6 @@
 const path = require('path')
 require('dotenv').config({
-  path: path.join(__dirname, '../../.env')
+  path: path.join(__dirname, '../../../.env')
 })
 
 const { DB_DIALECT, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_DATABASE } =
@@ -21,7 +21,7 @@ const devEnvConfig = {
   },
   migrations: {
     tableName: 'migrations',
-    directory: path.join(__dirname, 'database/migrations')
+    directory: path.join(__dirname, 'migrations')
   }
 }
 
