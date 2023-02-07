@@ -1,4 +1,3 @@
-const bookEntity = require('../../entities/book.entity')
 const { bookRepository } = require('../../repositories')
 
 const serviceFindAll = require('./findAll')
