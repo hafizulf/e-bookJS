@@ -14,3 +14,5 @@ docker-run-dev-build:
 docker-stop-dev:
 	docker-compose ${DOCKER_DEV} down
 
+remove-coverage:
+	rm -r coverage .nyc_output
