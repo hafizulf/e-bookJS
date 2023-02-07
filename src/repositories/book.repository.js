@@ -1,13 +1,13 @@
 const createBookRepository = database => {
-  const tableName = 'books'
+  const tableName = 'books';
 
   const findAll = () => {
-    return database.select().table(tableName)
-  }
+    return database.select().table(tableName);
+  };
 
   return {
     findAll
-  }
-}
+  };
+};
 
-module.exports = createBookRepository
+module.exports = createBookRepository;

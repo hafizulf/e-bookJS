@@ -1,10 +1,10 @@
-const path = require('path')
+const path = require('path');
 require('dotenv').config({
   path: path.join(__dirname, '../../../.env')
-})
+});
 
 const { DB_DIALECT, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_DATABASE } =
-  process.env
+  process.env;
 
 const devEnvConfig = {
   client: DB_DIALECT,
@@ -23,8 +23,8 @@ const devEnvConfig = {
     tableName: 'migrations',
     directory: path.join(__dirname, 'migrations')
   }
-}
+};
 
 module.exports = {
   development: devEnvConfig
-}
+};

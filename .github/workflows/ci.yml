@@ -40,6 +40,9 @@ jobs:
           echo DB_DATABASE='ebookjs_dbtest' >> .env
           cat .env
 
+      - name: Run linter
+        run: npm run lint
+
       - name: Run npm test
         run: npm run test
 

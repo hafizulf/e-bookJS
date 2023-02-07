@@ -1,10 +1,10 @@
-const database = require('../frameworks/database/knex')
+const database = require('../frameworks/database/knex');
 
-const createBookRepository = require('./book.repository')
+const createBookRepository = require('./book.repository');
 
 // register repository
-const bookRepository = createBookRepository(database)
+const bookRepository = createBookRepository(database);
 
 module.exports = {
   bookRepository
-}
+};

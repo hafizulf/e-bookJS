@@ -1,8 +1,8 @@
 const serviceFindAll = (repository) => {
   return () => {
     return repository
-    .findAll()
-  }
-}
+    .findAll();
+  };
+};
 
-module.exports = serviceFindAll
+module.exports = serviceFindAll;

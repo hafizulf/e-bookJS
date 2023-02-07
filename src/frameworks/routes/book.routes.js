@@ -1,9 +1,9 @@
-const express = require('express')
+const express = require('express');
 
-const { findAll } = require('../../controllers/book.controller')
+const { findAll } = require('../../controllers/book.controller');
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/', findAll)
+router.get('/', findAll);
 
-module.exports = router
+module.exports = router;

@@ -1,37 +1,40 @@
 {
-  "name": "e-bookjs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "src/frameworks/server.js",
-  "scripts": {
-    "start": "node src/frameworks/server.js",
-    "dev": "nodemon --ignore test/ -L src/frameworks/server.js",
-    "test": "mocha 'test/**/*.js'",
-    "test-watch": "mocha 'test/**/*.js' --watch",
-    "test-coverage": "nyc --reporter=text mocha 'test/**/*.js' --exit",
-    "test-coverage-html": "nyc --reporter=html mocha 'test/**/*.js' --exit",
-    "migrate:make": "knex --cwd=src/frameworks/database migrate:make",
-    "migrate": "knex --cwd=src/frameworks/database migrate:latest",
-    "migrate:rollback": "knex --cwd=src/frameworks/database migrate:rollback",
-    "migrate:refresh": "npm run migrate:rollback && npm run migrate"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "knex": "^2.4.1",
-    "mysql": "^2.18.1",
-    "path": "^0.12.7",
-    "sqlite3": "^5.1.4"
-  },
-  "devDependencies": {
-    "chai": "^4.3.7",
-    "mocha": "^10.2.0",
-    "nodemon": "^2.0.20",
-    "nyc": "^15.1.0",
-    "sinon": "^15.0.1",
-    "supertest": "^6.3.3"
-  }
+	"name": "e-bookjs",
+	"version": "1.0.0",
+	"description": "",
+	"main": "src/frameworks/server.js",
+	"scripts": {
+		"start": "node src/frameworks/server.js",
+		"dev": "nodemon --ignore test/ -L src/frameworks/server.js",
+		"test": "mocha 'test/**/*.js'",
+		"test:watch": "mocha 'test/**/*.js' --watch",
+		"test:coverage": "nyc --reporter=text mocha 'test/**/*.js' --exit",
+		"test:coverage-html": "nyc --reporter=html mocha 'test/**/*.js' --exit",
+		"migrate:make": "knex --cwd=src/frameworks/database migrate:make",
+		"migrate": "knex --cwd=src/frameworks/database migrate:latest",
+		"migrate:rollback": "knex --cwd=src/frameworks/database migrate:rollback",
+		"migrate:refresh": "npm run migrate:rollback && npm run migrate",
+		"lint": "eslint ./src --ext .js",
+		"lint:fix": "eslint --fix ./src --ext .js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^16.0.3",
+		"express": "^4.18.2",
+		"knex": "^2.4.1",
+		"mysql": "^2.18.1",
+		"path": "^0.12.7",
+		"sqlite3": "^5.1.4"
+	},
+	"devDependencies": {
+		"chai": "^4.3.7",
+		"eslint": "^8.33.0",
+		"mocha": "^10.2.0",
+		"nodemon": "^2.0.20",
+		"nyc": "^15.1.0",
+		"sinon": "^15.0.1",
+		"supertest": "^6.3.3"
+	}
 }
