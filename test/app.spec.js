@@ -3,17 +3,11 @@ const request = require('supertest')
 
 const { expect } = chai
 
-describe('books API', () => {
+describe('Main App', () => {
   let app = require('../src/frameworks/app')
 
-  describe('Main App', () => {
-    it('should respond successfully to /', () => {
-      return request(app)
-        .get('/')
-        .expect(200)
-        .then(res => {
-          expect(res.text).to.equal('E-bookJS App!')
-        })
-    })
+  it('should respond successfully to /', async () => {
+    const res = await request(app).get('/').expect(200)
+    expect(res.text).to.equal('E-bookJS App!')
   })
 })

@@ -8,5 +8,4 @@ test/
 docker-compose.yml
 docker-compose.dev.yml
 Dockerfile.dev
-jest.config.json
 Makefile
