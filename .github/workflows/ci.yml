@@ -4,8 +4,6 @@
 name: e-bookJS CI
 
 on:
-  push:
-    branches: ['master']
   pull_request:
     branches: ['master']
 
@@ -41,6 +39,9 @@ jobs:
           echo DB_PASSWORD='ebookjs_test' >> .env
           echo DB_DATABASE='ebookjs_dbtest' >> .env
           cat .env
+
+      - name: Run linter
+        run: npm run lint
 
       - name: Run npm test
         run: npm run test
