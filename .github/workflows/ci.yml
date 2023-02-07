@@ -35,8 +35,8 @@ jobs:
       - name: Create .env file
         run: |
           touch .env
-          echo DB_DIALECT=mysql
-          echo DB_HOST=0.0.0.0>> .env
+          echo DB_DIALECT=mysql >> .env
+          echo DB_HOST=0.0.0.0 >> .env
           echo DB_USER='ebookjs_test' >> .env
           echo DB_PASSWORD='ebookjs_test' >> .env
           echo DB_DATABASE='ebookjs_dbtest' >> .env
