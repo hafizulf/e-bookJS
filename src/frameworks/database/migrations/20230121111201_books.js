@@ -8,7 +8,7 @@ exports.up = async knex => {
 
   return knex.schema.createTable(tableName, table => {
     table.increments('book_id').unsigned()
-    table.string('name', 255).notNullable()
+    table.string('title', 255).notNullable()
     table.string('author', 128).notNullable()
     table.string('city', 50)
     table.string('publisher', 50)

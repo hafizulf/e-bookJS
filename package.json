@@ -2,15 +2,17 @@
   "name": "e-bookjs",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.js",
+  "main": "src/frameworks/server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon --ignore test/ -L src/server.js",
-    "test": "cross-env NODE_ENV=test jest --watchAll --detectOpenHandles",
-    "ci_test": "cross-env NODE_ENV=test jest --forceExit --detectOpenHandles",
-    "migrate:make": "knex --cwd=src migrate:make",
-    "migrate": "knex --cwd=src migrate:latest",
-    "migrate:rollback": "knex --cwd=src migrate:rollback",
+    "start": "node src/frameworks/server.js",
+    "dev": "nodemon --ignore test/ -L src/frameworks/server.js",
+    "test": "mocha 'test/**/*.js'",
+    "test-watch": "mocha 'test/**/*.js' --watch",
+    "test-coverage": "nyc --reporter=text mocha 'test/**/*.js' --exit",
+    "test-coverage-html": "nyc --reporter=html mocha 'test/**/*.js' --exit",
+    "migrate:make": "knex --cwd=src/frameworks/database migrate:make",
+    "migrate": "knex --cwd=src/frameworks/database migrate:latest",
+    "migrate:rollback": "knex --cwd=src/frameworks/database migrate:rollback",
     "migrate:refresh": "npm run migrate:rollback && npm run migrate"
   },
   "keywords": [],
@@ -25,9 +27,11 @@
     "sqlite3": "^5.1.4"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
-    "jest": "^29.3.1",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.20",
+    "nyc": "^15.1.0",
+    "sinon": "^15.0.1",
     "supertest": "^6.3.3"
   }
 }
