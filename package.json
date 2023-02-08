@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node src/frameworks/server.js",
     "dev": "nodemon --ignore test/ -L src/frameworks/server.js",
-    "test": "cross-env NODE_ENV=test mocha 'test/**/*.js' --runInBand",
-    "test:watch": "cross-env NODE_ENV=test mocha 'test/**/*.js' --watch --runInBand",
+    "test": "cross-env NODE_ENV=test mocha 'test/**/*.js' --runInBand --exit",
+    "test:watch": "cross-env NODE_ENV=test mocha 'test/**/*.js' --watch --runInBand --exit",
     "test:coverage": "nyc --reporter=text cross-env NODE_ENV=test mocha 'test/**/*.js' --exit",
     "test:coverage-html": "nyc --reporter=html cross-env NODE_ENV=test mocha 'test/**/*.js' --exit",
     "migrate:make": "knex --cwd=src/frameworks/database migrate:make",
