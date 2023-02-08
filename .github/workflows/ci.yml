@@ -43,6 +43,9 @@ jobs:
       - name: Run linter
         run: npm run lint
 
+      - name: Run Migration
+        run: npm run migrate:test
+
       - name: Run npm test
         run: npm run test
 
