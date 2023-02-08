@@ -7,8 +7,23 @@ services:
     volumes:
       - .:/app
     ports:
-      - "${NODE_APP_PORT}:3000"
+      - '${NODE_APP_PORT}:3000'
     command: npm run dev
+
+  mysql_db_test:
+    image: mysql
+    ports:
+      - '${DB_TEST_PORT}:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_TEST_USER}
+      MYSQL_PASSWORD: ${DB_TEST_PASSWORD}
+      MYSQL_DATABASE: ${DB_TEST_DATABASE}
+    volumes:
+      - mysql_test:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - ebookjs-net
 
   adminer:
     image: adminer
@@ -16,6 +31,6 @@ services:
     environment:
       ADMINER_DEFAULT_SERVER: mysql_db
     ports:
-      - "8081:8080"
+      - '8081:8080'
     networks:
       - ebookjs-net
