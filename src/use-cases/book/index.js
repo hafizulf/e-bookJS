@@ -5,8 +5,8 @@ const serviceFindAll = require('./findAll');
 // register service
 const findAll = serviceFindAll(bookRepository);
 
-const bookService = Object.freeze({
-  findAll
-});
+const bookService = {
+  findAll,
+};
 
 module.exports = bookService;

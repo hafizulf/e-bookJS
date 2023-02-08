@@ -34,14 +34,17 @@ jobs:
         run: |
           touch .env
           echo DB_DIALECT=mysql >> .env
-          echo DB_HOST=0.0.0.0 >> .env
-          echo DB_USER='ebookjs_test' >> .env
-          echo DB_PASSWORD='ebookjs_test' >> .env
-          echo DB_DATABASE='ebookjs_dbtest' >> .env
+          echo DB_TEST_HOST=0.0.0.0 >> .env
+          echo DB_TEST_USER='ebookjs_test' >> .env
+          echo DB_TEST_PASSWORD='ebookjs_test' >> .env
+          echo DB_TEST_DATABASE='ebookjs_dbtest' >> .env
           cat .env
 
       - name: Run linter
         run: npm run lint
+
+      - name: Run Migration
+        run: npm run migrate:test
 
       - name: Run npm test
         run: npm run test
