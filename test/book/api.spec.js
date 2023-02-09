@@ -6,6 +6,8 @@ const app = require('../../src/frameworks/app');
 const database = require('../../src/frameworks/database/knex');
 
 describe('books API', () => {
+  const url = '/api/v1/books';
+
   const mockData = [
     {
       book_id: 1,
@@ -38,43 +40,93 @@ describe('books API', () => {
     });
   });
 
-  describe('/books -> with existing data', () => {
-    after(async () => {
-      await database('books').del();
+  describe('API GET /books', () => {
+    describe('given existing data', () => {
+      after(async () => {
+        await database('books').del();
+      });
+
+      it('should return list of books', (done) => {
+        const response = {
+          status: 'OK',
+          code: 200,
+          data: mockData,
+        };
+
+        request(app)
+          .get('/api/v1/books')
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.deep.equal(response);
+            done();
+          });
+      });
     });
 
-    it('should return list of books', (done) => {
-      const response = {
-        status: 'OK',
-        code: 200,
-        data: mockData,
-      };
+    describe('given empty data', () => {
+      it('should return empty array', (done) => {
+        const response = {
+          status: 'OK',
+          code: 200,
+          data: [],
+        };
 
-      request(app)
-        .get('/books')
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body).to.deep.equal(response);
-          done();
-        });
+        request(app)
+          .get('/api/v1/books')
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.deep.equal(response);
+            done();
+          });
+      });
     });
   });
 
-  describe('/books -> with empty data', () => {
-    it("should return empty array if result doesn't exist", (done) => {
-      const response = {
-        status: 'OK',
-        code: 200,
-        data: [],
-      };
+  describe('API POST /books', () => {
+    describe('given invalid body', () => {
+      it('should return errors with author required message', (done) => {
+        const body = { title: 'test' };
 
-      request(app)
-        .get('/books')
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body).to.deep.equal(response);
-          done();
-        });
+        request(app)
+          .post(url)
+          .send(body)
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            expect(res.body.errors).to.deep.equal({ author: ['required'] });
+            return done();
+          });
+      });
+
+      it('should return errors with title required message', (done) => {
+        const body = { author: 'test' };
+
+        request(app)
+          .post(url)
+          .send(body)
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            expect(res.body.errors).to.deep.equal({ title: ['required'] });
+            return done();
+          });
+      });
+    });
+
+    describe('given valid body', () => {
+      it('should created successfully', (done) => {
+        const body = { title: 'test', author: 'test' };
+
+        request(app)
+          .post(url)
+          .send(body)
+          .end((err, res) => {
+            expect(res.status).to.equal(201);
+            return done();
+          });
+      });
+    });
+
+    after(async () => {
+      await database('books').del();
     });
   });
 });
