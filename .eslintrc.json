@@ -1,22 +1,23 @@
 {
-	"env": {
-		"node": true,
-		"commonjs": true,
-		"es2021": true
-	},
-	"extends": "eslint:recommended",
-	"overrides": [],
-	"parserOptions": {
-		"ecmaVersion": "latest"
-	},
-	"rules": {
-		"block-scoped-var": "error",
-		"camelcase": "off",
-		"curly": "off",
-		"eol-last": "error",
-		"func-style": ["off", "expression"],
-		"eqeqeq": ["error", "always"],
-		"quotes": ["error", "single", { "avoidEscape": true }],
-		"semi": ["error", "always"]
-	}
+  "env": {
+    "node": true,
+    "commonjs": true,
+    "es2021": true
+  },
+  "extends": "eslint:recommended",
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "rules": {
+    "block-scoped-var": "error",
+    "camelcase": "off",
+    "curly": "off",
+    "eol-last": "error",
+    "func-style": ["off", "expression"],
+    "eqeqeq": ["error", "always"],
+    "no-unused-vars": ["warn", { "args": "none" }],
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "semi": ["error", "always"]
+  }
 }
