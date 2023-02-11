@@ -7,7 +7,7 @@ exports.up = async (knex) => {
   }
 
   return knex.schema.createTable(tableName, (table) => {
-    table.uuid('book_id').primary();
+    table.uuid('book_id').primary().defaultTo(knex.raw('(UUID())'));
     table.string('title', 200).notNullable();
     table.string('slug', 255).notNullable();
     table.string('author', 128).notNullable();
