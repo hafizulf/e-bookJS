@@ -1,8 +1,8 @@
-const serviceSave = (BookEntity, bookValidator, buildError, repository) => {
+const serviceSave = (BookEntity, repository, validator, buildError) => {
   return async (data) => {
     try {
       // validate req.body input
-      bookValidator.save(data);
+      validator.save(data);
 
       // saving into database
       const book = new BookEntity(data);

@@ -6,7 +6,7 @@ let chai,
   { expect } = require('chai');
 const sinon = require('sinon');
 
-const { bookRepository } = require('../../src/repositories');
+const bookRepository = require('../../src/repositories/book');
 const bookService = require('../../src/use-cases/book');
 
 describe('book use cases', () => {
