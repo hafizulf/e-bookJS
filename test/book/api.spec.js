@@ -93,9 +93,9 @@ describe('books API', () => {
           .end((err, res) => {
             expect(res.status).to.equal(400);
             expect(res.body.errors).to.deep.equal({
-              title: ['title is a required field'],
-              author: ['author is a required field'],
-              file: ['file is a required field'],
+              title: ['required'],
+              author: ['required'],
+              file: ['required'],
             });
             return done();
           });
@@ -104,6 +104,12 @@ describe('books API', () => {
 
     describe('given valid body', () => {
       it('should created successfully', (done) => {
+        const response = {
+          status: 'CREATED',
+          code: 201,
+          message: 'Book has been created',
+        };
+
         const body = { title: 'test', author: 'test', file: 'test.pdf' };
 
         request(app)
@@ -111,6 +117,7 @@ describe('books API', () => {
           .send(body)
           .end((err, res) => {
             expect(res.status).to.equal(201);
+            expect(res.body).to.deep.equal(response);
             return done();
           });
       });

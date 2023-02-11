@@ -19,7 +19,7 @@ const save = async (req, res) => {
     return res.status(201).json({
       status: 'CREATED',
       code: 201,
-      data,
+      message: 'Book has been created',
     });
   } else {
     return res.status(400).json({
