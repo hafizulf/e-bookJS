@@ -2,7 +2,7 @@ let chai,
   { expect } = require('chai');
 const request = require('supertest');
 
-const app = require('../../src/frameworks/app');
+const app = require('../../src/frameworks/webserver/app');
 const database = require('../../src/frameworks/database/knex');
 
 describe('books API', () => {
