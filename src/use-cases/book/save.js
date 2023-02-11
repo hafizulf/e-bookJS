@@ -1,11 +1,8 @@
-const serviceSave = (BookEntity, bookSchemaRules, buildError, repository) => {
+const serviceSave = (BookEntity, bookValidator, buildError, repository) => {
   return async (data) => {
     try {
       // validate req.body input
-      bookSchemaRules.validateSync(data, {
-        abortEarly: false,
-        stripUnknown: true,
-      });
+      bookValidator.save(data);
 
       // saving into database
       const book = new BookEntity(data);
