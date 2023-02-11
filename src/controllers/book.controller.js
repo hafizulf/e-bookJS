@@ -12,9 +12,10 @@ const findAll = async (req, res) => {
 
 const save = async (req, res) => {
   const data = req.body;
-  const result = await bookService.save(data);
+  const response = await bookService.save(data);
 
-  if (!result.errors) {
+  // check if status is true
+  if (response.status) {
     return res.status(201).json({
       status: 'CREATED',
       code: 201,
@@ -24,7 +25,7 @@ const save = async (req, res) => {
     return res.status(400).json({
       status: 'BAD_REQUEST',
       code: 400,
-      errors: result.errors,
+      errors: response.errors,
     });
   }
 };

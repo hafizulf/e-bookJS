@@ -5,8 +5,8 @@ const createBookRepository = (database) => {
     return database.select().table(tableName);
   };
 
-  const save = (newBook) => {
-    return database.insert(newBook).table(tableName);
+  const save = (book) => {
+    return database.insert(book).table(tableName);
   };
 
   return {

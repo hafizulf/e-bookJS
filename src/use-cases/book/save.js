@@ -1,33 +1,25 @@
-const serviceSave = (repository, Book) => {
-  return (data) => {
-    let { title, author, city, publisher, year, type, desc, file } = data;
+const serviceSave = (BookEntity, bookSchemaRules, buildError, repository) => {
+  return async (data) => {
+    try {
+      // validate req.body input
+      bookSchemaRules.validateSync(data, {
+        abortEarly: false,
+        stripUnknown: true,
+      });
 
-    // validate books input
-    const errors = {};
+      // saving into database
+      const book = new BookEntity(data);
+      await repository.save(book);
 
-    if (!title) errors.title = ['required'];
-    if (!author) errors.author = ['required'];
-
-    // assign default value
-    if (!file) file = '';
-
-    if (Object.keys(errors).length > 0) {
       return {
+        status: true,
+      };
+    } catch (err) {
+      const errors = buildError(err.inner);
+      return {
+        status: false,
         errors,
       };
-    } else {
-      // saving
-      const newBook = new Book({
-        title,
-        author,
-        city,
-        publisher,
-        year,
-        type,
-        desc,
-        file,
-      });
-      return repository.save(newBook);
     }
   };
 };

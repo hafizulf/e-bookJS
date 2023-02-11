@@ -54,7 +54,7 @@ describe('books API', () => {
         };
 
         request(app)
-          .get('/api/v1/books')
+          .get(url)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.deep.equal(response);
@@ -72,7 +72,7 @@ describe('books API', () => {
         };
 
         request(app)
-          .get('/api/v1/books')
+          .get(url)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.deep.equal(response);
@@ -84,28 +84,19 @@ describe('books API', () => {
 
   describe('API POST /books', () => {
     describe('given invalid body', () => {
-      it('should return errors with author required message', (done) => {
-        const body = { title: 'test' };
+      it('should return response with errors message', (done) => {
+        const body = {};
 
         request(app)
           .post(url)
           .send(body)
           .end((err, res) => {
             expect(res.status).to.equal(400);
-            expect(res.body.errors).to.deep.equal({ author: ['required'] });
-            return done();
-          });
-      });
-
-      it('should return errors with title required message', (done) => {
-        const body = { author: 'test' };
-
-        request(app)
-          .post(url)
-          .send(body)
-          .end((err, res) => {
-            expect(res.status).to.equal(400);
-            expect(res.body.errors).to.deep.equal({ title: ['required'] });
+            expect(res.body.errors).to.deep.equal({
+              title: ['title is a required field'],
+              author: ['author is a required field'],
+              file: ['file is a required field'],
+            });
             return done();
           });
       });
@@ -113,7 +104,7 @@ describe('books API', () => {
 
     describe('given valid body', () => {
       it('should created successfully', (done) => {
-        const body = { title: 'test', author: 'test' };
+        const body = { title: 'test', author: 'test', file: 'test.pdf' };
 
         request(app)
           .post(url)
