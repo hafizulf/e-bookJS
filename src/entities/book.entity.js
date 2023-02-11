@@ -1,6 +1,17 @@
 class Book {
-  constructor({ title, author, city, publisher, year, type, file, desc }) {
+  constructor({
+    title,
+    slug,
+    author,
+    city,
+    publisher,
+    year,
+    type,
+    file,
+    desc,
+  }) {
     this.title = title;
+    this.slug = slug;
     this.author = author;
     this.city = city || null;
     this.publisher = publisher || null;

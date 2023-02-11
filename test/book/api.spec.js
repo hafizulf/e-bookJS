@@ -1,6 +1,6 @@
-let chai,
-  { expect } = require('chai');
+let { expect } = require('chai');
 const request = require('supertest');
+const { v4: uuidv4 } = require('uuid');
 
 const app = require('../../src/frameworks/webserver/app');
 const database = require('../../src/frameworks/database/knex');
@@ -10,20 +10,10 @@ describe('books API', () => {
 
   const mockData = [
     {
-      book_id: 1,
-      title: 'Naruto',
+      book_id: uuidv4(),
+      title: 'Naruto Shippuden',
+      slug: 'naruto-shippuden',
       author: 'Masashi KishiMoto',
-      city: null,
-      publisher: null,
-      year: null,
-      type: null,
-      desc: null,
-      file: 'example.pdf',
-    },
-    {
-      book_id: 2,
-      title: 'One Piece',
-      author: 'Eichiro Oda',
       city: null,
       publisher: null,
       year: null,
