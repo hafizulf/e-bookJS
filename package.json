@@ -2,7 +2,7 @@
   "name": "e-bookjs",
   "version": "1.0.0",
   "description": "",
-  "main": "src/frameworks/server.js",
+  "main": "src/frameworks/webserver/server.js",
   "scripts": {
     "start": "node src/frameworks/webserver/server.js",
     "dev": "nodemon --ignore test/ -L src/frameworks/webserver/server.js",
@@ -15,6 +15,8 @@
     "migrate:refresh": "npm run migrate:rollback && npm run migrate",
     "migrate:test": "cross-env NODE_ENV=test knex --cwd=src/frameworks/database migrate:latest",
     "migrate:test-rollback": "cross-env NODE_ENV=test knex --cwd=src/frameworks/database migrate:rollback",
+    "seed:make": "knex --cwd=src/frameworks/database seed:make",
+    "seed": "knex --cwd=src/frameworks/database seed:run",
     "lint": "eslint ./src --ext .js",
     "lint:fix": "eslint --fix ./src --ext .js"
   },
@@ -29,9 +31,11 @@
     "mysql": "^2.18.1",
     "path": "^0.12.7",
     "sqlite3": "^5.1.4",
+    "uuid": "^9.0.0",
     "yup": "^1.0.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "chai": "^4.3.7",
     "eslint": "^8.33.0",
     "mocha": "^10.2.0",
