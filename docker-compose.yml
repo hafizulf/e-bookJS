@@ -30,4 +30,3 @@ networks:
 
 volumes:
   mysql:
-  mysql_test:

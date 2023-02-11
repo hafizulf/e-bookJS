@@ -4,17 +4,17 @@
   "description": "",
   "main": "src/frameworks/server.js",
   "scripts": {
-    "start": "node src/frameworks/server.js",
-    "dev": "nodemon --ignore test/ -L src/frameworks/server.js",
+    "start": "node src/frameworks/webserver/server.js",
+    "dev": "nodemon --ignore test/ -L src/frameworks/webserver/server.js",
     "test": "cross-env NODE_ENV=test mocha 'test/**/*.js' --runInBand --exit",
     "test:watch": "cross-env NODE_ENV=test mocha 'test/**/*.js' --watch --runInBand --exit",
-    "test:coverage": "nyc --reporter=text cross-env NODE_ENV=test mocha 'test/**/*.js' --exit",
-    "test:coverage-html": "nyc --reporter=html cross-env NODE_ENV=test mocha 'test/**/*.js' --exit",
+    "test:coverage": "nyc --reporter=text --reporter=html cross-env NODE_ENV=test mocha 'test/**/*.js' --exit",
     "migrate:make": "knex --cwd=src/frameworks/database migrate:make",
     "migrate": "knex --cwd=src/frameworks/database migrate:latest",
-    "migrate:test": "cross-env NODE_ENV=test knex --cwd=src/frameworks/database migrate:latest",
     "migrate:rollback": "knex --cwd=src/frameworks/database migrate:rollback",
     "migrate:refresh": "npm run migrate:rollback && npm run migrate",
+    "migrate:test": "cross-env NODE_ENV=test knex --cwd=src/frameworks/database migrate:latest",
+    "migrate:test-rollback": "cross-env NODE_ENV=test knex --cwd=src/frameworks/database migrate:rollback",
     "lint": "eslint ./src --ext .js",
     "lint:fix": "eslint --fix ./src --ext .js"
   },
@@ -28,7 +28,8 @@
     "knex": "^2.4.1",
     "mysql": "^2.18.1",
     "path": "^0.12.7",
-    "sqlite3": "^5.1.4"
+    "sqlite3": "^5.1.4",
+    "yup": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^4.3.7",

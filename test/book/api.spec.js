@@ -1,19 +1,13 @@
-/*
- * Some line of codes isn't remove just to remind me to learning about that later
- * How to stub -> controllers/repository
- */
-
 let chai,
   { expect } = require('chai');
-const sinon = require('sinon');
 const request = require('supertest');
 
-const app = require('../../src/frameworks/app');
+const app = require('../../src/frameworks/webserver/app');
 const database = require('../../src/frameworks/database/knex');
-const bookController = require('../../src/controllers/book.controller');
-// const { bookRepository } = require('../../src/repositories');
 
 describe('books API', () => {
+  const url = '/api/v1/books';
+
   const mockData = [
     {
       book_id: 1,
@@ -39,10 +33,6 @@ describe('books API', () => {
     },
   ];
 
-  // beforeEach(() => {
-  //   sCtlFindAllStub = sinon.stub(bookController, 'findAll');
-  // });
-
   describe('seed books', () => {
     it('should insert new books', async () => {
       await database.raw('ALTER TABLE ' + 'books' + ' AUTO_INCREMENT = 1'); // resetting auto increment
@@ -50,48 +40,91 @@ describe('books API', () => {
     });
   });
 
-  describe('/books -> with existing data', () => {
-    after(async () => {
-      await database('books').del();
+  describe('API GET /books', () => {
+    describe('given existing data', () => {
+      after(async () => {
+        await database('books').del();
+      });
+
+      it('should return list of books', (done) => {
+        const response = {
+          status: 'OK',
+          code: 200,
+          data: mockData,
+        };
+
+        request(app)
+          .get(url)
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.deep.equal(response);
+            done();
+          });
+      });
     });
 
-    it('should return list of books', (done) => {
-      const mockResponse = {
-        status: 'OK',
-        code: 200,
-        data: mockData,
-      };
+    describe('given empty data', () => {
+      it('should return empty array', (done) => {
+        const response = {
+          status: 'OK',
+          code: 200,
+          data: [],
+        };
 
-      // sCtlFindAllStub.returns(mockResponse);
-
-      request(app)
-        .get('/books')
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body).to.deep.equal(mockResponse);
-          done();
-        });
+        request(app)
+          .get(url)
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.deep.equal(response);
+            done();
+          });
+      });
     });
   });
 
-  describe('/books -> with empty data', () => {
-    let sCtlFindAllStub;
+  describe('API POST /books', () => {
+    describe('given invalid body', () => {
+      it('should return response with errors message', (done) => {
+        const body = {};
 
-    it("should return empty array if result doesn't exist", (done) => {
-      const mockResponse = {
-        status: 'OK',
-        code: 200,
-        data: [],
-      };
-      // sCtlFindAllStub.resolves(mockResponse);
+        request(app)
+          .post(url)
+          .send(body)
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            expect(res.body.errors).to.deep.equal({
+              title: ['required'],
+              author: ['required'],
+              file: ['required'],
+            });
+            return done();
+          });
+      });
+    });
 
-      request(app)
-        .get('/books')
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body).to.deep.equal(mockResponse);
-          done();
-        });
+    describe('given valid body', () => {
+      it('should created successfully', (done) => {
+        const response = {
+          status: 'CREATED',
+          code: 201,
+          message: 'Book has been created',
+        };
+
+        const body = { title: 'test', author: 'test', file: 'test.pdf' };
+
+        request(app)
+          .post(url)
+          .send(body)
+          .end((err, res) => {
+            expect(res.status).to.equal(201);
+            expect(res.body).to.deep.equal(response);
+            return done();
+          });
+      });
+    });
+
+    after(async () => {
+      await database('books').del();
     });
   });
 });

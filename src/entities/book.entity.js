@@ -1,19 +1,14 @@
-module.exports.BookEntity = class BookEntity {
-  constructor ({ title, author, city, publisher, year, type, file, desc }) {
+class Book {
+  constructor({ title, author, city, publisher, year, type, file, desc }) {
     this.title = title;
     this.author = author;
-    this.city = city;
-    this.publisher = publisher;
-    this.year = year;
-    this.type = type;
+    this.city = city || null;
+    this.publisher = publisher || null;
+    this.year = year || null;
+    this.type = type || null;
     this.file = file;
-    this.desc = desc;
+    this.desc = desc || null;
   }
+}
 
-  validate () {
-    if (!this.title) throw new Error('title is required');
-    if (!this.author) throw new Error('author is required');
-    //  ....
-    return true;
-  }
-};
+module.exports = Book;
