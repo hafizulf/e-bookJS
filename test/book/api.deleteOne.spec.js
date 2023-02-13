@@ -23,7 +23,7 @@ describe('DELETE /api/v1/books', () => {
     });
   });
 
-  describe('given data exist', () => {
+  describe('given exist data', () => {
     before(async () => {
       await database.insert(mockData).into(table);
     });
