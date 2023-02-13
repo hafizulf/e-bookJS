@@ -2,11 +2,11 @@ const bookSchema = (yup) => {
   return yup.object({
     title: yup.string().required('required'),
     author: yup.string().required('required'),
-    city: yup.string().optional(),
-    publisher: yup.string().optional(),
-    year: yup.string().optional(),
-    type: yup.string().optional(),
-    desc: yup.string().optional(),
+    city: yup.string().optional().nullable(),
+    publisher: yup.string().optional().nullable(),
+    year: yup.string().optional().nullable(),
+    type: yup.string().optional().nullable(),
+    desc: yup.string().optional().nullable(),
     file: yup.string().required('required'),
   });
 };
