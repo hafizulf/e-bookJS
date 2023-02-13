@@ -1,20 +1,4 @@
-const { v4: uuidv4 } = require('uuid');
-
-const book_id = uuidv4();
-const mockData = [
-  {
-    book_id,
-    title: 'Naruto Shippuden',
-    slug: 'naruto-shippuden',
-    author: 'Masashi KishiMoto',
-    city: null,
-    publisher: null,
-    year: null,
-    type: null,
-    desc: null,
-    file: 'example.pdf',
-  },
-];
+const mockData = require('./data');
 
 const getEmptyData = () => {
   return {
@@ -29,7 +13,7 @@ const getDetailData = () => {
     status: 'OK',
     code: 200,
     data: {
-      book_id,
+      book_id: mockData[0].book_id,
       title: 'Naruto Shippuden',
       slug: 'naruto-shippuden',
       author: 'Masashi KishiMoto',
@@ -44,7 +28,6 @@ const getDetailData = () => {
 };
 
 module.exports = {
-  mockData,
   getEmptyData,
   getDetailData,
 };

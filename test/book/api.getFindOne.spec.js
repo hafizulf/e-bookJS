@@ -4,6 +4,7 @@ const request = require('supertest');
 const app = require('../../src/frameworks/webserver/app');
 const database = require('../../src/frameworks/database/knex');
 
+const mockData = require('../__mock__/book/data');
 const findOne = require('../__mock__/book/getFindOne');
 
 describe('GET /api/v1/books?slug=', () => {
@@ -24,7 +25,7 @@ describe('GET /api/v1/books?slug=', () => {
 
   describe('given a data', () => {
     before(async () => {
-      await database.insert(findOne.mockData).into(table);
+      await database.insert(mockData).into(table);
     });
 
     it('should return a detail of book', (done) => {

@@ -37,8 +37,9 @@ describe('DELETE /api/v1/books', () => {
         });
     });
 
-    after(async () => {
-      await database(table).del();
+    it('should return empty table', async () => {
+      const result = await database.select().table(table);
+      expect(result).to.deep.equal([]);
     });
   });
 });

@@ -25,16 +25,10 @@ describe('POST /api/v1/books', () => {
   });
 
   describe('given valid body', () => {
-    before(async () => {
-      await database.insert(mockData).into(table);
-    });
-
     it('should created successfully', (done) => {
-      const body = { title: 'test', author: 'test', file: 'test.pdf' };
-
       request(app)
         .post(url)
-        .send(body)
+        .send(mockData[0])
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body).to.deep.equal(postSave.postValidBody());
