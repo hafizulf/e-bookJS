@@ -5,6 +5,7 @@ const app = require('../../src/frameworks/webserver/app');
 const database = require('../../src/frameworks/database/knex');
 
 const mockData = require('../__mock__/book/data');
+const mockResponse = require('../__mock__/book/response');
 
 describe('PUT /api/v1/books', () => {
   const url = '/api/v1/books';
@@ -17,11 +18,9 @@ describe('PUT /api/v1/books', () => {
         .send({})
         .end((err, res) => {
           expect(res.status).to.equal(400);
-          expect(res.body).to.deep.equal({
-            status: 'BAD_REQUEST',
-            code: 400,
-            message: 'Book Not Found',
-          });
+          expect(res.body).to.deep.equal(
+            mockResponse.putOrDeleteReturnEmptyData()
+          );
           return done();
         });
     });
@@ -39,15 +38,7 @@ describe('PUT /api/v1/books', () => {
           .send({ title: 12345 })
           .end((err, res) => {
             expect(res.status).to.equal(400);
-            expect(res.body).to.deep.equal({
-              status: 'BAD_REQUEST',
-              code: 400,
-              errors: {
-                title: [
-                  'title must be a `string` type, but the final value was: `12345`.',
-                ],
-              },
-            });
+            expect(res.body).to.deep.equal(mockResponse.putWithInvalidBody());
             return done();
           });
       });
@@ -60,11 +51,7 @@ describe('PUT /api/v1/books', () => {
           .send({ title: 'Naruto Shippuden 4' })
           .end((err, res) => {
             expect(res.status).to.equal(200);
-            expect(res.body).to.deep.equal({
-              status: 'OK',
-              code: 200,
-              message: 'Book has been updated',
-            });
+            expect(res.body).to.deep.equal(mockResponse.putWithValidBody());
             return done();
           });
       });

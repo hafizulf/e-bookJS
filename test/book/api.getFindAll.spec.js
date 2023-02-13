@@ -5,7 +5,7 @@ const app = require('../../src/frameworks/webserver/app');
 const database = require('../../src/frameworks/database/knex');
 
 const mockData = require('../__mock__/book/data');
-const findAll = require('../__mock__/book/getFindAll');
+const mockResponse = require('../__mock__/book/response');
 
 describe('GET /api/v1/books', () => {
   const url = '/api/v1/books';
@@ -17,7 +17,7 @@ describe('GET /api/v1/books', () => {
         .get(url)
         .end((err, res) => {
           expect(res.status).to.equal(200);
-          expect(res.body).to.deep.equal(findAll.getEmptyData());
+          expect(res.body).to.deep.equal(mockResponse.findAndReturnEmptyData());
           return done();
         });
     });
@@ -33,7 +33,7 @@ describe('GET /api/v1/books', () => {
         .get(url)
         .end((err, res) => {
           expect(res.status).to.equal(200);
-          expect(res.body).to.deep.equal(findAll.getListData());
+          expect(res.body).to.deep.equal(mockResponse.findAndReturnListData());
           return done();
         });
     });

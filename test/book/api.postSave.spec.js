@@ -5,7 +5,7 @@ const app = require('../../src/frameworks/webserver/app');
 const database = require('../../src/frameworks/database/knex');
 
 const mockData = require('../__mock__/book/data');
-const postSave = require('../__mock__/book/postSave');
+const mockResponse = require('../__mock__/book/response');
 
 describe('POST /api/v1/books', () => {
   const url = '/api/v1/books';
@@ -18,7 +18,9 @@ describe('POST /api/v1/books', () => {
         .send({}) // send invalid body
         .end((err, res) => {
           expect(res.status).to.equal(400);
-          expect(res.body.errors).to.deep.equal(postSave.postInvalidBody());
+          expect(res.body.errors).to.deep.equal(
+            mockResponse.postWithInvalidBody()
+          );
           return done();
         });
     });
@@ -31,7 +33,7 @@ describe('POST /api/v1/books', () => {
         .send(mockData[0])
         .end((err, res) => {
           expect(res.status).to.equal(201);
-          expect(res.body).to.deep.equal(postSave.postValidBody());
+          expect(res.body).to.deep.equal(mockResponse.postWithValidBody());
           return done();
         });
     });
