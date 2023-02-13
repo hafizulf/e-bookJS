@@ -1,14 +1,10 @@
-const createBookValidator = (bookRules) => {
-  const save = (data) => {
+const bookValidator = (bookRules) => {
+  return (data) => {
     return bookRules.validateSync(data, {
       abortEarly: false,
       stripUnknown: true,
     });
   };
-
-  return {
-    save,
-  };
 };
 
-module.exports = createBookValidator;
+module.exports = bookValidator;
