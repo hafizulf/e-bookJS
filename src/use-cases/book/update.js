@@ -1,14 +1,14 @@
-const serviceSave = (bookEntity, repository, validator, buildError) => {
+const serviceUpdate = (bookEntity, repository, validator, buildError) => {
   return async (data) => {
     try {
-      if (data.title) {
+      if (data.title && typeof data.title === 'string') {
         data['slug'] = data.title.replace(/\s+/g, '-').toLowerCase();
       }
 
-      validator.save(data);
+      validator.update(data);
 
       const book = bookEntity(data);
-      await repository.save(book);
+      await repository.update(book);
 
       return {
         status: true,
@@ -23,4 +23,4 @@ const serviceSave = (bookEntity, repository, validator, buildError) => {
   };
 };
 
-module.exports = serviceSave;
+module.exports = serviceUpdate;

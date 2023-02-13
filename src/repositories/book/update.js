@@ -1,6 +1,7 @@
-const repositorySave = (database, tableName) => {
+const repositoryUpdate = (database, tableName) => {
   return (entity) => {
     const book = {
+      book_id: entity.getBookId(),
       title: entity.getTitle(),
       slug: entity.getSlug(),
       author: entity.getAuthor(),
@@ -12,8 +13,11 @@ const repositorySave = (database, tableName) => {
       desc: entity.getDesc(),
     };
 
-    return database.insert(book).table(tableName);
+    return database
+      .update(book)
+      .table(tableName)
+      .where('book_id', book.book_id);
   };
 };
 
-module.exports = repositorySave;
+module.exports = repositoryUpdate;

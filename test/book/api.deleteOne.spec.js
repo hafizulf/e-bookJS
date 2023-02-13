@@ -4,7 +4,8 @@ const request = require('supertest');
 const app = require('../../src/frameworks/webserver/app');
 const database = require('../../src/frameworks/database/knex');
 
-const deleteOne = require('../__mock__/book/deleteOne');
+const mockData = require('../__mock__/book/data');
+const mockResponse = require('../__mock__/book/response');
 
 describe('DELETE /api/v1/books', () => {
   const url = '/api/v1/books';
@@ -16,23 +17,25 @@ describe('DELETE /api/v1/books', () => {
         .delete(`${url}/failed-id`)
         .end((err, res) => {
           expect(res.status).to.equal(400);
-          expect(res.body).to.deep.equal(deleteOne.withEmptyData());
+          expect(res.body).to.deep.equal(
+            mockResponse.putOrDeleteReturnEmptyData()
+          );
           return done();
         });
     });
   });
 
-  describe('given data exist', () => {
+  describe('given exist data', () => {
     before(async () => {
-      await database.insert(deleteOne.mockData).into(table);
+      await database.insert(mockData).into(table);
     });
 
     it('should deleted successfully', (done) => {
       request(app)
-        .delete(`${url}/${deleteOne.book_id}`)
+        .delete(`${url}/${mockData[0].book_id}`)
         .end((err, res) => {
           expect(res.status).to.equal(200);
-          expect(res.body).to.deep.equal(deleteOne.withExistData());
+          expect(res.body).to.deep.equal(mockResponse.deleteWithExistData());
           return done();
         });
     });
