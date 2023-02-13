@@ -1,13 +1,13 @@
 const serviceSave = (bookEntity, repository, validator, buildError) => {
   return async (data) => {
     try {
+      // validate req.body input
+      validator.save(data);
+
       // assign a title slug
       if (data.title) {
         data['slug'] = data.title.replace(/\s+/g, '-').toLowerCase();
       }
-
-      // validate req.body input
-      validator.save(data);
 
       // saving into database
       const book = bookEntity(data);
