@@ -1,6 +1,6 @@
 const repositoryFindOne = (database, tableName) => {
-  return (slug) => {
-    return database.select().table(tableName).where('slug', slug);
+  return ({ name, value }) => {
+    return database.select().table(tableName).where(name, value);
   };
 };
 

@@ -3,7 +3,7 @@ const ctlFind = (service) => {
     const { slug } = req.query;
 
     if (slug) {
-      const result = await service.findOne(slug);
+      const result = await service.findOne({ name: 'slug', value: slug });
 
       let response = {
         status: 'OK',
