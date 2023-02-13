@@ -1,4 +1,4 @@
-const serviceSave = (BookEntity, repository, validator, buildError) => {
+const serviceSave = (bookEntity, repository, validator, buildError) => {
   return async (data) => {
     try {
       // assign a title slug
@@ -10,7 +10,7 @@ const serviceSave = (BookEntity, repository, validator, buildError) => {
       validator.save(data);
 
       // saving into database
-      const book = new BookEntity(data);
+      const book = bookEntity(data);
       await repository.save(book);
 
       return {

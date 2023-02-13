@@ -1,4 +1,5 @@
-const BookEntity = require('../../entities/book.entity');
+// const BookEntity = require('../../entities/book.entity');
+const bookEntity = require('../../entities/book.entity');
 const bookRepository = require('../../repositories/book');
 
 // Schema Validation
@@ -12,7 +13,7 @@ const serviceFindOne = require('./findOne');
 const serviceDeleteOne = require('./deleteOne');
 
 const findAll = serviceFindAll(bookRepository);
-const save = serviceSave(BookEntity, bookRepository, bookValidator, buildError);
+const save = serviceSave(bookEntity, bookRepository, bookValidator, buildError);
 const findOne = serviceFindOne(bookRepository);
 const deleteOne = serviceDeleteOne(bookRepository);
 

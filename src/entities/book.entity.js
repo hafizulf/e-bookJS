@@ -1,25 +1,25 @@
-class Book {
-  constructor({
-    title,
-    slug,
-    author,
-    city,
-    publisher,
-    year,
-    type,
-    file,
-    desc,
-  }) {
-    this.title = title;
-    this.slug = slug;
-    this.author = author;
-    this.city = city || null;
-    this.publisher = publisher || null;
-    this.year = year || null;
-    this.type = type || null;
-    this.file = file;
-    this.desc = desc || null;
-  }
-}
+const book = ({
+  title,
+  slug,
+  author,
+  city,
+  publisher,
+  year,
+  type,
+  file,
+  desc,
+}) => {
+  return {
+    getTitle: () => title,
+    getSlug: () => slug,
+    getAuthor: () => author,
+    getCity: () => city,
+    getPublisher: () => publisher,
+    getYear: () => year,
+    getType: () => type,
+    getFile: () => file,
+    getDesc: () => desc,
+  };
+};
 
-module.exports = Book;
+module.exports = book;
