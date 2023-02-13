@@ -9,15 +9,18 @@ const bookValidator = require('../../frameworks/validators/book');
 const serviceFindAll = require('./findAll');
 const serviceSave = require('./save');
 const serviceFindOne = require('./findOne');
+const serviceDeleteOne = require('./deleteOne');
 
 const findAll = serviceFindAll(bookRepository);
 const save = serviceSave(BookEntity, bookRepository, bookValidator, buildError);
 const findOne = serviceFindOne(bookRepository);
+const deleteOne = serviceDeleteOne(bookRepository);
 
 const bookService = {
   findAll,
   save,
   findOne,
+  deleteOne,
 };
 
 module.exports = bookService;
