@@ -1,4 +1,5 @@
 const book = ({
+  book_id,
   title,
   slug,
   author,
@@ -10,6 +11,7 @@ const book = ({
   desc,
 }) => {
   return {
+    getBookId: () => book_id,
     getTitle: () => title,
     getSlug: () => slug,
     getAuthor: () => author,

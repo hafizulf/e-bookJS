@@ -7,8 +7,8 @@ const serviceUpdate = (bookEntity, repository, validator, buildError) => {
 
       validator.update(data);
 
-      // const book = bookEntity(data);
-      // await repository.update(book);
+      const book = bookEntity(data);
+      await repository.update(book);
 
       return {
         status: true,

@@ -11,11 +11,14 @@ const ctlUpdate = (service) => {
       });
     } else {
       const data = req.body;
+      data['book_id'] = book_id;
       const result = await service.update(data);
 
       if (result.status) {
-        return res.json({
-          message: 'ok',
+        return res.status(200).json({
+          status: 'OK',
+          code: 200,
+          message: 'Book has been updated',
         });
       } else {
         return res.status(400).json({

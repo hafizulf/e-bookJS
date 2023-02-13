@@ -5,7 +5,6 @@ const app = require('../../src/frameworks/webserver/app');
 const database = require('../../src/frameworks/database/knex');
 
 const mockData = require('../__mock__/book/data');
-const postSave = require('../__mock__/book/postSave');
 
 describe('PUT /api/v1/books', () => {
   const url = '/api/v1/books';
@@ -48,6 +47,23 @@ describe('PUT /api/v1/books', () => {
                   'title must be a `string` type, but the final value was: `12345`.',
                 ],
               },
+            });
+            return done();
+          });
+      });
+    });
+
+    describe('given valid body', () => {
+      it('should successfully updated', (done) => {
+        request(app)
+          .put(`${url}/${mockData[0].book_id}`)
+          .send({ title: 'Naruto Shippuden 4' })
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.deep.equal({
+              status: 'OK',
+              code: 200,
+              message: 'Book has been updated',
             });
             return done();
           });
