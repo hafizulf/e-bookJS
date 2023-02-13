@@ -1,6 +1,6 @@
 const serviceFindOne = (repository) => {
-  return (slug) => {
-    return repository.findOne(slug);
+  return (field) => {
+    return repository.findOne(field);
   };
 };
 
