@@ -3,7 +3,7 @@ const ctlDeleteOne = (service) => {
     const { book_id } = req.params;
     const result = await service.findOne({ name: 'book_id', value: book_id });
 
-    if (result.length === 0) {
+    if (!result.length) {
       return res.status(400).json({
         status: 'BAD_REQUEST',
         code: 400,
