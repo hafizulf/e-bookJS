@@ -1,9 +1,11 @@
 const bookValidator = (bookRules) => {
   return (data) => {
-    return bookRules.validateSync(data, {
+    const options = {
       abortEarly: false,
       stripUnknown: true,
-    });
+    };
+
+    return bookRules.validateSync(data, options);
   };
 };
 
