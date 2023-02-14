@@ -1,12 +1,34 @@
 const mockData = require('./data');
 
 // POST
+const resBadRequest = {
+  status: 'BAD_REQUEST',
+  code: 400,
+};
+
 const postWithInvalidBody = () => {
-  return {
+  resBadRequest.errors = {
     title: ['required'],
     author: ['required'],
     file: ['required'],
   };
+
+  return resBadRequest;
+};
+
+const resBodyInvalidFileType = () => {
+  resBadRequest.errors = {
+    file: ['Must be PDF filetype'],
+  };
+
+  return resBadRequest;
+};
+
+const resBodyInvalidFileSize = () => {
+  resBadRequest.errors = {
+    file: ['File is too large, max 100kb'],
+  };
+  return resBadRequest;
 };
 
 const postWithValidBody = () => {
@@ -69,15 +91,11 @@ const deleteWithExistData = () => {
 };
 
 // PUT
-const putWithInvalidBody = () => {
+const putWithEmptyBody = () => {
   return {
     status: 'BAD_REQUEST',
     code: 400,
-    errors: {
-      title: [
-        'title must be a `string` type, but the final value was: `12345`.',
-      ],
-    },
+    message: 'Need a field to update',
   };
 };
 
@@ -91,6 +109,8 @@ const putWithValidBody = () => {
 
 module.exports = {
   postWithInvalidBody,
+  resBodyInvalidFileType,
+  resBodyInvalidFileSize,
   postWithValidBody,
   findAndReturnEmptyData,
   findAndReturnListData,
@@ -98,6 +118,6 @@ module.exports = {
   findAndReturnDetailData,
   putOrDeleteReturnEmptyData,
   deleteWithExistData,
-  putWithInvalidBody,
+  putWithEmptyBody,
   putWithValidBody,
 };

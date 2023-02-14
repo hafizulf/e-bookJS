@@ -1,14 +1,17 @@
-const serviceSave = (bookEntity, repository, validator, buildError) => {
+const serviceSave = (Entity, repository, validator, buildError) => {
   return async (data) => {
     try {
+      validator.save(data);
+
       if (data.title) {
         data['slug'] = data.title.replace(/\s+/g, '-').toLowerCase();
       }
 
-      validator.save(data);
+      const book = new Entity(data);
+      const newBook = book.save(book);
+      newBook['file'] = book.file.filename;
 
-      const book = bookEntity(data);
-      await repository.save(book);
+      await repository.save(newBook);
 
       return {
         status: true,
