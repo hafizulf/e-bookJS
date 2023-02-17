@@ -1,6 +1,10 @@
 const ctlSave = (service) => {
   return async (req, res) => {
     const data = req.body;
+    const file = req.file;
+
+    if (file) data['file'] = file;
+
     const result = await service.save(data);
 
     // check if status is true

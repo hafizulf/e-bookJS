@@ -11,7 +11,7 @@ const ctlFind = (service) => {
         data: result[0],
       };
 
-      if (result.length === 0) response['message'] = 'Book Not Found';
+      if (!result.length) response['message'] = 'Book Not Found';
       return res.status(200).json(response);
     } else {
       const result = await service.findAll();

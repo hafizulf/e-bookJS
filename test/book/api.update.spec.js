@@ -7,15 +7,14 @@ const database = require('../../src/frameworks/database/knex');
 const mockData = require('../__mock__/book/data');
 const mockResponse = require('../__mock__/book/response');
 
-describe('PUT /api/v1/books', () => {
+describe('PUT /api/v1/books', function () {
   const url = '/api/v1/books';
   const table = 'books';
 
-  describe('given empty data', () => {
-    it('should return book not found', (done) => {
+  describe('given empty data', function () {
+    it('should return book not found', function (done) {
       request(app)
         .put(`${url}/example-book-id`)
-        .send({})
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body).to.deep.equal(
@@ -26,29 +25,37 @@ describe('PUT /api/v1/books', () => {
     });
   });
 
-  describe('given exist data', () => {
-    before(async () => {
+  describe('given exist data', function () {
+    before(async function () {
       await database.insert(mockData).into(table);
     });
 
-    describe('given invalid body', () => {
-      it('should return errors message', (done) => {
-        request(app)
-          .put(`${url}/${mockData[0].book_id}`)
-          .send({ title: 12345 })
-          .end((err, res) => {
-            expect(res.status).to.equal(400);
-            expect(res.body).to.deep.equal(mockResponse.putWithInvalidBody());
-            return done();
-          });
+    describe('given invalid body', function () {
+      describe('given empty body', function () {
+        it('should return errors message', function (done) {
+          request(app)
+            .put(`${url}/${mockData[0].book_id}`)
+            .send({})
+            .end((err, res) => {
+              expect(res.status).to.equal(400);
+              expect(res.body).to.deep.equal(mockResponse.putWithEmptyBody());
+              return done();
+            });
+        });
       });
     });
 
-    describe('given valid body', () => {
-      it('should successfully updated', (done) => {
+    describe('given valid body', function () {
+      it('should successfully updated', function (done) {
         request(app)
           .put(`${url}/${mockData[0].book_id}`)
-          .send({ title: 'Naruto Shippuden 4' })
+          .field('title', mockData[0].title)
+          .field('author', mockData[0].author)
+          .field('city', mockData[0].city)
+          .field('publisher', mockData[0].publisher)
+          .field('year', mockData[0].year)
+          .field('type', mockData[0].type)
+          .field('desc', mockData[0].desc)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.deep.equal(mockResponse.putWithValidBody());
@@ -57,7 +64,7 @@ describe('PUT /api/v1/books', () => {
       });
     });
 
-    after(async () => {
+    after(async function () {
       await database(table).del();
     });
   });
