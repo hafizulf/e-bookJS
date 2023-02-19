@@ -1,7 +1,6 @@
 const serviceFindAll = (repository) => {
-  return () => {
-    return repository
-    .findAll();
+  return (params) => {
+    return repository.findAll(params);
   };
 };
 

@@ -1,6 +1,6 @@
 const repositoryFindAll = (database, tableName) => {
-  return () => {
-    return database.select().table(tableName);
+  return ({ limit, offset }) => {
+    return database.select().table(tableName).limit(limit).offset(offset);
   };
 };
 
