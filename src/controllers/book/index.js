@@ -9,7 +9,7 @@ const ctlDeleteOne = require('./deleteOne');
 const ctlUpdate = require('./update');
 
 const findAll = ctlFindAll(bookService, paginate);
-const findOne = ctlFindOne(bookService, paginate);
+const findOne = ctlFindOne(bookService);
 const save = ctlSave(bookService);
 const deleteOne = ctlDeleteOne(bookService);
 const update = ctlUpdate(bookService);
