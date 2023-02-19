@@ -8,7 +8,7 @@ const repositorySave = require('./save');
 const repositoryFindOne = require('./findOne');
 const repositoryDeleteOne = require('./deleteOne');
 const repositoryUpdate = require('./update');
-const repositoryCountAll = require('./CountAll');
+const repositoryCountAll = require('./countAll');
 
 const findAll = repositoryFindAll(database, tableName);
 const save = repositorySave(database, tableName);
