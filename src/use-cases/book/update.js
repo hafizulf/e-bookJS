@@ -8,7 +8,7 @@ const serviceUpdate = (
   return async (data, oldFile) => {
     try {
       if (data.title) {
-        data['slug'] = data.title.replace(/\s+/g, '-').toLowerCase();
+        data.slug = data.title.replace(/\s+/g, '-').toLowerCase();
       }
 
       validator.update(data);
@@ -16,7 +16,7 @@ const serviceUpdate = (
       const book = new Entity(data);
       const newBook = book.update(data);
       if (newBook.file) {
-        newBook['file'] = newBook.file.filename;
+        newBook.file = newBook.file.filename;
       }
 
       const updatedBook = await repository.update(newBook);

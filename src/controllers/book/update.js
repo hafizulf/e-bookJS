@@ -3,7 +3,7 @@ const ctlUpdate = (service) => {
     const { book_id } = req.params;
     this.result = await service.findOne({ name: 'book_id', value: book_id });
 
-    if (!this.result.length) {
+    if (!this.result) {
       return res.status(400).json({
         status: 'BAD_REQUEST',
         code: 400,
@@ -11,9 +11,10 @@ const ctlUpdate = (service) => {
       });
     } else {
       const data = req.body;
-      data['book_id'] = book_id;
+      data.book_id = book_id;
+
       if (req.file !== undefined) {
-        data['file'] = req.file;
+        data.file = req.file;
       }
 
       if (Object.keys(data).length === 1) {
@@ -24,7 +25,7 @@ const ctlUpdate = (service) => {
         });
       }
 
-      const oldFile = this.result[0].file;
+      const oldFile = this.result.file;
       const result = await service.update(data, oldFile);
 
       if (result.status) {

@@ -14,7 +14,7 @@ describe('GET /api/v1/books?slug=', () => {
   describe('given empty data', () => {
     it('should return message with book not found', (done) => {
       request(app)
-        .get(`${url}?slug=example-slug`)
+        .get(`${url}/example-slug`)
         .end((err, res) => {
           expect(res.status).to.equal(200);
           expect(res.body).to.deep.equal(
@@ -32,7 +32,7 @@ describe('GET /api/v1/books?slug=', () => {
 
     it('should return a detail of book', (done) => {
       request(app)
-        .get(`${url}?slug=naruto-shippuden`)
+        .get(`${url}/naruto-shippuden`)
         .end((err, res) => {
           expect(res.status).to.equal(200);
           expect(res.body).to.deep.equal(

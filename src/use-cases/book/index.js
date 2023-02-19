@@ -14,6 +14,7 @@ const serviceSave = require('./save');
 const serviceFindOne = require('./findOne');
 const serviceDeleteOne = require('./deleteOne');
 const serviceUpdate = require('./update');
+const serviceCountAll = require('./countAll');
 
 const findAll = serviceFindAll(bookRepository);
 const save = serviceSave(Entity, bookRepository, bookValidator, buildError);
@@ -26,6 +27,7 @@ const update = serviceUpdate(
   buildError,
   fileRemover
 );
+const countAll = serviceCountAll(bookRepository);
 
 const bookService = {
   findAll,
@@ -33,6 +35,7 @@ const bookService = {
   findOne,
   deleteOne,
   update,
+  countAll,
 };
 
 module.exports = bookService;

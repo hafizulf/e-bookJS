@@ -4,12 +4,12 @@ const serviceSave = (Entity, repository, validator, buildError) => {
       validator.save(data);
 
       if (data.title) {
-        data['slug'] = data.title.replace(/\s+/g, '-').toLowerCase();
+        data.slug = data.title.replace(/\s+/g, '-').toLowerCase();
       }
 
       const book = new Entity(data);
       const newBook = book.save(book);
-      newBook['file'] = book.file.filename;
+      newBook.file = book.file.filename;
 
       await repository.save(newBook);
 
