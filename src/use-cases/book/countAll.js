@@ -1,6 +1,7 @@
 const serviceCountAll = (repository) => {
-  return () => {
-    return repository.countAll();
+  return async () => {
+    const { totalRow } = await repository.countAll();
+    return totalRow;
   };
 };
 
