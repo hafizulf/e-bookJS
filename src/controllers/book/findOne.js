@@ -9,7 +9,7 @@ const ctlFind = (service, paginate) => {
       data: result,
     };
 
-    if (!result) response['message'] = 'Book Not Found';
+    if (!result) response.message = 'Book Not Found';
     return res.status(200).json(response);
   };
 };

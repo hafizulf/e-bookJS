@@ -53,6 +53,14 @@ const findAndReturnListData = () => {
     status: 'OK',
     code: 200,
     data: mockData,
+    pagination: {
+      totalData: 1,
+      totalPage: 1,
+      perPage: 10,
+      showingFrom: 1,
+      showingTo: 10,
+      currentPage: 1,
+    },
   };
 };
 

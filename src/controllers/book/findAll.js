@@ -8,12 +8,17 @@ const ctlFindAll = (service, paginate) => {
     const page = paginate(totalRow, currentPage, limit);
     const result = await service.findAll({ limit, offset: page.start, search });
 
-    return res.status(200).json({
+    let response = {
       status: 'OK',
       code: 200,
       data: result,
-      pagination: page.pagination,
-    });
+    };
+
+    if (result.length !== 0) {
+      response.pagination = page.pagination;
+    }
+
+    return res.status(200).json(response);
   };
 };
 
