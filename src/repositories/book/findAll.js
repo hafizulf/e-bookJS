@@ -1,6 +1,11 @@
 const repositoryFindAll = (database, tableName) => {
-  return ({ limit, offset }) => {
-    return database.select().table(tableName).limit(limit).offset(offset);
+  return ({ limit, offset, search }) => {
+    return database
+      .select()
+      .table(tableName)
+      .where('title', 'like', `%${search}%`)
+      .limit(limit)
+      .offset(offset);
   };
 };
 
