@@ -8,10 +8,10 @@ const ctlFind = (service) => {
       let response = {
         status: 'OK',
         code: 200,
-        data: result[0],
+        data: result,
       };
 
-      if (!result.length) response['message'] = 'Book Not Found';
+      if (!result) response['message'] = 'Book Not Found';
       return res.status(200).json(response);
     } else {
       const result = await service.findAll();

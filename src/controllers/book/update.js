@@ -24,7 +24,7 @@ const ctlUpdate = (service) => {
         });
       }
 
-      const oldFile = this.result[0].file;
+      const oldFile = this.result.file;
       const result = await service.update(data, oldFile);
 
       if (result.status) {
