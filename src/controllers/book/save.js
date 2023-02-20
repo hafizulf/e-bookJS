@@ -3,7 +3,7 @@ const ctlSave = (service) => {
     const data = req.body;
     const file = req.file;
 
-    if (file) data['file'] = file;
+    if (file) data.file = file;
 
     const result = await service.save(data);
 

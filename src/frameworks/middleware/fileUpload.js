@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
     callback(null, dir);
   },
   filename: (req, file, callback) => {
-    const originalName = file.originalname;
+    const originalName = file.originalname.replace(/ /g, '');
     const fileName = originalName.substring(0, originalName.lastIndexOf('.'));
     const ext = originalName.substring(originalName.lastIndexOf('.'));
     const date = moment(new Date()).format('DDMMYYYYHHmmss');

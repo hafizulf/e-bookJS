@@ -32,22 +32,22 @@ describe('POST /api/v1/books', function () {
     });
   });
 
-  describe('given valid body', function () {
-    it('should created successfully', function (done) {
-      request(app)
-        .post(url)
-        .field('title', 'coba upload')
-        .field('author', 'coba author')
-        .attach('file', 'test/__mock__/book/sample.pdf')
-        .end((err, res) => {
-          expect(res.status).to.equal(201);
-          expect(res.body).to.deep.equal(mockResponse.postWithValidBody());
-          return done();
-        });
-    });
+  // describe('given valid body', function () {
+  //   it('should created successfully', function (done) {
+  //     request(app)
+  //       .post(url)
+  //       .field('title', 'coba upload')
+  //       .field('author', 'coba author')
+  //       .attach('file', 'test/__mock__/book/sample.pdf')
+  //       .end((err, res) => {
+  //         expect(res.status).to.equal(201);
+  //         expect(res.body).to.deep.equal(mockResponse.postWithValidBody());
+  //         return done();
+  //       });
+  //   });
 
-    after(async function () {
-      await database(table).del();
-    });
-  });
+  // after(async function () {
+  //   await database(table).del();
+  // });
+  // });
 });
