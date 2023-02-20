@@ -8,6 +8,7 @@ const { hash } = require('../../frameworks/utils/hash');
 const serviceSave = require('./save');
 const serviceCountAll = require('./countAll');
 const serviceFindAll = require('./findAll');
+const serviceFindOne = require('./findOne');
 
 const save = serviceSave(
   UserEntity,
@@ -19,11 +20,13 @@ const save = serviceSave(
 
 const countAll = serviceCountAll(userRepository);
 const findAll = serviceFindAll(userRepository);
+const findOne = serviceFindOne(userRepository);
 
 const userService = {
   save,
   countAll,
   findAll,
+  findOne,
 };
 
 module.exports = userService;

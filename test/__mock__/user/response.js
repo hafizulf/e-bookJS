@@ -49,9 +49,27 @@ const findAndReturnListData = () => {
   };
 };
 
+const findAndReturnDataNotFound = () => {
+  return {
+    status: 'OK',
+    code: 200,
+    message: 'User Not Found',
+  };
+};
+
+const findAndReturnDetailData = () => {
+  return {
+    status: 'OK',
+    code: 200,
+    data: mockData[0],
+  };
+};
+
 module.exports = {
   postWithInvalidBody,
   postWithValidBody,
   findAndReturnEmptyData,
   findAndReturnListData,
+  findAndReturnDataNotFound,
+  findAndReturnDetailData,
 };
