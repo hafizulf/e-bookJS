@@ -1,9 +1,16 @@
-const saveService = (buildError, validator, repository) => {
-  return (user) => {
+const saveService = (Entity, repository, validator, buildError) => {
+  return async (data) => {
     try {
-      validator.save(user);
+      validator.save(data);
 
-      console.log('ok');
+      const user = new Entity(data);
+      const newUser = user.save(user);
+
+      await repository.save(newUser);
+
+      return {
+        status: true,
+      };
     } catch (err) {
       const errors = buildError(err.inner);
       return {

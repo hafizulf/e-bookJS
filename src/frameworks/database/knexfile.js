@@ -28,7 +28,7 @@ const devEnvConfig = {
   },
   pool: {
     min: 2,
-    max: 10,
+    max: 25,
   },
   migrations: {
     tableName: 'migrations',
