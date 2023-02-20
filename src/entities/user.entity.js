@@ -16,6 +16,17 @@ class User {
       password: this.password,
     };
   }
+
+  update(data) {
+    const user = {};
+
+    if (data.user_id) user.user_id = this.user_id;
+    if (data.name) user.name = this.name;
+    if (data.username) user.username = this.username;
+    if (data.email) user.email = this.email;
+
+    return user;
+  }
 }
 
 module.exports = User;

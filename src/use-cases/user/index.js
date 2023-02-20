@@ -10,7 +10,12 @@ const serviceCountAll = require('./countAll');
 const serviceFindAll = require('./findAll');
 const serviceFindOne = require('./findOne');
 const serviceDeleteOne = require('./deleteOne');
+const serviceUpdate = require('./update');
 
+const countAll = serviceCountAll(userRepository);
+const findAll = serviceFindAll(userRepository);
+const findOne = serviceFindOne(userRepository);
+const deleteOne = serviceDeleteOne(userRepository);
 const save = serviceSave(
   UserEntity,
   userRepository,
@@ -18,18 +23,20 @@ const save = serviceSave(
   hash,
   buildError
 );
-
-const countAll = serviceCountAll(userRepository);
-const findAll = serviceFindAll(userRepository);
-const findOne = serviceFindOne(userRepository);
-const deleteOne = serviceDeleteOne(userRepository);
+const update = serviceUpdate(
+  UserEntity,
+  userRepository,
+  userValidator,
+  buildError
+);
 
 const userService = {
-  save,
   countAll,
   findAll,
   findOne,
   deleteOne,
+  save,
+  update,
 };
 
 module.exports = userService;

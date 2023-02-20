@@ -81,6 +81,22 @@ const deleteWithExistData = () => {
   };
 };
 
+const putWithEmptyBody = () => {
+  return {
+    status: 'BAD_REQUEST',
+    code: 400,
+    message: 'Need a field to update',
+  };
+};
+
+const putWithValidBody = () => {
+  return {
+    status: 'OK',
+    code: 200,
+    message: 'User has been updated',
+  };
+};
+
 module.exports = {
   postWithInvalidBody,
   postWithValidBody,
@@ -90,4 +106,6 @@ module.exports = {
   findAndReturnDetailData,
   putOrDeleteReturnEmptyData,
   deleteWithExistData,
+  putWithEmptyBody,
+  putWithValidBody,
 };
