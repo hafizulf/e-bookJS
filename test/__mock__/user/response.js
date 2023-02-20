@@ -65,6 +65,22 @@ const findAndReturnDetailData = () => {
   };
 };
 
+const putOrDeleteReturnEmptyData = () => {
+  return {
+    status: 'BAD_REQUEST',
+    code: 400,
+    message: 'User Not Found',
+  };
+};
+
+const deleteWithExistData = () => {
+  return {
+    status: 'OK',
+    code: 200,
+    message: 'User has been deleted',
+  };
+};
+
 module.exports = {
   postWithInvalidBody,
   postWithValidBody,
@@ -72,4 +88,6 @@ module.exports = {
   findAndReturnListData,
   findAndReturnDataNotFound,
   findAndReturnDetailData,
+  putOrDeleteReturnEmptyData,
+  deleteWithExistData,
 };

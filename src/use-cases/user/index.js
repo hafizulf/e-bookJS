@@ -9,6 +9,7 @@ const serviceSave = require('./save');
 const serviceCountAll = require('./countAll');
 const serviceFindAll = require('./findAll');
 const serviceFindOne = require('./findOne');
+const serviceDeleteOne = require('./deleteOne');
 
 const save = serviceSave(
   UserEntity,
@@ -21,12 +22,14 @@ const save = serviceSave(
 const countAll = serviceCountAll(userRepository);
 const findAll = serviceFindAll(userRepository);
 const findOne = serviceFindOne(userRepository);
+const deleteOne = serviceDeleteOne(userRepository);
 
 const userService = {
   save,
   countAll,
   findAll,
   findOne,
+  deleteOne,
 };
 
 module.exports = userService;
