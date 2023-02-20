@@ -7,6 +7,8 @@ const database = require('../../src/frameworks/database/knex');
 const mockData = require('../__mock__/book/data');
 const mockResponse = require('../__mock__/book/response');
 
+const cache = require('../../src/frameworks/middleware/cache');
+
 describe('GET /api/v1/books', () => {
   const url = '/api/v1/books';
   const table = 'books';
@@ -25,6 +27,7 @@ describe('GET /api/v1/books', () => {
 
   describe('given list of data', () => {
     before(async () => {
+      cache.del(url); // destroy cache
       await database.insert(mockData).into(table);
     });
 
