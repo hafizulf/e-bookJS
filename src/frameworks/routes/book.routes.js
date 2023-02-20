@@ -11,10 +11,12 @@ const {
 const fileUpload = require('../middleware/fileUpload');
 const upload = fileUpload.single('file');
 
+const cache = require('../middleware/cache');
+
 const router = express.Router();
 
 router
-  .get('/', findAll)
+  .get('/', cache.set(300), findAll)
   .get('/:slug', findOne)
   .post('/', upload, save)
   .delete('/:book_id', deleteOne)
