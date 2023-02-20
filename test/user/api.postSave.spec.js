@@ -3,6 +3,7 @@ const expect = require('chai').expect;
 
 const database = require('../../src/frameworks/database/knex');
 const app = require('../../src/frameworks/webserver/app');
+const { compare } = require('../../src/frameworks/utils/hash');
 
 const mockResponse = require('../__mock__/user/response');
 const mockData = require('../__mock__/user/data');
@@ -45,7 +46,9 @@ describe('POST /api/v1/users', function () {
 
       expect(user.username).to.equal(mockData.username);
       expect(user.email).to.equal(mockData.email);
-      expect(user.password).to.equal(mockData.password);
+
+      const isMatch = compare(mockData.password, user.password);
+      expect(isMatch).to.equal(true);
     });
 
     after(async function () {

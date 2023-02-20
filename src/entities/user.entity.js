@@ -10,12 +10,10 @@ class User {
 
   save() {
     return {
-      user_id: this.user_id,
       name: this.name || null,
       username: this.username,
       email: this.email,
       password: this.password,
-      is_active: this.is_active || 1,
     };
   }
 }

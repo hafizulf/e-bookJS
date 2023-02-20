@@ -1,7 +1,10 @@
-const saveService = (Entity, repository, validator, buildError) => {
+const saveService = (Entity, repository, validator, hash, buildError) => {
   return async (data) => {
     try {
       validator.save(data);
+
+      const hashedPassword = hash(data.password);
+      data.password = hashedPassword;
 
       const user = new Entity(data);
       const newUser = user.save(user);

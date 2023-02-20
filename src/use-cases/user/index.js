@@ -1,12 +1,19 @@
-const UserEntity = require('../../entities/user.entitiy');
+const UserEntity = require('../../entities/user.entity');
 const userRepository = require('../../repositories/user');
 
-const buildError = require('../../frameworks/utils/buildError');
 const userValidator = require('../../frameworks/validators/user');
+const buildError = require('../../frameworks/utils/buildError');
+const { hash } = require('../../frameworks/utils/hash');
 
 const saveService = require('./save');
 
-const save = saveService(UserEntity, userRepository, userValidator, buildError);
+const save = saveService(
+  UserEntity,
+  userRepository,
+  userValidator,
+  hash,
+  buildError
+);
 
 const userService = {
   save,

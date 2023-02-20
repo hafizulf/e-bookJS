@@ -1,7 +1,7 @@
 const saveCtl = (service) => {
   return async (req, res) => {
-    const { body } = req;
-    const result = await service.save(body);
+    const data = req.body;
+    const result = await service.save(data);
 
     if (result.status) {
       res.status(201).json({
