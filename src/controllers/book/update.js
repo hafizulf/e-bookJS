@@ -1,9 +1,9 @@
 const ctlUpdate = (service) => {
   return async (req, res, next) => {
     const { book_id } = req.params;
-    this.result = await service.findOne({ name: 'book_id', value: book_id });
+    const book = await service.findOne({ name: 'book_id', value: book_id });
 
-    if (!this.result) {
+    if (!book) {
       return res.status(400).json({
         status: 'BAD_REQUEST',
         code: 400,
@@ -25,7 +25,7 @@ const ctlUpdate = (service) => {
         });
       }
 
-      const oldFile = this.result.file;
+      const oldFile = book.file;
       const result = await service.update(data, oldFile);
 
       if (result.status) {

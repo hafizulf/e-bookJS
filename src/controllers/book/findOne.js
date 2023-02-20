@@ -1,4 +1,4 @@
-const ctlFind = (service) => {
+const ctlFindOne = (service) => {
   return async (req, res) => {
     const { slug } = req.params;
     const result = await service.findOne({ name: 'slug', value: slug });
@@ -14,4 +14,4 @@ const ctlFind = (service) => {
   };
 };
 
-module.exports = ctlFind;
+module.exports = ctlFindOne;

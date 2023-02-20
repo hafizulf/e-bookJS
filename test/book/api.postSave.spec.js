@@ -9,13 +9,13 @@ let { expect } = require('chai');
 const request = require('supertest');
 
 const app = require('../../src/frameworks/webserver/app');
-// const database = require('../../src/frameworks/database/knex');
+const database = require('../../src/frameworks/database/knex');
 
 const mockResponse = require('../__mock__/book/response');
 
 describe('POST /api/v1/books', function () {
   const url = '/api/v1/books';
-  // const table = 'books';
+  const table = 'books';
 
   describe('given invalid body', function () {
     describe('given empty body', function () {

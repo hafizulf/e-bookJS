@@ -1,13 +1,13 @@
 const tableName = 'users';
 
-exports.up = async knex => {
+exports.up = async (knex) => {
   if (await knex.schema.hasTable(tableName)) {
     console.log('table already exist');
     return;
   }
 
-  return knex.schema.createTable(tableName, table => {
-    table.increments('user_id').unsigned();
+  return knex.schema.createTable(tableName, (table) => {
+    table.uuid('user_id').primary().defaultTo(knex.raw('(UUID())'));
     table.string('name', 50);
     table.string('username', 50).notNullable();
     table.string('email', 50).notNullable();
@@ -17,6 +17,6 @@ exports.up = async knex => {
   });
 };
 
-exports.down = async knex => {
+exports.down = async (knex) => {
   return knex.schema.dropTableIfExists(tableName);
 };
