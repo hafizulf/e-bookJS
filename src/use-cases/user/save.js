@@ -1,11 +1,15 @@
-const saveService = (repository) => {
+const saveService = (buildError, validator, repository) => {
   return (user) => {
     try {
-      if (!user.username) {
-        throw new Error('Username is required');
-      }
-    } catch (e) {
-      console.log(e);
+      validator.save(user);
+
+      console.log('ok');
+    } catch (err) {
+      const errors = buildError(err.inner);
+      return {
+        status: false,
+        errors: errors,
+      };
     }
   };
 };

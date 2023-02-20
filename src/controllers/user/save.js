@@ -3,11 +3,13 @@ const saveCtl = (service) => {
     const { body } = req;
     const result = service.save(body);
 
-    res.status(400).json({
-      status: 'BAD_REQUEST',
-      code: 400,
-      errors: result.errors,
-    });
+    if (result.status === false) {
+      res.status(400).json({
+        status: 'BAD_REQUEST',
+        code: 400,
+        errors: result.errors,
+      });
+    }
   };
 };
 
