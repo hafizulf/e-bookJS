@@ -1,4 +1,4 @@
-const saveCtl = (service) => {
+const ctlSave = (service) => {
   return async (req, res) => {
     const data = req.body;
     const result = await service.save(data);
@@ -19,4 +19,4 @@ const saveCtl = (service) => {
   };
 };
 
-module.exports = saveCtl;
+module.exports = ctlSave;

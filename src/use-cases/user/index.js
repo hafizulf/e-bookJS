@@ -5,9 +5,11 @@ const userValidator = require('../../frameworks/validators/user');
 const buildError = require('../../frameworks/utils/buildError');
 const { hash } = require('../../frameworks/utils/hash');
 
-const saveService = require('./save');
+const serviceSave = require('./save');
+const serviceCountAll = require('./countAll');
+const serviceFindAll = require('./findAll');
 
-const save = saveService(
+const save = serviceSave(
   UserEntity,
   userRepository,
   userValidator,
@@ -15,8 +17,13 @@ const save = saveService(
   buildError
 );
 
+const countAll = serviceCountAll(userRepository);
+const findAll = serviceFindAll(userRepository);
+
 const userService = {
   save,
+  countAll,
+  findAll,
 };
 
 module.exports = userService;

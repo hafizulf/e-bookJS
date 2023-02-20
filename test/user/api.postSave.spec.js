@@ -29,7 +29,7 @@ describe('POST /api/v1/users', function () {
     it('should return 201 with successfully created', function (done) {
       request(app)
         .post(url)
-        .send(mockData)
+        .send(mockData[0])
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body).to.deep.equal(mockResponse.postWithValidBody());
@@ -38,16 +38,18 @@ describe('POST /api/v1/users', function () {
     });
 
     it('should return inserted data', async function () {
+      let mocked = mockData[0];
+
       const user = await database
         .select()
         .table(table)
-        .where('username', mockData.username)
+        .where('username', mocked.username)
         .first();
 
-      expect(user.username).to.equal(mockData.username);
-      expect(user.email).to.equal(mockData.email);
+      expect(user.username).to.equal(mocked.username);
+      expect(user.email).to.equal(mocked.email);
 
-      const isMatch = compare(mockData.password, user.password);
+      const isMatch = compare(mocked.password, user.password);
       expect(isMatch).to.equal(true);
     });
 

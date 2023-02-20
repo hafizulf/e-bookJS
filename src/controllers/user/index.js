@@ -1,11 +1,15 @@
 const userService = require('../../use-cases/user');
+const paginate = require('../../frameworks/utils/paginate');
 
-const saveCtl = require('./save');
+const ctlSave = require('./save');
+const ctlFindAll = require('./findAll');
 
-const save = saveCtl(userService);
+const save = ctlSave(userService);
+const findAll = ctlFindAll(userService, paginate);
 
 const userController = {
   save,
+  findAll,
 };
 
 module.exports = userController;

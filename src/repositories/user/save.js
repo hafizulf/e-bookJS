@@ -1,7 +1,7 @@
-const saveRepository = (database, tableName) => {
+const repositorySave = (database, tableName) => {
   return (user) => {
     return database.insert(user).table(tableName);
   };
 };
 
-module.exports = saveRepository;
+module.exports = repositorySave;

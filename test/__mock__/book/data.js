@@ -1,4 +1,3 @@
-const sinon = require('sinon');
 const { v4: uuidv4 } = require('uuid');
 
 const book_id = uuidv4();
