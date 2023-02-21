@@ -1,5 +1,4 @@
 const userService = require('../../use-cases/user');
-const paginate = require('../../frameworks/utils/paginate');
 
 const ctlSave = require('./save');
 const ctlFindAll = require('./findAll');
@@ -9,7 +8,7 @@ const ctlUpdate = require('./update');
 const ctlChangePassword = require('./changePassword');
 
 const save = ctlSave(userService);
-const findAll = ctlFindAll(userService, paginate);
+const findAll = ctlFindAll(userService);
 const findOne = ctlFindOne(userService);
 const deleteOne = ctlDeleteOne(userService);
 const update = ctlUpdate(userService);
