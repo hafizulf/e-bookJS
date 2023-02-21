@@ -1,13 +1,13 @@
-const saveService = (Entity, repository, validator, hash, buildError) => {
+const saveService = (Entity, repository, validator, hasher, buildError) => {
   return async (data) => {
     try {
       validator.save(data);
 
-      const hashedPassword = hash(data.password);
+      const hashedPassword = hasher.hash(data.password);
       data.password = hashedPassword;
 
       const user = new Entity(data);
-      const newUser = user.save(user);
+      const newUser = user.save();
 
       await repository.save(newUser);
 

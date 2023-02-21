@@ -5,7 +5,6 @@ const cache = new NodeCache();
 const set = (duration) => {
   return (req, res, next) => {
     if (req.method !== 'GET') {
-      console.log('Cache middleware only works with GET requests');
       return next();
     }
 
