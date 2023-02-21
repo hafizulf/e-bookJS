@@ -1,15 +1,18 @@
 const ctlFind = (service) => {
   return async (req, res) => {
     const { user_id } = req.params;
-    const result = await service.findOne({ name: 'user_id', value: user_id });
+    const { data, message } = await service.findOne({
+      name: 'user_id',
+      value: user_id,
+    });
 
-    let response = {
+    const response = {
       status: 'OK',
       code: 200,
-      data: result,
+      data,
+      message,
     };
 
-    if (!result) response.message = 'User Not Found';
     return res.status(200).json(response);
   };
 };
