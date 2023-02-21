@@ -3,7 +3,7 @@ const userRepository = require('../../repositories/user');
 
 const userValidator = require('../../frameworks/validators/user');
 const buildError = require('../../frameworks/utils/buildError');
-const { hash } = require('../../frameworks/utils/hash');
+const hasher = require('../../frameworks/utils/hasher');
 
 const serviceSave = require('./save');
 const serviceCountAll = require('./countAll');
@@ -21,7 +21,7 @@ const save = serviceSave(
   UserEntity,
   userRepository,
   userValidator,
-  hash,
+  hasher,
   buildError
 );
 const update = serviceUpdate(
@@ -30,7 +30,13 @@ const update = serviceUpdate(
   userValidator,
   buildError
 );
-const changePassword = serviceChangePassword(userValidator, buildError);
+const changePassword = serviceChangePassword(
+  UserEntity,
+  userRepository,
+  userValidator,
+  hasher,
+  buildError
+);
 
 const userService = {
   countAll,

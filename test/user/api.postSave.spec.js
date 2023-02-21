@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 
 const database = require('../../src/frameworks/database/knex');
 const app = require('../../src/frameworks/webserver/app');
-const { compare } = require('../../src/frameworks/utils/hash');
+const { compare } = require('../../src/frameworks/utils/hasher');
 
 const mockResponse = require('../__mock__/user/response');
 const mockData = require('../__mock__/user/data');
@@ -41,7 +41,7 @@ describe('POST /api/v1/users', function () {
       let mocked = mockData[0];
 
       const user = await database
-        .select()
+        .select('username', 'email', 'password')
         .table(table)
         .where('username', mocked.username)
         .first();

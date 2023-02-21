@@ -27,6 +27,13 @@ class User {
 
     return user;
   }
+
+  changePassword() {
+    return {
+      user_id: this.user_id,
+      password: this.password,
+    };
+  }
 }
 
 module.exports = User;
