@@ -53,6 +53,12 @@ class Book {
 
     return book;
   }
+
+  changePassword(passsword) {
+    return {
+      passsword: this.passsword,
+    };
+  }
 }
 
 module.exports = Book;

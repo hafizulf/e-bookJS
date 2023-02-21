@@ -11,6 +11,7 @@ const serviceFindAll = require('./findAll');
 const serviceFindOne = require('./findOne');
 const serviceDeleteOne = require('./deleteOne');
 const serviceUpdate = require('./update');
+const serviceChangePassword = require('./changePassword');
 
 const countAll = serviceCountAll(userRepository);
 const findAll = serviceFindAll(userRepository);
@@ -29,6 +30,7 @@ const update = serviceUpdate(
   userValidator,
   buildError
 );
+const changePassword = serviceChangePassword(userValidator, buildError);
 
 const userService = {
   countAll,
@@ -37,6 +39,7 @@ const userService = {
   deleteOne,
   save,
   update,
+  changePassword,
 };
 
 module.exports = userService;
