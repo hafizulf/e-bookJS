@@ -13,6 +13,7 @@ const saveService = (Entity, repository, validator, hasher, buildError) => {
 
       return {
         status: true,
+        message: 'User has been created',
       };
     } catch (err) {
       const errors = buildError(err.inner);

@@ -5,20 +5,20 @@ const ctlSave = (service) => {
 
     if (file) data.file = file;
 
-    const result = await service.save(data);
+    const { status, message, errors } = await service.save(data);
 
     // check if status is true
-    if (result.status) {
+    if (status) {
       return res.status(201).json({
         status: 'CREATED',
         code: 201,
-        message: 'Book has been created',
+        message,
       });
     } else {
       return res.status(400).json({
         status: 'BAD_REQUEST',
         code: 400,
-        errors: result.errors,
+        errors,
       });
     }
   };
