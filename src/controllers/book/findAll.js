@@ -1,21 +1,20 @@
 const ctlFindAll = (service, paginate) => {
   return async (req, res) => {
-    const totalRow = await service.countAll();
-    const currentPage = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10; // 10 is default limit
-    const search = req.query.search || '';
-
-    const page = paginate(totalRow, currentPage, limit);
-    const result = await service.findAll({ limit, offset: page.start, search });
-
-    let response = {
-      status: 'OK',
-      code: 200,
-      data: result,
+    const filter = {
+      currentPage: parseInt(req.query.page) || 1,
+      limit: parseInt(req.query.limit) || 10,
+      search: req.query.search || '',
     };
 
-    if (result.length !== 0) {
-      response.pagination = page.pagination;
+    const result = await service.findAll(filter);
+    const response = {
+      status: 'OK',
+      code: 200,
+      data: result.data,
+    };
+
+    if (result.pagination) {
+      response.pagination = result.pagination;
     }
 
     return res.status(200).json(response);

@@ -1,15 +1,17 @@
 const ctlFindOne = (service) => {
   return async (req, res) => {
     const { slug } = req.params;
-    const result = await service.findOne({ name: 'slug', value: slug });
+    const { data, message } = await service.findOne({
+      name: 'slug',
+      value: slug,
+    });
 
     let response = {
       status: 'OK',
       code: 200,
-      data: result,
     };
+    data ? (response.data = data) : (response.message = message);
 
-    if (!result) response.message = 'Book Not Found';
     return res.status(200).json(response);
   };
 };

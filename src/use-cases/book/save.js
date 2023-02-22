@@ -15,6 +15,7 @@ const serviceSave = (Entity, repository, validator, buildError) => {
 
       return {
         status: true,
+        message: 'Book has been created',
       };
     } catch (err) {
       const errors = buildError(err.inner);

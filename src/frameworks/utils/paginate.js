@@ -19,10 +19,7 @@ const paginate = (totalRow, currentPage, limit) => {
     pagination.prevPage = currentPage - 1;
   }
 
-  return {
-    pagination,
-    start,
-  };
+  return pagination;
 };
 
 module.exports = paginate;

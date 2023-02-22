@@ -1,19 +1,19 @@
 const ctlSave = (service) => {
   return async (req, res) => {
     const data = req.body;
-    const result = await service.save(data);
+    const { status, message, errors } = await service.save(data);
 
-    if (result.status) {
-      res.status(201).json({
+    if (status) {
+      return res.status(201).json({
         status: 'CREATED',
         code: 201,
-        message: 'User has been created',
+        message,
       });
     } else {
-      res.status(400).json({
+      return res.status(400).json({
         status: 'BAD_REQUEST',
         code: 400,
-        errors: result.errors,
+        errors,
       });
     }
   };

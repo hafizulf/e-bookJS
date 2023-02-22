@@ -7,9 +7,20 @@ const serviceChangePassword = (
 ) => {
   return async (data) => {
     try {
-      validator.changePassword(data);
+      const { user_id } = data;
+      const userData = await repository.findOne({
+        name: 'user_id',
+        value: user_id,
+      });
 
-      const { user_id, userOldPassword, oldPassword } = data;
+      if (!userData) {
+        return {
+          status: false,
+          message: 'User Not Found',
+        };
+      }
+
+      const { oldPassword } = data;
       let { password } = data;
 
       if (password === oldPassword) {
@@ -21,7 +32,9 @@ const serviceChangePassword = (
         };
       }
 
-      const isMatched = hasher.compare(oldPassword, userOldPassword);
+      validator.changePassword(data);
+
+      const isMatched = hasher.compare(oldPassword, userData.password);
       if (!isMatched) {
         return {
           status: false,
@@ -37,7 +50,10 @@ const serviceChangePassword = (
 
       await repository.changePassword(newPassword);
 
-      return { status: true };
+      return {
+        status: true,
+        message: 'Password has been updated',
+      };
     } catch (err) {
       const errors = buildError(err.inner);
       return {

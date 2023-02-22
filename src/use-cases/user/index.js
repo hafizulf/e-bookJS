@@ -4,17 +4,16 @@ const userRepository = require('../../repositories/user');
 const userValidator = require('../../frameworks/validators/user');
 const buildError = require('../../frameworks/utils/buildError');
 const hasher = require('../../frameworks/utils/hasher');
+const paginate = require('../../frameworks/utils/paginate');
 
 const serviceSave = require('./save');
-const serviceCountAll = require('./countAll');
 const serviceFindAll = require('./findAll');
 const serviceFindOne = require('./findOne');
 const serviceDeleteOne = require('./deleteOne');
 const serviceUpdate = require('./update');
 const serviceChangePassword = require('./changePassword');
 
-const countAll = serviceCountAll(userRepository);
-const findAll = serviceFindAll(userRepository);
+const findAll = serviceFindAll(userRepository, paginate);
 const findOne = serviceFindOne(userRepository);
 const deleteOne = serviceDeleteOne(userRepository);
 const save = serviceSave(
@@ -39,7 +38,6 @@ const changePassword = serviceChangePassword(
 );
 
 const userService = {
-  countAll,
   findAll,
   findOne,
   deleteOne,
