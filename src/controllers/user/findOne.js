@@ -9,9 +9,8 @@ const ctlFind = (service) => {
     const response = {
       status: 'OK',
       code: 200,
-      data,
-      message,
     };
+    data ? (response.data = data) : (response.message = message);
 
     return res.status(200).json(response);
   };
