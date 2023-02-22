@@ -10,6 +10,8 @@ const updateSpecs = (
     const url = '/api/v1/books';
     const table = 'books';
 
+    const mockedData = mockData[0];
+
     describe('given empty data', function () {
       it('should return book not found', function (done) {
         request(app)
@@ -33,7 +35,7 @@ const updateSpecs = (
         describe('given empty body', function () {
           it('should return errors message', function (done) {
             request(app)
-              .put(`${url}/${mockData[0].book_id}`)
+              .put(`${url}/${mockedData.book_id}`)
               .send({})
               .end((err, res) => {
                 expect(res.status).to.equal(400);
@@ -47,14 +49,14 @@ const updateSpecs = (
       describe('given valid body', function () {
         it('should successfully updated', function (done) {
           request(app)
-            .put(`${url}/${mockData[0].book_id}`)
-            .field('title', mockData[0].title)
-            .field('author', mockData[0].author)
-            .field('city', mockData[0].city)
-            .field('publisher', mockData[0].publisher)
-            .field('year', mockData[0].year)
-            .field('type', mockData[0].type)
-            .field('desc', mockData[0].desc)
+            .put(`${url}/${mockedData.book_id}`)
+            .field('title', mockedData.title)
+            .field('author', mockedData.author)
+            .field('city', mockedData.city)
+            .field('publisher', mockedData.publisher)
+            .field('year', mockedData.year)
+            .field('type', mockedData.type)
+            .field('desc', mockedData.desc)
             .end((err, res) => {
               expect(res.status).to.equal(200);
               expect(res.body).to.deep.equal(mockResponse.putWithValidBody());

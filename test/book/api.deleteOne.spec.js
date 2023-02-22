@@ -40,7 +40,7 @@ const deleteSpecs = (
       });
 
       it('should return empty table', async () => {
-        const result = await database.select().table(table);
+        const result = await database.select('book_id').table(table);
         expect(result).to.deep.equal([]);
       });
     });
