@@ -1,6 +1,6 @@
-const serviceFindAll = (repository, serviceCountAll, paginate) => {
+const serviceFindAll = (repository, paginate) => {
   return async (filter) => {
-    const totalRow = await serviceCountAll();
+    const { totalRow } = await repository.countAll();
     const { currentPage, limit, search } = filter;
     const pagination = paginate(totalRow, currentPage, limit);
 

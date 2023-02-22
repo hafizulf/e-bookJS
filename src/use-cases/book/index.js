@@ -1,5 +1,4 @@
-// const BookEntity = require('../../entities/book.entity');
-const Entity = require('../../entities/book.entity');
+const BookEntity = require('../../entities/book.entity');
 const bookRepository = require('../../repositories/book');
 
 // Schema Validation
@@ -15,15 +14,13 @@ const serviceSave = require('./save');
 const serviceFindOne = require('./findOne');
 const serviceDeleteOne = require('./deleteOne');
 const serviceUpdate = require('./update');
-const serviceCountAll = require('./countAll');
 
-const countAll = serviceCountAll(bookRepository);
-const findAll = serviceFindAll(bookRepository, countAll, paginate);
-const save = serviceSave(Entity, bookRepository, bookValidator, buildError);
+const findAll = serviceFindAll(bookRepository, paginate);
+const save = serviceSave(BookEntity, bookRepository, bookValidator, buildError);
 const findOne = serviceFindOne(bookRepository);
 const deleteOne = serviceDeleteOne(bookRepository);
 const update = serviceUpdate(
-  Entity,
+  BookEntity,
   bookRepository,
   bookValidator,
   buildError,
@@ -36,7 +33,6 @@ const bookService = {
   findOne,
   deleteOne,
   update,
-  countAll,
 };
 
 module.exports = bookService;
