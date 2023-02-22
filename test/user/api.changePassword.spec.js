@@ -49,8 +49,8 @@ describe('POST /api/v1/users/change-password/:user_id', function () {
             status: 'BAD_REQUEST',
             code: 400,
             errors: {
-              oldPassword: ['required'],
-              passwordConfirmation: ['Password must match'],
+              oldPassword: 'required',
+              passwordConfirmation: 'Password must match',
             },
           });
           return done();

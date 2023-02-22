@@ -7,11 +7,10 @@ const resBadRequest = {
 
 const postWithInvalidBody = () => {
   resBadRequest.errors = {
-    username: ['required'],
-    email: ['must be a valid email'],
-    password: [
+    username: 'required',
+    email: 'must be a valid email',
+    password:
       'at least one uppercase, one lowercase, one number and one special character',
-    ],
   };
 
   return resBadRequest;

@@ -8,9 +8,9 @@ const resBadRequest = {
 
 const postWithInvalidBody = () => {
   resBadRequest.errors = {
-    title: ['required'],
-    author: ['required'],
-    file: ['required'],
+    title: 'required',
+    author: 'required',
+    file: 'required',
   };
 
   return resBadRequest;
@@ -18,7 +18,7 @@ const postWithInvalidBody = () => {
 
 const resBodyInvalidFileType = () => {
   resBadRequest.errors = {
-    file: ['Must be PDF filetype'],
+    file: 'Must be PDF filetype',
   };
 
   return resBadRequest;
@@ -26,7 +26,7 @@ const resBodyInvalidFileType = () => {
 
 const resBodyInvalidFileSize = () => {
   resBadRequest.errors = {
-    file: ['File is too large, max 100kb'],
+    file: 'File is too large, max 100kb',
   };
   return resBadRequest;
 };

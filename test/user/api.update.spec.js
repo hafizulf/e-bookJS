@@ -55,9 +55,8 @@ describe('UPDATE /api/v1/users/:user_id', function () {
           .end((err, res) => {
             expect(res.status).to.equal(400);
             expect(res.body.errors).to.deep.equal({
-              username: [
+              username:
                 'username must be a `string` type, but the final value was: `12345`.',
-              ],
             });
             return done();
           });
