@@ -11,7 +11,7 @@ const updateRules = updateSchema(yup);
 const changePasswordRules = changePasswordSchema(yup);
 
 // register user validator
-const createUserValidator = require('./validator');
+const createUserValidator = require('../');
 
 const save = createUserValidator(saveRules);
 const update = createUserValidator(updateRules);

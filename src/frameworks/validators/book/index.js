@@ -8,9 +8,9 @@ const updateSchema = require('./update.schema');
 const saveRules = saveSchema(yup);
 const updateRules = updateSchema(yup);
 
-const createBookValidator = require('./validator');
-
 // register validator
+const createBookValidator = require('../');
+
 const save = createBookValidator(saveRules);
 const update = createBookValidator(updateRules);
 
