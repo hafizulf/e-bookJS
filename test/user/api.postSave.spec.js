@@ -1,20 +1,27 @@
-const saveSpecs = (
-  expect,
+const saveSpecs = ({
   request,
+  expect,
   app,
   database,
   compare,
-  mockData,
-  mockResponse
-) => {
+  getUserToken,
+  mockResponse,
+}) => {
   describe('POST /api/v1/users', function () {
     const url = '/api/v1/users';
     const table = 'users';
+
+    let token;
+
+    before(async () => {
+      token = await getUserToken();
+    });
 
     describe('when user given invalid data', function () {
       it('should return 400 with errors message', function (done) {
         request(app)
           .post(url)
+          .set({ 'x-auth-token': token })
           .send({ email: 'example.email', password: '@pass' })
           .end((err, res) => {
             expect(res.status).to.equal(400);
@@ -28,7 +35,12 @@ const saveSpecs = (
       it('should return 201 with successfully created', function (done) {
         request(app)
           .post(url)
-          .send(mockData[0])
+          .set({ 'x-auth-token': token })
+          .send({
+            username: 'newuser',
+            email: 'newuser@ex.co',
+            password: '@Password123',
+          })
           .end((err, res) => {
             expect(res.status).to.equal(201);
             expect(res.body).to.deep.equal(mockResponse.postWithValidBody());
@@ -36,24 +48,26 @@ const saveSpecs = (
           });
       });
 
+      let user_id;
       it('should return inserted data', async function () {
-        let mocked = mockData[0];
-
         const user = await database
-          .select('username', 'email', 'password')
+          .select('user_id', 'username', 'email', 'password')
           .table(table)
-          .where('username', mocked.username)
+          .where('username', 'newuser')
           .first();
 
-        expect(user.username).to.equal(mocked.username);
-        expect(user.email).to.equal(mocked.email);
+        user_id = user.user_id;
 
-        const isMatch = compare(mocked.password, user.password);
+        expect(user.username).to.equal('newuser');
+        expect(user.email).to.equal('newuser@ex.co');
+
+        const isMatch = compare('@Password123', user.password);
         expect(isMatch).to.equal(true);
       });
 
       after(async function () {
-        await database(table).del();
+        // await request(app).delete(`${url}/${user_id}`);
+        await database.del().table(table).where('user_id', user_id).del();
       });
     });
   });

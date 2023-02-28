@@ -1,19 +1,27 @@
-const findOneSpecs = (
-  expect,
+const findOneSpecs = ({
   request,
+  expect,
   app,
   database,
   mockData,
-  mockResponse
-) => {
+  mockResponse,
+  getUserToken,
+}) => {
   describe('GET /api/v1/books/:slug', () => {
     const url = '/api/v1/books';
     const table = 'books';
+
+    let token;
+
+    before(async () => {
+      token = await getUserToken();
+    });
 
     describe('given empty data', () => {
       it('should return message with book not found', (done) => {
         request(app)
           .get(`${url}/example-slug`)
+          .set({ 'x-auth-token': token })
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.deep.equal(
@@ -32,6 +40,7 @@ const findOneSpecs = (
       it('should return a detail of book', (done) => {
         request(app)
           .get(`${url}/naruto-shippuden`)
+          .set({ 'x-auth-token': token })
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.deep.equal(

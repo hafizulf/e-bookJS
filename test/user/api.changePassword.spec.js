@@ -1,19 +1,27 @@
-const changePasswordSpecs = (
-  expect,
+const changePasswordSpecs = ({
   request,
+  expect,
   app,
   database,
   compare,
-  mockData
-) => {
+  mockData,
+  getUserToken,
+}) => {
   describe('POST /api/v1/users/change-password/:user_id', function () {
     const url = '/api/v1/users/change-password';
     const table = 'users';
+
+    let token;
+
+    before(async () => {
+      token = await getUserToken();
+    });
 
     describe('user not found', function () {
       it('should return error user not found', (done) => {
         request(app)
           .post(`${url}/example_user_id`)
+          .set({ 'x-auth-token': token })
           .end((err, res) => {
             expect(res.status).to.equal(400);
             expect(res.body).to.deep.equal({
@@ -30,7 +38,6 @@ const changePasswordSpecs = (
 
     describe('given invalid password', function () {
       before(async () => {
-        await request(app).post('/api/v1/users/').send(mockData[0]);
         const result = await database.select('user_id').table(table);
         user_id = result[0].user_id;
       });
@@ -38,6 +45,7 @@ const changePasswordSpecs = (
       it('should return error password validation', (done) => {
         request(app)
           .post(`${url}/${user_id}`)
+          .set({ 'x-auth-token': token })
           .send({
             password: '#Pass123',
             passwordConfirmation: 'new password',
@@ -59,6 +67,7 @@ const changePasswordSpecs = (
       it('should return error new password cannot be same with old password', (done) => {
         request(app)
           .post(`${url}/${user_id}`)
+          .set({ 'x-auth-token': token })
           .send({
             oldPassword: '@Pass123',
             password: '@Pass123',
@@ -80,6 +89,7 @@ const changePasswordSpecs = (
       it('should return error old password', (done) => {
         request(app)
           .post(`${url}/${user_id}`)
+          .set({ 'x-auth-token': token })
           .send({
             oldPassword: '*Pass123',
             password: '#Pass123',
@@ -103,6 +113,7 @@ const changePasswordSpecs = (
       it('should successfully changed password', (done) => {
         request(app)
           .post(`${url}/${user_id}`)
+          .set({ 'x-auth-token': token })
           .send({
             oldPassword: '@Pass123',
             password: '#Pass123',
@@ -128,10 +139,6 @@ const changePasswordSpecs = (
 
         const isMatch = compare('#Pass123', user.password);
         expect(isMatch).to.equal(true);
-      });
-
-      after(async () => {
-        await database(table).del();
       });
     });
   });

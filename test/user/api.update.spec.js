@@ -1,19 +1,27 @@
-const updateSpecs = (
-  expect,
+const updateSpecs = ({
   request,
+  expect,
   app,
   database,
   mockData,
-  mockResponse
-) => {
+  mockResponse,
+  getUserToken,
+}) => {
   describe('UPDATE /api/v1/users/:user_id', function () {
     const url = '/api/v1/users';
     const table = 'users';
+
+    let token;
+
+    before(async () => {
+      token = await getUserToken();
+    });
 
     describe('when empty data', function () {
       it('should return user not found', function (done) {
         request(app)
           .put(`${url}/example_user_id`)
+          .set({ 'x-auth-token': token })
           .end((err, res) => {
             expect(res.status).to.equal(400);
             expect(res.body).to.deep.equal(
@@ -28,15 +36,19 @@ const updateSpecs = (
       let user_id;
 
       before(async () => {
-        await request(app).post(url).send(mockData[0]);
+        await request(app)
+          .post(url)
+          .set({ 'x-auth-token': token })
+          .send(mockData[0]);
         const result = await database.select().table(table);
-        user_id = result[0].user_id;
+        user_id = result[1].user_id;
       });
 
       describe('when invalid body', function () {
         it('given empty body should return -> need a field to update', function (done) {
           request(app)
             .put(`${url}/${user_id}`)
+            .set({ 'x-auth-token': token })
             .send({})
             .end((err, res) => {
               expect(res.status).to.equal(400);
@@ -48,6 +60,7 @@ const updateSpecs = (
         it('given invalid username should return -> username must be a string', function (done) {
           request(app)
             .put(`${url}/${user_id}`)
+            .set({ 'x-auth-token': token })
             .send({
               username: 12345,
             })
@@ -66,6 +79,7 @@ const updateSpecs = (
         it('should return successfully updated user', function (done) {
           request(app)
             .put(`${url}/${user_id}`)
+            .set({ 'x-auth-token': token })
             .send({
               name: 'skuy ngoding updated',
               username: 'skuy update',
@@ -79,7 +93,9 @@ const updateSpecs = (
         });
 
         it('should return updated user', async function () {
-          const result = await request(app).get(`${url}/${user_id}`);
+          const result = await request(app)
+            .get(`${url}/${user_id}`)
+            .set({ 'x-auth-token': token });
           const { name, username, email } = result.body.data;
 
           expect(name).to.equal('skuy ngoding updated');
@@ -89,7 +105,7 @@ const updateSpecs = (
       });
 
       after(async function () {
-        await database(table).del();
+        await database.del().table(table).where('user_id', user_id).del();
       });
     });
   });

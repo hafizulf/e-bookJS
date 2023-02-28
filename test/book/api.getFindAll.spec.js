@@ -1,20 +1,28 @@
-const findAllSpecs = (
-  expect,
+const findAllSpecs = ({
   request,
+  expect,
   app,
   database,
   cache,
   mockData,
-  mockResponse
-) => {
+  mockResponse,
+  getUserToken,
+}) => {
   describe('GET /api/v1/books', () => {
     const url = '/api/v1/books';
     const table = 'books';
+
+    let token;
+
+    before(async () => {
+      token = await getUserToken();
+    });
 
     describe('given empty data', () => {
       it('should return empty array, etc', (done) => {
         request(app)
           .get(url)
+          .set({ 'x-auth-token': token })
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.deep.equal(
@@ -34,6 +42,7 @@ const findAllSpecs = (
       it('should return list of books', (done) => {
         request(app)
           .get(url)
+          .set({ 'x-auth-token': token })
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.deep.equal(

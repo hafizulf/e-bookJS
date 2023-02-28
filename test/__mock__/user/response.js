@@ -24,14 +24,6 @@ const postWithValidBody = () => {
   };
 };
 
-const findAndReturnEmptyData = () => {
-  return {
-    status: 'OK',
-    code: 200,
-    data: [],
-  };
-};
-
 const findAndReturnListData = () => {
   return {
     status: 'OK',
@@ -99,7 +91,6 @@ const putWithValidBody = () => {
 module.exports = {
   postWithInvalidBody,
   postWithValidBody,
-  findAndReturnEmptyData,
   findAndReturnListData,
   findAndReturnDataNotFound,
   findAndReturnDetailData,

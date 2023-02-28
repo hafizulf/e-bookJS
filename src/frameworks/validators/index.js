@@ -1,4 +1,4 @@
-const bookValidator = (rules) => {
+const validator = (rules) => {
   return (data) => {
     const options = {
       abortEarly: false,
@@ -9,4 +9,4 @@ const bookValidator = (rules) => {
   };
 };
 
-module.exports = bookValidator;
+module.exports = validator;
