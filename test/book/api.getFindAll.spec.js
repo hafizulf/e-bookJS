@@ -5,7 +5,8 @@ const findAllSpecs = (
   database,
   cache,
   mockData,
-  mockResponse
+  mockResponse,
+  getUserToken
 ) => {
   describe('GET /api/v1/books', () => {
     const url = '/api/v1/books';
@@ -14,19 +15,7 @@ const findAllSpecs = (
     let token;
 
     before(async () => {
-      await request(app).post('/api/v1/users').send({
-        name: 'skuy ngoding',
-        username: 'skuy',
-        email: 'skuy@ex.co',
-        password: '@Pass123',
-      });
-
-      const loggedIn = await request(app).post('/api/v1/auth/login').send({
-        username: 'skuy',
-        password: '@Pass123',
-      });
-
-      token = loggedIn.body.token;
+      token = await getUserToken();
     });
 
     describe('given empty data', () => {
@@ -65,7 +54,6 @@ const findAllSpecs = (
 
       after(async () => {
         await database(table).del();
-        await database('users').del();
       });
     });
   });

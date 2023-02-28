@@ -4,7 +4,8 @@ const updateSpecs = (
   app,
   database,
   mockData,
-  mockResponse
+  mockResponse,
+  getUserToken
 ) => {
   describe('PUT /api/v1/books', function () {
     const url = '/api/v1/books';
@@ -12,10 +13,17 @@ const updateSpecs = (
 
     const mockedData = mockData[0];
 
+    let token;
+
+    before(async () => {
+      token = await getUserToken();
+    });
+
     describe('given empty data', function () {
       it('should return book not found', function (done) {
         request(app)
           .put(`${url}/example-book-id`)
+          .set({ 'x-auth-token': token })
           .end((err, res) => {
             expect(res.status).to.equal(400);
             expect(res.body).to.deep.equal(
@@ -36,6 +44,7 @@ const updateSpecs = (
           it('should return errors message', function (done) {
             request(app)
               .put(`${url}/${mockedData.book_id}`)
+              .set({ 'x-auth-token': token })
               .send({})
               .end((err, res) => {
                 expect(res.status).to.equal(400);
@@ -50,6 +59,7 @@ const updateSpecs = (
         it('should successfully updated', function (done) {
           request(app)
             .put(`${url}/${mockedData.book_id}`)
+            .set({ 'x-auth-token': token })
             .field('title', mockedData.title)
             .field('author', mockedData.author)
             .field('city', mockedData.city)

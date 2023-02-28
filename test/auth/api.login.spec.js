@@ -1,6 +1,8 @@
 const { expect } = require('chai');
 const request = require('supertest');
 const sinon = require('sinon');
+const { v4: uuidv4 } = require('uuid');
+const { hash } = require('../../src/frameworks/utils/hasher');
 
 const app = require('../../src/frameworks/webserver/app');
 const database = require('../../src/frameworks/database/knex');
@@ -43,7 +45,15 @@ describe('POST /api/v1/auth/login', function () {
 
     describe('given invalid password', () => {
       before(async () => {
-        await request(app).post('/api/v1/users/').send(mockData[0]);
+        await database('users').del();
+
+        await database('users').insert({
+          user_id: uuidv4(),
+          name: 'skuy ngoding',
+          username: 'skuy',
+          email: 'example@co',
+          password: hash('@Pass123'),
+        });
       });
 
       it('should return error -> invalid password', (done) => {
@@ -84,6 +94,7 @@ describe('POST /api/v1/auth/login', function () {
 
       after(async () => {
         sinon.restore();
+
         await database('users').del();
       });
     });
