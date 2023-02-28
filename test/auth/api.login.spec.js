@@ -76,7 +76,6 @@ describe('POST /api/v1/auth/login', function () {
             expect(res.body).to.deep.equal({
               status: 'OK',
               code: 200,
-              message: 'User has been logged in',
               token: tokenStub,
             });
             done();

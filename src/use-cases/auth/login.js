@@ -37,7 +37,6 @@ const serviceLogin = (repository, validator, jwt, hasher, buildError) => {
 
       return {
         status: true,
-        message: 'User has been logged in',
         token,
       };
     } catch (err) {

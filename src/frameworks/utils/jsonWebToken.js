@@ -7,6 +7,16 @@ const getToken = (user_id) => {
   });
 };
 
+const verifyToken = (token) => {
+  return jwt.verify(token, config.JWT_SECRET_KEY, (err, decoded) => {
+    if (err) {
+      return false;
+    }
+    return decoded;
+  });
+};
+
 module.exports = {
   getToken,
+  verifyToken,
 };

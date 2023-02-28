@@ -6,7 +6,6 @@ const ctlLogin = (service) => {
       return res.status(200).json({
         status: 'OK',
         code: 200,
-        message: result.message,
         token: result.token,
       });
     } else {

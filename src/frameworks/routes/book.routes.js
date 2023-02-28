@@ -12,11 +12,12 @@ const fileUpload = require('../middleware/fileUpload');
 const upload = fileUpload.single('file');
 
 const cache = require('../middleware/cache');
+const isLoggedIn = require('../middleware/authentication');
 
 const router = express.Router();
 
 router
-  .get('/', cache.set(300), findAll)
+  .get('/', isLoggedIn, cache.set(300), findAll)
   .get('/:slug', findOne)
   .post('/', upload, save)
   .delete('/:book_id', deleteOne)
