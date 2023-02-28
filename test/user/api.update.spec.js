@@ -1,12 +1,12 @@
-const updateSpecs = (
-  expect,
+const updateSpecs = ({
   request,
+  expect,
   app,
   database,
   mockData,
   mockResponse,
-  getUserToken
-) => {
+  getUserToken,
+}) => {
   describe('UPDATE /api/v1/users/:user_id', function () {
     const url = '/api/v1/users';
     const table = 'users';

@@ -1,16 +1,15 @@
-const updateSpecs = (
-  expect,
+const updateSpecs = ({
   request,
+  expect,
   app,
   database,
   mockData,
   mockResponse,
-  getUserToken
-) => {
+  getUserToken,
+}) => {
   describe('PUT /api/v1/books', function () {
     const url = '/api/v1/books';
     const table = 'books';
-
     const mockedData = mockData[0];
 
     let token;

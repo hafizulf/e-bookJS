@@ -1,13 +1,12 @@
-const saveSpecs = (
-  expect,
+const saveSpecs = ({
   request,
+  expect,
   app,
   database,
   compare,
-  mockData,
+  getUserToken,
   mockResponse,
-  getUserToken
-) => {
+}) => {
   describe('POST /api/v1/users', function () {
     const url = '/api/v1/users';
     const table = 'users';
@@ -32,42 +31,45 @@ const saveSpecs = (
       });
     });
 
-    // describe('when user given valid data', function () {
-    //   it('should return 201 with successfully created', function (done) {
-    //     request(app)
-    //       .post(url)
-    //       .set({ 'x-auth-token': token })
-    //       .send(mockData[0])
-    //       .end((err, res) => {
-    //         expect(res.status).to.equal(201);
-    //         expect(res.body).to.deep.equal(mockResponse.postWithValidBody());
-    //         return done();
-    //       });
-    //   });
+    describe('when user given valid data', function () {
+      it('should return 201 with successfully created', function (done) {
+        request(app)
+          .post(url)
+          .set({ 'x-auth-token': token })
+          .send({
+            username: 'newuser',
+            email: 'newuser@ex.co',
+            password: '@Password123',
+          })
+          .end((err, res) => {
+            expect(res.status).to.equal(201);
+            expect(res.body).to.deep.equal(mockResponse.postWithValidBody());
+            return done();
+          });
+      });
 
-    //   let user_id;
-    //   it('should return inserted data', async function () {
-    //     let mocked = mockData[0];
+      let user_id;
+      it('should return inserted data', async function () {
+        const user = await database
+          .select('user_id', 'username', 'email', 'password')
+          .table(table)
+          .where('username', 'newuser')
+          .first();
 
-    //     const user = await database
-    //       .select('username', 'email', 'password')
-    //       .table(table)
-    //       .where('username', mocked.username)
-    //       .first();
+        user_id = user.user_id;
 
-    //     user_id = user.user_id;
+        expect(user.username).to.equal('newuser');
+        expect(user.email).to.equal('newuser@ex.co');
 
-    //     expect(user.username).to.equal(mocked.username);
-    //     expect(user.email).to.equal(mocked.email);
+        const isMatch = compare('@Password123', user.password);
+        expect(isMatch).to.equal(true);
+      });
 
-    //     const isMatch = compare(mocked.password, user.password);
-    //     expect(isMatch).to.equal(true);
-    //   });
-
-    //   after(async function () {
-    //     await request(app).delete(`${url}/${user_id}`);
-    //   });
-    // });
+      after(async function () {
+        // await request(app).delete(`${url}/${user_id}`);
+        await database.del().table(table).where('user_id', user_id).del();
+      });
+    });
   });
 };
 

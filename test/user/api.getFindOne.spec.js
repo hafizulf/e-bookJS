@@ -1,12 +1,11 @@
-const findOneSpecs = (
-  expect,
+const findOneSpecs = ({
   request,
+  expect,
   app,
   database,
-  mockData,
   mockResponse,
-  getUserToken
-) => {
+  getUserToken,
+}) => {
   describe('GET /api/v1/users/:user_id', () => {
     const url = '/api/v1/users';
     const table = 'users';

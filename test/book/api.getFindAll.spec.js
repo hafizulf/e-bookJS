@@ -1,13 +1,13 @@
-const findAllSpecs = (
-  expect,
+const findAllSpecs = ({
   request,
+  expect,
   app,
   database,
   cache,
   mockData,
   mockResponse,
-  getUserToken
-) => {
+  getUserToken,
+}) => {
   describe('GET /api/v1/books', () => {
     const url = '/api/v1/books';
     const table = 'books';

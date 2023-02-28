@@ -1,12 +1,12 @@
-const deleteSpecs = (
-  expect,
+const deleteSpecs = ({
   request,
+  expect,
   app,
   database,
   mockData,
   mockResponse,
-  getUserToken
-) => {
+  getUserToken,
+}) => {
   describe('DELETE /api/v1/users', () => {
     const url = '/api/v1/users';
     const table = 'users';

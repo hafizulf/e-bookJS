@@ -5,7 +5,7 @@
  * Stubbing the file upload in supertest, etc
  */
 
-const saveSpecs = (expect, request, app, mockResponse, getUserToken) => {
+const saveSpecs = ({ request, expect, app, mockResponse, getUserToken }) => {
   describe('POST /api/v1/books', function () {
     const url = '/api/v1/books';
 

@@ -17,7 +17,6 @@
     "migrate:test-rollback": "cross-env NODE_ENV=test knex --cwd=src/frameworks/database migrate:rollback",
     "seed:make": "knex --cwd=src/frameworks/database seed:make",
     "seed": "knex --cwd=src/frameworks/database seed:run",
-    "seed:test": "cross-env NODE_ENV=test knex --cwd=src/frameworks/database seed:run",
     "lint": "eslint ./src --ext .js",
     "lint:fix": "eslint --fix ./src --ext .js"
   },

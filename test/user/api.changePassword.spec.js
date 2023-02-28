@@ -1,12 +1,12 @@
-const changePasswordSpecs = (
-  expect,
+const changePasswordSpecs = ({
   request,
+  expect,
   app,
   database,
   compare,
   mockData,
-  getUserToken
-) => {
+  getUserToken,
+}) => {
   describe('POST /api/v1/users/change-password/:user_id', function () {
     const url = '/api/v1/users/change-password';
     const table = 'users';
