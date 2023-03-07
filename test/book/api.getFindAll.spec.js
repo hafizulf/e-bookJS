@@ -42,7 +42,8 @@ const findAllSpecs = ({
       it('should return list of books', (done) => {
         request(app)
           .get(url)
-          .set({ 'x-auth-token': token })
+          // .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.deep.equal(
