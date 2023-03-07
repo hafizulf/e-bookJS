@@ -1,4 +1,4 @@
-const ctlFindAll = (service, paginate) => {
+const ctlFindAll = (service) => {
   return async (req, res) => {
     const filter = {
       currentPage: parseInt(req.query.page) || 1,
