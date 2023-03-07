@@ -19,6 +19,11 @@ jobs:
         ports:
           - 3306:3306
 
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -35,10 +40,12 @@ jobs:
         run: |
           touch .env
           echo DB_DIALECT=mysql >> .env
-          echo DB_TEST_HOST=0.0.0.0 >> .env
+          echo DB_TEST_HOST=127.0.0.1 >> .env
           echo DB_TEST_USER='ebookjs_test' >> .env
           echo DB_TEST_PASSWORD='ebookjs_test' >> .env
           echo DB_TEST_DATABASE='ebookjs_dbtest' >> .env
+          echo REDIS_HOST_TEST='127.0.0.1' >> .env
+          echo REDIS_PORT_TEST='6379' >> .env
           cat .env
 
       - name: Run linter
