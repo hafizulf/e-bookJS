@@ -9,14 +9,14 @@ const {
   changePassword,
 } = require('../../controllers/user');
 
-const cache = require('../middleware/cache');
+const { cache } = require('../middleware/cache');
 const isLoggedIn = require('../middleware/authentication');
 
 const router = express.Router();
 
 router
   .post('/', isLoggedIn, save)
-  .get('/', isLoggedIn, cache.set(300), findAll)
+  .get('/', isLoggedIn, cache(300), findAll)
   .get('/:user_id', isLoggedIn, findOne)
   .delete('/:user_id', isLoggedIn, deleteOne)
   .put('/:user_id', isLoggedIn, update)

@@ -9,13 +9,13 @@ const {
 } = require('../../controllers/book');
 
 const fileUpload = require('../middleware/fileUpload');
-const cache = require('../middleware/cache');
+const { cache } = require('../middleware/cache');
 const isLoggedIn = require('../middleware/authentication');
 
 const router = express.Router();
 
 router
-  .get('/', isLoggedIn, cache.set(300), findAll)
+  .get('/', isLoggedIn, cache(300), findAll)
   .get('/:slug', isLoggedIn, findOne)
   .post('/', isLoggedIn, fileUpload.single('file'), save)
   .delete('/:book_id', isLoggedIn, deleteOne)

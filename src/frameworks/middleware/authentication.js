@@ -1,21 +1,17 @@
 const jwt = require('../utils/jsonWebToken');
 
 const isLoggedIn = (req, res, next) => {
-  // const token = req.headers['x-auth-token'];
-
-  const bearer = req.headers.authorization;
+  const token = req.headers['x-auth-token'];
 
   const unauthorizedResponse = {
     status: 'Unauthorized',
     code: 401,
   };
 
-  if (!bearer) {
+  if (!token) {
     unauthorizedResponse.message = 'Token is not provided!';
     return res.status(401).json(unauthorizedResponse);
   }
-
-  const token = bearer.split(' ')[1];
 
   const isVerify = jwt.verifyToken(token);
   if (!isVerify) {

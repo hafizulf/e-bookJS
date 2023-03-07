@@ -1,34 +1,49 @@
-const NodeCache = require('node-cache');
+const config = require('../config');
 
-const cache = new NodeCache();
+const Redis = require('ioredis');
 
-const set = (duration) => {
+let client;
+if (config.NODE_ENV === 'test') {
+  client = new Redis({
+    host: config.REDIS_HOST_TEST,
+    port: config.REDIS_PORT_TEST,
+  });
+} else {
+  client = new Redis({
+    host: config.REDIS_HOST,
+    port: config.REDIS_PORT,
+  });
+}
+
+const cache = (duration) => {
   return (req, res, next) => {
     if (req.method !== 'GET') {
       return next();
     }
 
     const key = req.originalUrl;
-    const cachedResponse = cache.get(key);
 
-    if (cachedResponse) {
-      return res.send(cachedResponse);
-    } else {
-      res.originalJson = res.json;
-      res.json = (body) => {
-        cache.set(key, body, duration);
-        res.originalJson(body);
-      };
-      next();
-    }
+    client.get(key, (err, cachedResponse) => {
+      if (cachedResponse !== null) {
+        console.log('cached');
+        return res.json(JSON.parse(cachedResponse));
+      } else {
+        res.originalJson = res.json;
+        res.json = (body) => {
+          client.set(key, JSON.stringify(body), 'EX', duration);
+          res.originalJson(body);
+        };
+        next();
+      }
+    });
   };
 };
 
 const del = (key) => {
-  return cache.del(key);
+  return client.del(key);
 };
 
 module.exports = {
-  set,
+  cache,
   del,
 };

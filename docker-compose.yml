@@ -25,8 +25,16 @@ services:
     networks:
       - ebookjs-net
 
+  redis:
+    image: redis
+    volumes:
+      - redis:/var/lib/redis
+    networks:
+      - ebookjs-net
+
 networks:
   ebookjs-net:
 
 volumes:
   mysql:
+  redis:

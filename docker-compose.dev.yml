@@ -25,6 +25,15 @@ services:
     networks:
       - ebookjs-net
 
+  redis_test:
+    image: redis
+    ports:
+      - '${REDIS_PORT_TEST}:6379'
+    volumes:
+      - redis_test:/var/lib/redis
+    networks:
+      - ebookjs-net
+
   adminer:
     image: adminer
     restart: always
@@ -37,3 +46,4 @@ services:
 
 volumes:
   mysql_test:
+  redis_test:
