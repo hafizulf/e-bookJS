@@ -10,7 +10,9 @@ const serviceFindAll = (repository, paginate) => {
       offset: pagination.showingFrom - 1,
     });
 
-    const response = { data: result };
+    const response = {
+      data: result,
+    };
 
     if (result.length !== 0) {
       response.pagination = pagination;

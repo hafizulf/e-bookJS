@@ -12,5 +12,7 @@ const params = {
 };
 
 const saveSpecs = require('./api.postSave.spec');
+const findAllSpecs = require('./api.getFindAll.spec');
 
 saveSpecs(params);
+findAllSpecs(params);
