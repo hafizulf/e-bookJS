@@ -3,6 +3,7 @@ const express = require('express');
 const authRoutes = require('../routes/auth.routes');
 const bookRoutes = require('../routes/book.routes');
 const userRoutes = require('../routes/user.routes');
+const roleRoutes = require('../routes/role.routes');
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/books', bookRoutes);
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/roles', roleRoutes);
 
 app.get('/', (req, res) => {
   res.send('E-bookJS App!');

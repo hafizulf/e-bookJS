@@ -3,19 +3,13 @@ const serviceSave = (Entity, repository, validator, buildError) => {
     try {
       validator.save(data);
 
-      if (data.title) {
-        data.slug = data.title.replace(/\s+/g, '-').toLowerCase();
-      }
-
-      const book = new Entity(data);
-      const newBook = book.save();
-      newBook.file = book.file.filename;
-
-      await repository.save(newBook);
+      const role = new Entity(data);
+      const newRole = role.save();
+      await repository.save(newRole);
 
       return {
         status: true,
-        message: 'Book has been created',
+        message: 'Role has been created',
       };
     } catch (err) {
       const errors = buildError(err.inner);
