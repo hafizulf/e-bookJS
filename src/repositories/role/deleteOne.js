@@ -1,6 +1,6 @@
 const repositoryDeleteOne = (database, tableName) => {
-  return (book_id) => {
-    return database.del().table(tableName).where('book_id', book_id);
+  return (role_id) => {
+    return database.del().table(tableName).where('role_id', role_id);
   };
 };
 

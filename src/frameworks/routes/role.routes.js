@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { save, findAll, findOne } = require('../../controllers/role');
+const { save, findAll, findOne, deleteOne } = require('../../controllers/role');
 
 const isLoggedIn = require('../middleware/authentication');
 const authorize = require('../middleware/authorization');
@@ -11,6 +11,7 @@ const router = express.Router();
 router
   .post('/', isLoggedIn, authorize('admin'), save)
   .get('/', isLoggedIn, authorize('admin'), cache.set(3600), findAll)
-  .get('/:role_id', isLoggedIn, authorize('admin'), findOne);
+  .get('/:role_id', isLoggedIn, authorize('admin'), findOne)
+  .delete('/:role_id', isLoggedIn, authorize('admin'), deleteOne);
 
 module.exports = router;

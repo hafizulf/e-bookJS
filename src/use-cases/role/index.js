@@ -6,15 +6,18 @@ const roleValidator = require('../../frameworks/validators/role');
 const serviceSave = require('./save');
 const serviceFindAll = require('./findAll');
 const serviceFindOne = require('./findOne');
+const serviceDeleteOne = require('./deleteOne');
 
 const save = serviceSave(RoleEntity, roleRepository, roleValidator, buildError);
 const findAll = serviceFindAll(roleRepository);
 const findOne = serviceFindOne(roleRepository);
+const deleteOne = serviceDeleteOne(roleRepository);
 
 const roleService = {
   save,
   findAll,
   findOne,
+  deleteOne,
 };
 
 module.exports = roleService;
