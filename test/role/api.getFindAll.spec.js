@@ -1,7 +1,6 @@
 const findAllSpecs = ({ request, expect, app, getUserToken }) => {
   describe('GET /api/v1/roles', function () {
     const url = '/api/v1/roles';
-    const table = 'roles';
 
     let token;
 
