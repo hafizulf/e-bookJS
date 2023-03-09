@@ -1,16 +1,16 @@
 const serviceUpdate = (Entity, repository, validator, buildError) => {
   return async (data) => {
     try {
-      const { user_id } = data;
-      const userData = await repository.findOne({
-        name: 'user_id',
-        value: user_id,
+      const { role_id } = data;
+      const roleData = await repository.findOne({
+        name: 'role_id',
+        value: role_id,
       });
 
-      if (!userData) {
+      if (!roleData) {
         return {
           status: false,
-          message: 'User Not Found',
+          message: 'Role Not Found',
         };
       }
 
@@ -23,14 +23,14 @@ const serviceUpdate = (Entity, repository, validator, buildError) => {
 
       validator.update(data);
 
-      const user = new Entity(data);
-      const newUser = user.update();
+      const role = new Entity(data);
+      const newRole = role.update();
 
-      await repository.update(newUser);
+      await repository.update(newRole);
 
       return {
         status: true,
-        message: 'User has been updated',
+        message: 'Role has been updated',
       };
     } catch (err) {
       const errors = buildError(err.inner);

@@ -32,7 +32,7 @@ const serviceUpdate = (
       validator.update(data);
 
       const book = new Entity(data);
-      const newBook = book.update(data);
+      const newBook = book.update();
       if (newBook.file) {
         newBook.file = newBook.file.filename;
       }

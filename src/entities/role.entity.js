@@ -11,6 +11,16 @@ class Role {
       desc: this.desc || null,
     };
   }
+
+  update() {
+    const role = {};
+
+    if (this.role_id) role.role_id = this.role_id;
+    if (this.role) role.role = this.role;
+    if (this.desc) role.desc = this.desc;
+
+    return role;
+  }
 }
 
 module.exports = Role;

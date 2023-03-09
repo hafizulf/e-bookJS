@@ -37,19 +37,19 @@ class Book {
     };
   }
 
-  update(data) {
+  update() {
     const book = {};
 
-    if (data.book_id) book.book_id = this.book_id;
-    if (data.title) book.title = this.title;
-    if (data.slug) book.slug = this.slug;
-    if (data.author) book.author = this.author;
-    if (data.city) book.city = this.city;
-    if (data.publisher) book.publisher = this.publisher;
-    if (data.year) book.year = this.year;
-    if (data.type) book.type = this.type;
-    if (data.file) book.file = this.file;
-    if (data.desc) book.desc = this.desc;
+    if (this.book_id) book.book_id = this.book_id;
+    if (this.title) book.title = this.title;
+    if (this.slug) book.slug = this.slug;
+    if (this.author) book.author = this.author;
+    if (this.city) book.city = this.city;
+    if (this.publisher) book.publisher = this.publisher;
+    if (this.year) book.year = this.year;
+    if (this.type) book.type = this.type;
+    if (this.file) book.file = this.file;
+    if (this.desc) book.desc = this.desc;
 
     return book;
   }
