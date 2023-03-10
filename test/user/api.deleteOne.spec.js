@@ -36,6 +36,7 @@ const deleteSpecs = ({
       let user_id;
 
       before(async () => {
+        mockData[0].email = 'anothermail@co';
         await request(app)
           .post(url)
           .set({ 'x-auth-token': token })

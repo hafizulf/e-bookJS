@@ -3,6 +3,19 @@ const saveService = (Entity, repository, validator, hasher, buildError) => {
     try {
       validator.save(data);
 
+      const isExist = await repository.findOne({
+        name: 'email',
+        value: data.email,
+      });
+      if (isExist) {
+        return {
+          status: false,
+          errors: {
+            email: 'Email is registered, please use another email',
+          },
+        };
+      }
+
       const hashedPassword = hasher.hash(data.password);
       data.password = hashedPassword;
 

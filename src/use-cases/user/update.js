@@ -23,6 +23,22 @@ const serviceUpdate = (Entity, repository, validator, buildError) => {
 
       validator.update(data);
 
+      if (data.email) {
+        const isExist = await repository.findOne({
+          name: 'email',
+          value: data.email,
+        });
+
+        if (isExist && isExist.user_id !== user_id) {
+          return {
+            status: false,
+            errors: {
+              email: 'Email already exist',
+            },
+          };
+        }
+      }
+
       const user = new Entity(data);
       const newUser = user.update();
 

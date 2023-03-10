@@ -4,7 +4,7 @@ const request = require('supertest');
 const app = require('../../src/frameworks/webserver/app');
 const database = require('../../src/frameworks/database/knex');
 const cache = require('../../src/frameworks/middleware/cache');
-const { compare } = require('../../src/frameworks/utils/hasher');
+const { hash, compare } = require('../../src/frameworks/utils/hasher');
 const getUserToken = require('../auth/getUserToken');
 const mockData = require('../__mock__/user/data');
 const mockResponse = require('../__mock__/user/response');
@@ -15,6 +15,7 @@ const params = {
   app,
   database,
   cache,
+  hash,
   compare,
   getUserToken,
   mockData,
