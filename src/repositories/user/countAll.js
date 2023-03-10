@@ -1,7 +1,7 @@
-const countAllRepository = (database, tableName) => {
+const repositoryCountAll = (database, tableName) => {
   return () => {
     return database(tableName).count('user_id as totalRow').first();
   };
 };
 
-module.exports = countAllRepository;
+module.exports = repositoryCountAll;

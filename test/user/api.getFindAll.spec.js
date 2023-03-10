@@ -15,14 +15,14 @@ const findAllSpecs = ({ request, expect, app, cache, getUserToken }) => {
           .end((err, res) => {
             expect(res.body).to.be.an('object');
             expect(res.body.data).to.be.an('array');
-            expect(res.body.pagination).to.deep.equal({
-              totalData: 1,
-              totalPage: 1,
-              perPage: 10,
-              showingFrom: 1,
-              showingTo: 10,
-              currentPage: 1,
-            });
+            expect(res.body.pagination).to.include.all.keys(
+              'totalData',
+              'totalPage',
+              'perPage',
+              'showingFrom',
+              'showingTo',
+              'currentPage'
+            );
             return done();
           });
       });

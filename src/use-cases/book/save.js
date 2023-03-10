@@ -8,7 +8,7 @@ const serviceSave = (Entity, repository, validator, buildError) => {
       }
 
       const book = new Entity(data);
-      const newBook = book.save(book);
+      const newBook = book.save();
       newBook.file = book.file.filename;
 
       await repository.save(newBook);

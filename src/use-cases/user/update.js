@@ -24,7 +24,7 @@ const serviceUpdate = (Entity, repository, validator, buildError) => {
       validator.update(data);
 
       const user = new Entity(data);
-      const newUser = user.update(data);
+      const newUser = user.update();
 
       await repository.update(newUser);
 

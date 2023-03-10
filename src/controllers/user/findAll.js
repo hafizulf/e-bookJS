@@ -1,4 +1,4 @@
-const findAllCtl = (service) => {
+const ctlFindAll = (service) => {
   return async (req, res) => {
     const filter = {
       currentPage: parseInt(req.query.page) || 1,
@@ -21,4 +21,4 @@ const findAllCtl = (service) => {
   };
 };
 
-module.exports = findAllCtl;
+module.exports = ctlFindAll;

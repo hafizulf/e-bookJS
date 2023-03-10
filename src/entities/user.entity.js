@@ -17,13 +17,13 @@ class User {
     };
   }
 
-  update(data) {
+  update() {
     const user = {};
 
-    if (data.user_id) user.user_id = this.user_id;
-    if (data.name) user.name = this.name;
-    if (data.username) user.username = this.username;
-    if (data.email) user.email = this.email;
+    if (this.user_id) user.user_id = this.user_id;
+    if (this.name) user.name = this.name;
+    if (this.username) user.username = this.username;
+    if (this.email) user.email = this.email;
 
     return user;
   }
