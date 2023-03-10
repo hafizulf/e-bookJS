@@ -7,7 +7,7 @@ const updateSpecs = ({
   mockResponse,
   getUserToken,
 }) => {
-  describe('UPDATE /api/v1/users/:user_id', function () {
+  describe('PUT /api/v1/users/:user_id', function () {
     const url = '/api/v1/users';
     const table = 'users';
 

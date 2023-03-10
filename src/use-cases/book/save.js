@@ -3,9 +3,20 @@ const serviceSave = (Entity, repository, validator, buildError) => {
     try {
       validator.save(data);
 
-      if (data.title) {
-        data.slug = data.title.replace(/\s+/g, '-').toLowerCase();
+      const isExist = await repository.findOne({
+        name: 'title',
+        value: data.title,
+      });
+      if (isExist) {
+        return {
+          status: false,
+          errors: {
+            title: 'Title already exist',
+          },
+        };
       }
+
+      data.slug = data.title.replace(/\s+/g, '-').toLowerCase();
 
       const book = new Entity(data);
       const newBook = book.save();

@@ -18,7 +18,7 @@ const serviceUpdate = require('./update');
 const findAll = serviceFindAll(bookRepository, paginate);
 const save = serviceSave(BookEntity, bookRepository, bookValidator, buildError);
 const findOne = serviceFindOne(bookRepository);
-const deleteOne = serviceDeleteOne(bookRepository);
+const deleteOne = serviceDeleteOne(bookRepository, fileRemover);
 const update = serviceUpdate(
   BookEntity,
   bookRepository,

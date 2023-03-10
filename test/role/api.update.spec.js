@@ -1,5 +1,5 @@
 const updateSpecs = ({ request, expect, app, database, getUserToken }) => {
-  describe('UPDATE /api/v1/roles/:role_id', function () {
+  describe('PUT /api/v1/roles/:role_id', function () {
     const url = '/api/v1/roles';
     const table = 'roles';
     let token;

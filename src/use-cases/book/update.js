@@ -7,10 +7,6 @@ const serviceUpdate = (
 ) => {
   return async (data) => {
     try {
-      if (data.title) {
-        data.slug = data.title.replace(/\s+/g, '-').toLowerCase();
-      }
-
       const bookData = await repository.findOne({
         name: 'book_id',
         value: data.book_id,
@@ -30,6 +26,24 @@ const serviceUpdate = (
       }
 
       validator.update(data);
+
+      if (data.title) {
+        data.slug = data.title.replace(/\s+/g, '-').toLowerCase();
+
+        const isExist = await repository.findOne({
+          name: 'title',
+          value: data.title,
+        });
+
+        if (isExist && isExist.book_id !== data.book_id) {
+          return {
+            status: false,
+            errors: {
+              title: 'Title already exist',
+            },
+          };
+        }
+      }
 
       const book = new Entity(data);
       const newBook = book.update();
