@@ -1,4 +1,11 @@
-const updateSpecs = ({ request, expect, app, database, getUserToken }) => {
+const updateSpecs = ({
+  request,
+  expect,
+  app,
+  database,
+  getUserToken,
+  uuidv4,
+}) => {
   describe('PUT /api/v1/roles/:role_id', function () {
     const url = '/api/v1/roles';
     const table = 'roles';
@@ -11,14 +18,9 @@ const updateSpecs = ({ request, expect, app, database, getUserToken }) => {
     describe('when exist data', function () {
       let role_id;
       before(async () => {
-        await database.insert({ role: 'example' }).into(table);
-        const role = await database
-          .select()
-          .table(table)
-          .where('role', 'example')
-          .first();
-
-        role_id = role.role_id;
+        role_id = uuidv4();
+        await database.insert({ role_id, role: 'example' }).into(table);
+        await database.insert({ role: 'example-role' }).into(table);
       });
 
       describe('given invalid body', function () {
@@ -40,6 +42,20 @@ const updateSpecs = ({ request, expect, app, database, getUserToken }) => {
       });
 
       describe('given valid body', function () {
+        it('when given role exist should return errors', (done) => {
+          request(app)
+            .put(`${url}/${role_id}`)
+            .set({ 'x-auth-token': token })
+            .send({ role: 'example-role' })
+            .end((err, res) => {
+              expect(res.status).to.equal(400);
+              expect(res.body.errors).to.deep.equal({
+                role: 'Role already exist',
+              });
+              return done();
+            });
+        });
+
         it('should return successfully updated role', (done) => {
           request(app)
             .put(`${url}/${role_id}`)

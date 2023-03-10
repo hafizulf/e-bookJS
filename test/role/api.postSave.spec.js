@@ -46,6 +46,20 @@ const saveSpecs = ({ request, expect, app, getUserToken }) => {
             return done();
           });
       });
+
+      it('given role exist should return errors', function (done) {
+        request(app)
+          .post(url)
+          .set({ 'x-auth-token': token })
+          .send({ role: 'author' })
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            expect(res.body.errors).to.deep.equal({
+              role: 'Role already exist',
+            });
+            return done();
+          });
+      });
     });
   });
 };
