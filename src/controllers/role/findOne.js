@@ -1,11 +1,7 @@
 const ctlFindOne = (service) => {
   return async (req, res) => {
     const { role_id } = req.params;
-
-    const { data, message } = await service.findOne({
-      name: 'role_id',
-      value: role_id,
-    });
+    const { data, message } = await service.findOne(role_id);
 
     const response = {
       status: 'OK',

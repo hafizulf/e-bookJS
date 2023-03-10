@@ -2,10 +2,7 @@ const serviceUpdate = (Entity, repository, validator, buildError) => {
   return async (data) => {
     try {
       const { role_id } = data;
-      const roleData = await repository.findOne({
-        name: 'role_id',
-        value: role_id,
-      });
+      const roleData = await repository.findOne(role_id);
 
       if (!roleData) {
         return {

@@ -1,6 +1,6 @@
 const serviceDeleteOne = (repository) => {
   return async (role_id) => {
-    const user = await repository.findOne({ name: 'role_id', value: role_id });
+    const user = await repository.findOne(role_id);
 
     if (!user) {
       return {

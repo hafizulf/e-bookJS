@@ -14,10 +14,7 @@ const serviceSave = (
         name: 'user_id',
         value: data.user_id,
       });
-      const role = await roleRepository.findOne({
-        name: 'role_id',
-        value: data.role_id,
-      });
+      const role = await roleRepository.findOne(data.role_id);
 
       if (!user || !role)
         return {
