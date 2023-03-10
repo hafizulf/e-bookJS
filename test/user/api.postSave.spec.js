@@ -10,7 +10,6 @@ const saveSpecs = ({
   describe('POST /api/v1/users', function () {
     const url = '/api/v1/users';
     const table = 'users';
-
     let token;
 
     before(async () => {

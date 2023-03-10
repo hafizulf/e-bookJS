@@ -10,7 +10,6 @@ const changePasswordSpecs = ({
   describe('POST /api/v1/users/change-password/:user_id', function () {
     const url = '/api/v1/users/change-password';
     const table = 'users';
-
     let token;
 
     before(async () => {
@@ -35,7 +34,6 @@ const changePasswordSpecs = ({
     });
 
     let user_id;
-
     describe('given invalid password', function () {
       before(async () => {
         const result = await database.select('user_id').table(table);

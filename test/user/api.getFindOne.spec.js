@@ -9,7 +9,6 @@ const findOneSpecs = ({
   describe('GET /api/v1/users/:user_id', () => {
     const url = '/api/v1/users';
     const table = 'users';
-
     let token;
 
     before(async () => {
