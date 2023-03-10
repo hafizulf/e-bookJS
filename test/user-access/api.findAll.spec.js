@@ -1,5 +1,5 @@
 const saveSpecs = ({ request, expect, app, database, getUserToken }) => {
-  describe('POST /api/v1/user-access', function () {
+  describe('GET /api/v1/user-access', function () {
     const url = '/api/v1/user-access';
     let token;
 

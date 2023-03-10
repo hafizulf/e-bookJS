@@ -9,6 +9,7 @@ const paginate = require('../../frameworks/utils/paginate');
 
 const serviceSave = require('./save');
 const serviceFindAll = require('./findAll');
+const serviceDeleteOne = require('./deleteOne');
 
 const save = serviceSave(
   UserAccessEntity,
@@ -19,10 +20,12 @@ const save = serviceSave(
   buildError
 );
 const findAll = serviceFindAll(userAccessRepository, paginate);
+const deleteOne = serviceDeleteOne(userAccessRepository);
 
 const roleService = {
   save,
   findAll,
+  deleteOne,
 };
 
 module.exports = roleService;

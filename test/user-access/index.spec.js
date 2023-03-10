@@ -14,6 +14,8 @@ const params = {
 
 const saveSpecs = require('./api.postSave.spec');
 const findAllSpecs = require('./api.findAll.spec');
+const deleteOneSpecs = require('./api.deleteOne.spec');
 
 saveSpecs(params);
 findAllSpecs(params);
+deleteOneSpecs(params);
