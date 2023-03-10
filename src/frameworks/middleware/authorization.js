@@ -1,9 +1,9 @@
-const { getUserAccess } = require('../../repositories/users_access');
+const { findUserAccess } = require('../../repositories/user-access');
 
 const authorize = (role) => {
   return async (req, res, next) => {
     const { user_id } = req;
-    const user_access = await getUserAccess(user_id);
+    const user_access = await findUserAccess(user_id);
     let user_roles = user_access.map((user) => user.role);
 
     const hasAccess = user_roles.includes(role) ? true : false;
