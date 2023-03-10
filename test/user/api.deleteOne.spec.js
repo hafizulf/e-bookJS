@@ -10,7 +10,6 @@ const deleteSpecs = ({
   describe('DELETE /api/v1/users', () => {
     const url = '/api/v1/users';
     const table = 'users';
-
     let token;
 
     before(async () => {
@@ -33,20 +32,14 @@ const deleteSpecs = ({
     });
 
     describe('given exist data', () => {
-      let user_id;
-
       before(async () => {
-        await request(app)
-          .post(url)
-          .set({ 'x-auth-token': token })
-          .send(mockData[0]);
-        const result = await database.select().table(table);
-        user_id = result[1].user_id;
+        mockData[0].email = 'anothermail@co';
+        await database(table).insert(mockData[0]);
       });
 
       it('should deleted successfully', (done) => {
         request(app)
-          .delete(`${url}/${user_id}`)
+          .delete(`${url}/${mockData[0].user_id}`)
           .set({ 'x-auth-token': token })
           .end((err, res) => {
             expect(res.status).to.equal(200);

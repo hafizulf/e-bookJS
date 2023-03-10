@@ -1,5 +1,6 @@
 const request = require('supertest');
 const { expect } = require('chai');
+const { v4: uuidv4 } = require('uuid');
 const app = require('../../src/frameworks/webserver/app');
 const database = require('../../src/frameworks/database/knex');
 const getUserToken = require('../auth/getUserToken');
@@ -10,6 +11,7 @@ const params = {
   app,
   database,
   getUserToken,
+  uuidv4,
 };
 
 const saveSpecs = require('./api.postSave.spec');

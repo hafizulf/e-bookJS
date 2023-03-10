@@ -16,6 +16,14 @@ const postWithInvalidBody = () => {
   return resBadRequest;
 };
 
+const putWithInvalidTitle = () => {
+  resBadRequest.errors = {
+    title: 'Title already exist',
+  };
+
+  return resBadRequest;
+};
+
 const resBodyInvalidFileType = () => {
   resBadRequest.errors = {
     file: 'Must be PDF filetype',
@@ -128,4 +136,5 @@ module.exports = {
   deleteWithExistData,
   putWithEmptyBody,
   putWithValidBody,
+  putWithInvalidTitle,
 };

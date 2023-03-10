@@ -1,4 +1,11 @@
-const deleteSpecs = ({ request, expect, app, database, getUserToken }) => {
+const deleteSpecs = ({
+  request,
+  expect,
+  app,
+  database,
+  getUserToken,
+  uuidv4,
+}) => {
   describe('DELETE /api/v1/roles', () => {
     const url = '/api/v1/roles';
     let token;
@@ -24,14 +31,8 @@ const deleteSpecs = ({ request, expect, app, database, getUserToken }) => {
 
       let role_id;
       before(async () => {
-        await database.insert({ role: 'example' }).into(table);
-        const role = await database
-          .select()
-          .table(table)
-          .where('role', 'example')
-          .first();
-
-        role_id = role.role_id;
+        role_id = uuidv4();
+        await database.insert({ role_id, role: 'example' }).into(table);
       });
 
       it('should deleted successfully', (done) => {

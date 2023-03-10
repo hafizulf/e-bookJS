@@ -1,6 +1,6 @@
 const serviceFindOne = (repository) => {
   return async (role_id) => {
-    const role = await repository.findOne(role_id);
+    const role = await repository.findOne({ name: 'role_id', value: role_id });
 
     const response = {};
 

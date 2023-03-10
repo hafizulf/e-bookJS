@@ -10,7 +10,6 @@ const saveSpecs = ({
   describe('POST /api/v1/users', function () {
     const url = '/api/v1/users';
     const table = 'users';
-
     let token;
 
     before(async () => {
@@ -65,8 +64,23 @@ const saveSpecs = ({
         expect(isMatch).to.equal(true);
       });
 
+      it('given email registered should return errors', function (done) {
+        request(app)
+          .post(url)
+          .set({ 'x-auth-token': token })
+          .send({
+            username: 'newuser',
+            email: 'newuser@ex.co',
+            password: '@Password123',
+          })
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            expect(res.body).to.deep.equal(mockResponse.postWithInvalidEmail());
+            return done();
+          });
+      });
+
       after(async function () {
-        // await request(app).delete(`${url}/${user_id}`);
         await database.del().table(table).where('user_id', user_id).del();
       });
     });

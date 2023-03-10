@@ -16,6 +16,14 @@ const postWithInvalidBody = () => {
   return resBadRequest;
 };
 
+const postWithInvalidEmail = () => {
+  resBadRequest.errors = {
+    email: 'Email is registered, please use another email',
+  };
+
+  return resBadRequest;
+};
+
 const postWithValidBody = () => {
   return {
     status: 'CREATED',
@@ -80,6 +88,14 @@ const putWithEmptyBody = () => {
   };
 };
 
+const putWithInvalidEmail = () => {
+  resBadRequest.errors = {
+    email: 'Email already exist',
+  };
+
+  return resBadRequest;
+};
+
 const putWithValidBody = () => {
   return {
     status: 'OK',
@@ -98,4 +114,6 @@ module.exports = {
   deleteWithExistData,
   putWithEmptyBody,
   putWithValidBody,
+  postWithInvalidEmail,
+  putWithInvalidEmail,
 };

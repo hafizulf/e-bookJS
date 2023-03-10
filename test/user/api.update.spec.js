@@ -3,14 +3,14 @@ const updateSpecs = ({
   expect,
   app,
   database,
+  hash,
   mockData,
   mockResponse,
   getUserToken,
 }) => {
-  describe('UPDATE /api/v1/users/:user_id', function () {
+  describe('PUT /api/v1/users/:user_id', function () {
     const url = '/api/v1/users';
     const table = 'users';
-
     let token;
 
     before(async () => {
@@ -33,21 +33,22 @@ const updateSpecs = ({
     });
 
     describe('when exist data', function () {
-      let user_id;
-
       before(async () => {
-        await request(app)
-          .post(url)
-          .set({ 'x-auth-token': token })
-          .send(mockData[0]);
-        const result = await database.select().table(table);
-        user_id = result[1].user_id;
+        mockData[0].password = hash(mockData[0].password);
+        await database.insert(mockData[0]).into(table);
+        await database
+          .insert({
+            username: 'userex12',
+            email: 'userex12@co',
+            password: hash('@Userex123'),
+          })
+          .into(table);
       });
 
       describe('when invalid body', function () {
         it('given empty body should return -> need a field to update', function (done) {
           request(app)
-            .put(`${url}/${user_id}`)
+            .put(`${url}/${mockData[0].user_id}`)
             .set({ 'x-auth-token': token })
             .send({})
             .end((err, res) => {
@@ -59,7 +60,7 @@ const updateSpecs = ({
 
         it('given invalid username should return -> username must be a string', function (done) {
           request(app)
-            .put(`${url}/${user_id}`)
+            .put(`${url}/${mockData[0].user_id}`)
             .set({ 'x-auth-token': token })
             .send({
               username: 12345,
@@ -78,7 +79,7 @@ const updateSpecs = ({
       describe('given valid body', function () {
         it('should return successfully updated user', function (done) {
           request(app)
-            .put(`${url}/${user_id}`)
+            .put(`${url}/${mockData[0].user_id}`)
             .set({ 'x-auth-token': token })
             .send({
               name: 'skuy ngoding updated',
@@ -94,7 +95,7 @@ const updateSpecs = ({
 
         it('should return updated user', async function () {
           const result = await request(app)
-            .get(`${url}/${user_id}`)
+            .get(`${url}/${mockData[0].user_id}`)
             .set({ 'x-auth-token': token });
           const { name, username, email } = result.body.data;
 
@@ -102,10 +103,27 @@ const updateSpecs = ({
           expect(username).to.equal('skuy update');
           expect(email).to.equal('skuy.update@co');
         });
+
+        it('given email registered should return errors', function (done) {
+          request(app)
+            .put(`${url}/${mockData[0].user_id}`)
+            .set({ 'x-auth-token': token })
+            .send({
+              name: 'skuy ngoding 2nd updated',
+              email: 'userex12@co',
+            })
+            .end((err, res) => {
+              expect(res.status).to.equal(400);
+              expect(res.body).to.deep.equal(
+                mockResponse.putWithInvalidEmail()
+              );
+              return done();
+            });
+        });
       });
 
       after(async function () {
-        await database.del().table(table).where('user_id', user_id).del();
+        await database.del().where('user_id', mockData[0].user_id).table(table);
       });
     });
   });
