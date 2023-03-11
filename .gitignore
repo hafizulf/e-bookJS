@@ -8,3 +8,4 @@ uploads/**
 .env
 
 rest/
+frontend-sample.txt

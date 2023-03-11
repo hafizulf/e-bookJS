@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const authRoutes = require('../routes/auth.routes');
 const bookRoutes = require('../routes/book.routes');
@@ -9,6 +10,7 @@ const userAccessRoutes = require('../routes/userAccess.routes');
 const app = express();
 
 // plugins
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
