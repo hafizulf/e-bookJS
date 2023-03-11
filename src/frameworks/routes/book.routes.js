@@ -6,6 +6,7 @@ const {
   save,
   deleteOne,
   update,
+  downloadFile,
 } = require('../../controllers/book');
 
 const fileUpload = require('../middleware/fileUpload');
@@ -26,6 +27,7 @@ router
     authorize('admin'),
     fileUpload.single('file'),
     update
-  );
+  )
+  .get('/download/:filename', downloadFile);
 
 module.exports = router;
