@@ -28,6 +28,6 @@ router
     fileUpload.single('file'),
     update
   )
-  .get('/download/:filename', downloadFile);
+  .get('/download/:filename', isLoggedIn, authorize('user'), downloadFile);
 
 module.exports = router;
