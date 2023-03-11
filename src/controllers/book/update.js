@@ -1,5 +1,5 @@
-const ctlUpdate = (service) => {
-  return async (req, res, next) => {
+const ctlUpdate = (service, response) => {
+  return async (req, res) => {
     const { book_id } = req.params;
     const data = req.body;
 
@@ -11,19 +11,11 @@ const ctlUpdate = (service) => {
     const { status, message, errors } = await service.update(data);
 
     if (status) {
-      return res.status(200).json({
-        status: 'OK',
-        code: 200,
-        message,
-      });
+      response.success(res, message);
     } else {
-      const response = {
-        status: 'BAD_REQUEST',
-        code: 400,
-      };
-      message ? (response.message = message) : (response.errors = errors);
-
-      return res.status(400).json(response);
+      message
+        ? response.updateFailed(res, 'message', message)
+        : response.updateFailed(res, 'errors', errors);
     }
   };
 };

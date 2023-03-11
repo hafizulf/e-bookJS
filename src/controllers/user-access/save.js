@@ -1,21 +1,7 @@
-const ctlSave = (service) => {
+const ctlSave = (service, response) => {
   return async (req, res) => {
-    const data = req.body;
-    const { status, message, errors } = await service.save(data);
-
-    if (status) {
-      return res.status(201).json({
-        status: 'CREATED',
-        code: 201,
-        message,
-      });
-    } else {
-      return res.status(400).json({
-        status: 'BAD_REQUEST',
-        code: 400,
-        errors,
-      });
-    }
+    const { status, message, errors } = await service.save(req.body);
+    status ? response.created(res, message) : response.postFailed(res, errors);
   };
 };
 

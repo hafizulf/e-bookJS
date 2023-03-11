@@ -1,4 +1,4 @@
-const ctlFindAll = (service) => {
+const ctlFindAll = (service, response) => {
   return async (req, res) => {
     const filter = {
       currentPage: parseInt(req.query.page) || 1,
@@ -7,17 +7,10 @@ const ctlFindAll = (service) => {
     };
 
     const result = await service.findAll(filter);
-    const response = {
-      status: 'OK',
-      code: 200,
-      data: result.data,
-    };
 
-    if (result.pagination) {
-      response.pagination = result.pagination;
-    }
-
-    return res.status(200).json(response);
+    result.pagination
+      ? response.successFindAllPagination(res, result.data, result.pagination)
+      : response.successFindAllPagination(res, result.data);
   };
 };
 

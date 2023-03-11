@@ -1,4 +1,4 @@
-const ctlLogin = (service) => {
+const ctlLogin = (service, response) => {
   return async (req, res) => {
     const result = await service.login(req.body);
 
@@ -17,16 +17,9 @@ const ctlLogin = (service) => {
         });
       }
 
-      const response = {
-        status: 'BAD_REQUEST',
-        code: 400,
-      };
-
-      result.errors
-        ? (response.errors = result.errors)
-        : (response.message = result.message);
-
-      return res.status(400).json(response);
+      result.message
+        ? response.updateFailed(res, 'message', result.message)
+        : response.updateFailed(res, 'errors', result.errors);
     }
   };
 };
