@@ -1,7 +1,7 @@
 const bookService = require('../../use-cases/book');
+const response = require('../../frameworks/utils/response');
 const path = require('path');
 
-// register controllers
 const ctlFindAll = require('./findAll');
 const ctlFindOne = require('./findOne');
 const ctlSave = require('./save');
@@ -9,11 +9,11 @@ const ctlDeleteOne = require('./deleteOne');
 const ctlUpdate = require('./update');
 const ctlDownloadFile = require('./downloadFile');
 
-const findAll = ctlFindAll(bookService);
-const findOne = ctlFindOne(bookService);
-const save = ctlSave(bookService);
-const deleteOne = ctlDeleteOne(bookService);
-const update = ctlUpdate(bookService);
+const findAll = ctlFindAll(bookService, response);
+const findOne = ctlFindOne(bookService, response);
+const save = ctlSave(bookService, response);
+const deleteOne = ctlDeleteOne(bookService, response);
+const update = ctlUpdate(bookService, response);
 const downloadFile = ctlDownloadFile(path);
 
 const bookController = {

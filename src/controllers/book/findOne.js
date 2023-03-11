@@ -1,4 +1,4 @@
-const ctlFindOne = (service) => {
+const ctlFindOne = (service, response) => {
   return async (req, res) => {
     const { slug } = req.params;
     const { data, message } = await service.findOne({
@@ -6,13 +6,9 @@ const ctlFindOne = (service) => {
       value: slug,
     });
 
-    let response = {
-      status: 'OK',
-      code: 200,
-    };
-    data ? (response.data = data) : (response.message = message);
-
-    return res.status(200).json(response);
+    data
+      ? response.successFindOne(res, 'data', data)
+      : response.successFindOne(res, 'message', message);
   };
 };
 
