@@ -5,14 +5,14 @@ const response = {
 
 const loginWithEmptyData = () => {
   response.errors = {
-    username: 'required',
+    email: 'required',
     password: 'required',
   };
 
   return response;
 };
 
-const loginWithUsernameNotFound = () => {
+const loginWithUserNotFound = () => {
   delete response.errors;
   response.message = 'User Not Found';
 
@@ -29,6 +29,6 @@ const loginWithInvalidPassword = () => {
 
 module.exports = {
   loginWithEmptyData,
-  loginWithUsernameNotFound,
+  loginWithUserNotFound,
   loginWithInvalidPassword,
 };

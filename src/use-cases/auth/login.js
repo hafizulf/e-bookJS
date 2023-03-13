@@ -4,15 +4,11 @@ const serviceLogin = (repository, validator, jwt, hasher, buildError) => {
       validator.login(data);
 
       // check if user is exist
-      const { username, email } = data;
-      const find = {
-        name: username ? 'username' : 'email',
-        value: username ? username : email,
-      };
+      const { email } = data;
 
       const user = await repository.findOne({
-        name: find.name,
-        value: find.value,
+        name: 'email',
+        value: email,
       });
 
       if (!user) {

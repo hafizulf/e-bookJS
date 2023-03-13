@@ -28,15 +28,15 @@ describe('POST /api/v1/auth/login', function () {
       });
     });
 
-    describe('given unknown username', () => {
+    describe('given unknown email', () => {
       it('should return user not found', (done) => {
         request(app)
           .post(url)
-          .send({ username: 'xyz', password: 'xyz123' })
+          .send({ email: 'xyz', password: 'xyz123' })
           .end((err, res) => {
             expect(res.status).to.equal(400);
             expect(res.body).to.deep.equal(
-              mockResponse.loginWithUsernameNotFound()
+              mockResponse.loginWithUserNotFound()
             );
             done();
           });
@@ -59,7 +59,7 @@ describe('POST /api/v1/auth/login', function () {
       it('should return error -> invalid password', (done) => {
         request(app)
           .post(url)
-          .send({ username: 'skuy', password: 'xyz123' })
+          .send({ email: 'example@co', password: 'xyz123' })
           .end((err, res) => {
             expect(res.status).to.equal(401);
             expect(res.body).to.deep.equal(
@@ -72,31 +72,29 @@ describe('POST /api/v1/auth/login', function () {
   });
 
   describe('when given valid data', function () {
-    describe('given valid username/email and password', () => {
-      it('should logged in successfully and return user token', (done) => {
-        const tokenStub = 'fake_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
-        const jwtStub = sinon.stub(jwt, 'getToken').returns(tokenStub);
+    it('should logged in successfully and return user token', (done) => {
+      const tokenStub = 'fake_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
+      const jwtStub = sinon.stub(jwt, 'getToken').returns(tokenStub);
 
-        request(app)
-          .post(url)
-          .send({ username: 'skuy', password: mockData[0].password })
-          .end((err, res) => {
-            expect(jwtStub.calledOnce).to.be.true;
-            expect(res.status).to.equal(200);
-            expect(res.body).to.deep.equal({
-              status: 'OK',
-              code: 200,
-              token: tokenStub,
-            });
-            done();
+      request(app)
+        .post(url)
+        .send({ email: 'example@co', password: mockData[0].password })
+        .end((err, res) => {
+          expect(jwtStub.calledOnce).to.be.true;
+          expect(res.status).to.equal(200);
+          expect(res.body).to.deep.equal({
+            status: 'OK',
+            code: 200,
+            token: tokenStub,
           });
-      });
+          done();
+        });
+    });
 
-      after(async () => {
-        sinon.restore();
+    after(async () => {
+      sinon.restore();
 
-        await database('users').del();
-      });
+      await database('users').del();
     });
   });
 });
