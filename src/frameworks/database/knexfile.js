@@ -58,4 +58,5 @@ const testEnvConfig = {
 module.exports = {
   development: devEnvConfig,
   test: testEnvConfig,
+  production: devEnvConfig,
 };
