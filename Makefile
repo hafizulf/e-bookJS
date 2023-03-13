@@ -1,4 +1,4 @@
-DOCKER_FILE := ./Dockerfile.dev
+DOCKER_FILE := ./Dockerfile
 DOCKER_DEV := -f docker-compose.yml -f docker-compose.dev.yml
 DOCKER_IMAGES := ebookjs-app:latest
 
