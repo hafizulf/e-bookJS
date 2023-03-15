@@ -1,0 +1,722 @@
+openapi: 3.0.1
+info:
+  title: e-bookJS App API
+  version: 1.0.0
+  description: This is a simple API documentation for e-bookJS App [Github](https://github.com/hafizulf/e-bookJS)
+  contact:
+    name: Developer
+    email: ngodingskuy@gmail.com
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Development server
+paths:
+  /auth/login:
+    post:
+      tags:
+        - authentication
+      description: Login user
+      requestBody:
+        $ref: '#/components/requestBodies/UserLogin'
+      responses:
+        200:
+          $ref: '#/components/responses/LoggedIn'
+        400:
+          $ref: '#/components/responses/FailedWithErrorsAndMessage'
+  /auth/register:
+    post:
+      tags:
+        - authentication
+      description: Register new user
+      requestBody:
+        $ref: '#/components/requestBodies/User'
+      responses:
+        201:
+          $ref: '#/components/responses/Created'
+        400:
+          $ref: '#/components/responses/FailedWithErrorsOnly'
+  /roles:
+    post:
+      tags:
+        - role
+      description: Add new role data
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+      requestBody:
+        $ref: '#/components/requestBodies/Role'
+      responses:
+        201:
+          $ref: '#/components/responses/Created'
+        400:
+          $ref: '#/components/responses/FailedWithErrorsAndMessage'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+    get:
+      tags:
+        - role
+      description: Get All Role List
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+      responses:
+        200:
+          $ref: '#/components/responses/GetAllData'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+  /roles/{role_id}:
+    get:
+      tags:
+        - role
+      description: Get a Role Detail
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+        - $ref: '#/components/parameters/roleIdParam'
+      responses:
+        200:
+          $ref: '#/components/responses/GetOneData'
+        400:
+          $ref: '#/components/responses/FailedWithMessageOnly'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+    put:
+      tags:
+        - role
+      description: Update role Detail
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+        - $ref: '#/components/parameters/roleIdParam'
+      requestBody:
+        $ref: '#/components/requestBodies/Role'
+      responses:
+        200:
+          $ref: '#/components/responses/UpdateAndDeleted'
+        400:
+          $ref: '#/components/responses/FailedWithErrorsAndMessage'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      tags:
+        - role
+      description: Delete a Role
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+        - $ref: '#/components/parameters/roleIdParam'
+      responses:
+        200:
+          $ref: '#/components/responses/UpdateAndDeleted'
+        400:
+          $ref: '#/components/responses/FailedWithMessageOnly'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+  /user-access:
+    post:
+      tags:
+        - user access
+      description: Add new user access
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+      requestBody:
+        $ref: '#/components/requestBodies/UserAccess'
+      responses:
+        201:
+          $ref: '#/components/responses/Created'
+        400:
+          $ref: '#/components/responses/FailedWithErrorsAndMessage'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+    get:
+      tags:
+        - user access
+      description: Get All Users Access
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+      responses:
+        200:
+          $ref: '#/components/responses/GetAllDataWithPagination'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+  /user-access/{user_access_id}:
+    put:
+      tags:
+        - user access
+      description: Update User Access
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+        - $ref: '#/components/parameters/userAccessIdParam'
+      requestBody:
+        $ref: '#/components/requestBodies/UserAccess'
+      responses:
+        200:
+          $ref: '#/components/responses/UpdateAndDeleted'
+        400:
+          $ref: '#/components/responses/FailedWithErrorsAndMessage'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+  /users:
+    post:
+      tags:
+        - user
+      description: Add new user data
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+      requestBody:
+        $ref: '#/components/requestBodies/User'
+      responses:
+        201:
+          $ref: '#/components/responses/Created'
+        400:
+          $ref: '#/components/responses/FailedWithErrorsOnly'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+    get:
+      tags:
+        - user
+      description: Get All User List
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/searchParam'
+      responses:
+        200:
+          $ref: '#/components/responses/GetAllDataWithPagination'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+  /users/{user_id}:
+    get:
+      tags:
+        - user
+      description: Get a User Detail
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+        - $ref: '#/components/parameters/userIdParam'
+      responses:
+        200:
+          $ref: '#/components/responses/GetOneData'
+        400:
+          $ref: '#/components/responses/FailedWithMessageOnly'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+    put:
+      tags:
+        - user
+      description: Update User Detail
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+        - $ref: '#/components/parameters/userIdParam'
+      requestBody:
+        $ref: '#/components/requestBodies/Book'
+      responses:
+        200:
+          $ref: '#/components/responses/UpdateAndDeleted'
+        400:
+          $ref: '#/components/responses/FailedWithErrorsAndMessage'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      tags:
+        - user
+      description: Delete a User
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+        - $ref: '#/components/parameters/userIdParam'
+      responses:
+        200:
+          $ref: '#/components/responses/UpdateAndDeleted'
+        400:
+          $ref: '#/components/responses/FailedWithMessageOnly'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+  /books:
+    post:
+      tags:
+        - book
+      description: Add new e-book data
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+      requestBody:
+        $ref: '#/components/requestBodies/Book'
+      responses:
+        201:
+          $ref: '#/components/responses/Created'
+        400:
+          $ref: '#/components/responses/FailedWithErrorsOnly'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+    get:
+      tags:
+        - book
+      description: Get All Book List
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+        - $ref: '#/components/parameters/pageParam'
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/searchParam'
+      responses:
+        200:
+          $ref: '#/components/responses/GetAllDataWithPagination'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+  /books/{slug}:
+    get:
+      tags:
+        - book
+      description: Get a Book Detail
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+        - $ref: '#/components/parameters/slugParam'
+      responses:
+        200:
+          $ref: '#/components/responses/GetOneData'
+        400:
+          $ref: '#/components/responses/FailedWithMessageOnly'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+  /books/{book_id}:
+    put:
+      tags:
+        - book
+      description: Update a Book Detail
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+        - $ref: '#/components/parameters/bookIdParam'
+      requestBody:
+        $ref: '#/components/requestBodies/Book'
+      responses:
+        200:
+          $ref: '#/components/responses/UpdateAndDeleted'
+        400:
+          $ref: '#/components/responses/FailedWithErrorsAndMessage'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+    delete:
+      tags:
+        - book
+      description: Delete a Book
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+        - $ref: '#/components/parameters/bookIdParam'
+      responses:
+        200:
+          $ref: '#/components/responses/UpdateAndDeleted'
+        400:
+          $ref: '#/components/responses/FailedWithMessageOnly'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+
+# Components
+components:
+  # schemas
+  schemas:
+    UserLoginPayload:
+      type: object
+      properties:
+        email:
+          type: string
+          example: user@mail.co
+        password:
+          type: string
+          example: P@ss4321
+    RolePayload:
+      type: object
+      properties:
+        role:
+          type: string
+          example: user
+        desc:
+          type: string
+          example: user general
+    UserAccessPayload:
+      type: object
+      properties:
+        user_id:
+          type: string
+          example: 82657276-c2f9-11ed-9782-0242ac130004
+        role_id:
+          type: string
+          example: a1ba6486-be2c-11ed-85b7-0242ac140004
+    UserPayload:
+      required:
+        - email
+        - password
+        - username
+      type: object
+      properties:
+        name:
+          type: string
+          example: new user
+        username:
+          type: string
+          example: newuser
+        email:
+          type: string
+          example: newuser@mail.co
+        password:
+          type: string
+          format: password
+          example: newUser@123
+    BookPayload:
+      type: object
+      properties:
+        title:
+          type: string
+          example: 5 Beginner Project as Backend Developer
+        author:
+          type: string
+          example: Skuy Ngoding
+        city:
+          type: string
+          example: North Aceh
+        publisher:
+          type: string
+          example: Penerbit Skuy
+        year:
+          type: string
+          example: 2023
+        type:
+          type: string
+          example: Education
+        desc:
+          type: string
+          example: E-book for Junior Backend Developer
+        file:
+          type: string
+          format: binary
+
+    StatusOK:
+      type: object
+      properties:
+        status:
+          type: string
+          example: OK
+        code:
+          type: integer
+          example: 200
+    StatusCREATED:
+      type: object
+      properties:
+        status:
+          type: string
+          example: CREATED
+        code:
+          type: integer
+          example: 201
+    StatusBadRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          example: BAD_REQUEST
+        code:
+          type: integer
+          example: 400
+
+    Unauthorized:
+      type: object
+      properties:
+        status:
+          type: string
+          example: Unauthorized
+        code:
+          type: integer
+          example: 401
+        message:
+          type: string
+          example: Token is not valid!
+    Forbidden:
+      type: object
+      properties:
+        status:
+          type: string
+          example: Forbidden
+        code:
+          type: integer
+          example: 403
+        message:
+          type: string
+          example: You don't have permission!
+    FailedWithMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Entity Not Found
+    FailedWithErrors:
+      type: object
+      properties:
+        errors:
+          type: object
+          example:
+            field: required
+
+    LoggedIn:
+      type: object
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXXXXX.xxx
+    Created:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Entity has been created
+    GetAll:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+          example: []
+    GetAllWithPagination:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties: {}
+        pagination:
+          type: object
+          properties: {}
+    GetOneData:
+      type: object
+      properties:
+        data:
+          type: object
+          properties: {}
+    UpdateAndDeleted:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Entity has been updated/deleted
+
+  # requestBodies
+  requestBodies:
+    UserLogin:
+      description: User data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserLoginPayload'
+    Role:
+      description: Role data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RolePayload'
+    UserAccess:
+      description: User Access data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserAccessPayload'
+    User:
+      description: User data
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserPayload'
+    Book:
+      description: Book data
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/BookPayload'
+
+  # Parameters
+  parameters:
+    authToken:
+      name: x-auth-token
+      in: header
+      description: token to access the api
+      schema:
+        type: string
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXXXX.xxx
+    pageParam:
+      name: page
+      in: query
+      description: page number to show
+      schema:
+        type: string
+        example: 1
+    limitParam:
+      name: limit
+      in: query
+      description: max data to return
+      schema:
+        type: string
+        example: 5
+    searchParam:
+      name: search
+      in: query
+      description: search data
+      schema:
+        type: string
+    slugParam:
+      name: slug
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 5-beginner-project-as-backend-developer
+    roleIdParam:
+      name: role_id
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 5f9f1b9d-c1c4-11ed-b57a-0242ac130004
+    userAccessIdParam:
+      name: user_access_id
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 5f9f1b9d-c1c4-11ed-b57a-0242ac130004
+    userIdParam:
+      name: user_id
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 5f9f1b9d-c1c4-11ed-b57a-0242ac130004
+    bookIdParam:
+      name: book_id
+      in: path
+      required: true
+      schema:
+        type: string
+        example: 5f9f1b9d-c1c4-11ed-b57a-0242ac130004
+
+  # Responses
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Unauthorized'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Forbidden'
+    FailedWithErrorsAndMessage:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - allOf:
+                  - $ref: '#/components/schemas/StatusBadRequest'
+                  - $ref: '#/components/schemas/FailedWithErrors'
+              - allOf:
+                  - $ref: '#/components/schemas/StatusBadRequest'
+                  - $ref: '#/components/schemas/FailedWithMessage'
+    FailedWithErrorsOnly:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StatusBadRequest'
+              - $ref: '#/components/schemas/FailedWithErrors'
+    FailedWithMessageOnly:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StatusBadRequest'
+              - $ref: '#/components/schemas/FailedWithMessage'
+
+    LoggedIn:
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StatusOK'
+              - $ref: '#/components/schemas/LoggedIn'
+    Created:
+      description: CREATED
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StatusCREATED'
+              - $ref: '#/components/schemas/Created'
+    GetAllData:
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StatusOK'
+              - $ref: '#/components/schemas/GetAll'
+    GetAllDataWithPagination:
+      description: OK
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - allOf:
+                  - $ref: '#/components/schemas/StatusOK'
+                  - $ref: '#/components/schemas/GetAllWithPagination'
+              - allOf:
+                  - $ref: '#/components/schemas/StatusOK'
+                  - $ref: '#/components/schemas/GetAll'
+    GetOneData:
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StatusOK'
+              - $ref: '#/components/schemas/GetOneData'
+    UpdateAndDeleted:
+      description: OK
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: '#/components/schemas/StatusOK'
+              - $ref: '#/components/schemas/UpdateAndDeleted'

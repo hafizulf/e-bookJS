@@ -1,6 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
+const fs = require('fs');
+const path = require('path');
+const YAML = require('yaml');
+const swaggerUi = require('swagger-ui-express');
 
 const authRoutes = require('../routes/auth.routes');
 const bookRoutes = require('../routes/book.routes');
@@ -11,6 +15,10 @@ const userAccessRoutes = require('../routes/userAccess.routes');
 const app = express();
 
 // plugins
+const apiDocsFile = fs.readFileSync(path.join('./swagger.yaml'), 'utf8');
+const swaggerDocument = YAML.parse(apiDocsFile);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 const limit = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs

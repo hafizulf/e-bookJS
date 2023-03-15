@@ -37,8 +37,10 @@
     "mysql": "^2.18.1",
     "node-cache": "^5.1.2",
     "path": "^0.12.7",
-    "sqlite3": "^5.1.4",
+    "sqlite3": "^5.1.6",
+    "swagger-ui-express": "^4.6.2",
     "uuid": "^9.0.0",
+    "yaml": "^2.2.1",
     "yup": "^1.0.0"
   },
   "devDependencies": {
