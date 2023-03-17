@@ -148,20 +148,18 @@ paths:
         403:
           $ref: '#/components/responses/Forbidden'
   /user-access/{user_access_id}:
-    put:
+    delete:
       tags:
         - user access
       description: Update User Access
       parameters:
         - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/userAccessIdParam'
-      requestBody:
-        $ref: '#/components/requestBodies/UserAccess'
       responses:
         200:
           $ref: '#/components/responses/UpdateAndDeleted'
         400:
-          $ref: '#/components/responses/FailedWithErrorsAndMessage'
+          $ref: '#/components/responses/FailedWithMessageOnly'
         401:
           $ref: '#/components/responses/Unauthorized'
         403:
@@ -215,8 +213,6 @@ paths:
           $ref: '#/components/responses/FailedWithMessageOnly'
         401:
           $ref: '#/components/responses/Unauthorized'
-        403:
-          $ref: '#/components/responses/Forbidden'
     put:
       tags:
         - user
@@ -225,7 +221,7 @@ paths:
         - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/userIdParam'
       requestBody:
-        $ref: '#/components/requestBodies/Book'
+        $ref: '#/components/requestBodies/User'
       responses:
         200:
           $ref: '#/components/responses/UpdateAndDeleted'
@@ -233,8 +229,6 @@ paths:
           $ref: '#/components/responses/FailedWithErrorsAndMessage'
         401:
           $ref: '#/components/responses/Unauthorized'
-        403:
-          $ref: '#/components/responses/Forbidden'
     delete:
       tags:
         - user

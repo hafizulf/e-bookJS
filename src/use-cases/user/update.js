@@ -7,7 +7,7 @@ const serviceUpdate = (Entity, repository, validator, buildError) => {
         value: user_id,
       });
 
-      if (!userData) {
+      if (!userData || userData.status === 0) {
         return {
           status: false,
           message: 'User Not Found',

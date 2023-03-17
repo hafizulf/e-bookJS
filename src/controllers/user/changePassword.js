@@ -1,6 +1,12 @@
 const ctlChangePassword = (service, response) => {
   return async (req, res) => {
     const { user_id } = req.params;
+    const { user_id: user_id_token } = req;
+
+    if (user_id !== user_id_token) {
+      return response.updateFailed(res, 'message', 'User Not Found');
+    }
+
     const data = req.body;
     data.user_id = user_id;
 
