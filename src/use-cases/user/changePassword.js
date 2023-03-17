@@ -23,6 +23,8 @@ const serviceChangePassword = (
       const { oldPassword } = data;
       let { password } = data;
 
+      validator.changePassword(data);
+
       if (password === oldPassword) {
         return {
           status: false,
@@ -31,8 +33,6 @@ const serviceChangePassword = (
           },
         };
       }
-
-      validator.changePassword(data);
 
       const isMatched = hasher.compare(oldPassword, userData.password);
       if (!isMatched) {

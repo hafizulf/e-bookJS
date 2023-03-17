@@ -93,7 +93,7 @@ paths:
         $ref: '#/components/requestBodies/Role'
       responses:
         200:
-          $ref: '#/components/responses/UpdateAndDeleted'
+          $ref: '#/components/responses/OKWithMessage'
         400:
           $ref: '#/components/responses/FailedWithErrorsAndMessage'
         401:
@@ -109,7 +109,7 @@ paths:
         - $ref: '#/components/parameters/roleIdParam'
       responses:
         200:
-          $ref: '#/components/responses/UpdateAndDeleted'
+          $ref: '#/components/responses/OKWithMessage'
         400:
           $ref: '#/components/responses/FailedWithMessageOnly'
         401:
@@ -157,7 +157,7 @@ paths:
         - $ref: '#/components/parameters/userAccessIdParam'
       responses:
         200:
-          $ref: '#/components/responses/UpdateAndDeleted'
+          $ref: '#/components/responses/OKWithMessage'
         400:
           $ref: '#/components/responses/FailedWithMessageOnly'
         401:
@@ -224,7 +224,7 @@ paths:
         $ref: '#/components/requestBodies/User'
       responses:
         200:
-          $ref: '#/components/responses/UpdateAndDeleted'
+          $ref: '#/components/responses/OKWithMessage'
         400:
           $ref: '#/components/responses/FailedWithErrorsAndMessage'
         401:
@@ -238,13 +238,30 @@ paths:
         - $ref: '#/components/parameters/userIdParam'
       responses:
         200:
-          $ref: '#/components/responses/UpdateAndDeleted'
+          $ref: '#/components/responses/OKWithMessage'
         400:
           $ref: '#/components/responses/FailedWithMessageOnly'
         401:
           $ref: '#/components/responses/Unauthorized'
         403:
           $ref: '#/components/responses/Forbidden'
+  /users/change-password/{user_id}:
+    post:
+      tags:
+        - user
+      description: Change User Passsword
+      parameters:
+        - $ref: '#/components/parameters/authToken'
+        - $ref: '#/components/parameters/userIdParam'
+      requestBody:
+        $ref: '#/components/requestBodies/ChangePassword'
+      responses:
+        200:
+          $ref: '#/components/responses/OKWithMessage'
+        400:
+          $ref: '#/components/responses/FailedWithErrorsAndMessage'
+        401:
+          $ref: '#/components/responses/Unauthorized'
   /books:
     post:
       tags:
@@ -308,7 +325,7 @@ paths:
         $ref: '#/components/requestBodies/Book'
       responses:
         200:
-          $ref: '#/components/responses/UpdateAndDeleted'
+          $ref: '#/components/responses/OKWithMessage'
         400:
           $ref: '#/components/responses/FailedWithErrorsAndMessage'
         401:
@@ -324,7 +341,7 @@ paths:
         - $ref: '#/components/parameters/bookIdParam'
       responses:
         200:
-          $ref: '#/components/responses/UpdateAndDeleted'
+          $ref: '#/components/responses/OKWithMessage'
         400:
           $ref: '#/components/responses/FailedWithMessageOnly'
         401:
@@ -336,81 +353,6 @@ paths:
 components:
   # schemas
   schemas:
-    UserLoginPayload:
-      type: object
-      properties:
-        email:
-          type: string
-          example: user@mail.co
-        password:
-          type: string
-          example: P@ss4321
-    RolePayload:
-      type: object
-      properties:
-        role:
-          type: string
-          example: user
-        desc:
-          type: string
-          example: user general
-    UserAccessPayload:
-      type: object
-      properties:
-        user_id:
-          type: string
-          example: 82657276-c2f9-11ed-9782-0242ac130004
-        role_id:
-          type: string
-          example: a1ba6486-be2c-11ed-85b7-0242ac140004
-    UserPayload:
-      required:
-        - email
-        - password
-        - username
-      type: object
-      properties:
-        name:
-          type: string
-          example: new user
-        username:
-          type: string
-          example: newuser
-        email:
-          type: string
-          example: newuser@mail.co
-        password:
-          type: string
-          format: password
-          example: newUser@123
-    BookPayload:
-      type: object
-      properties:
-        title:
-          type: string
-          example: 5 Beginner Project as Backend Developer
-        author:
-          type: string
-          example: Skuy Ngoding
-        city:
-          type: string
-          example: North Aceh
-        publisher:
-          type: string
-          example: Penerbit Skuy
-        year:
-          type: string
-          example: 2023
-        type:
-          type: string
-          example: Education
-        desc:
-          type: string
-          example: E-book for Junior Backend Developer
-        file:
-          type: string
-          format: binary
-
     StatusOK:
       type: object
       properties:
@@ -489,6 +431,11 @@ components:
         message:
           type: string
           example: Entity has been created
+    OKWithMessage:
+      type: object
+      properties:
+        message:
+          type: string
     GetAll:
       type: object
       properties:
@@ -514,12 +461,6 @@ components:
         data:
           type: object
           properties: {}
-    UpdateAndDeleted:
-      type: object
-      properties:
-        message:
-          type: string
-          example: Entity has been updated/deleted
 
   # requestBodies
   requestBodies:
@@ -528,31 +469,106 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UserLoginPayload'
+            type: object
+            properties:
+              email:
+                type: string
+                example: user@mail.co
+              password:
+                type: string
+                example: P@ss4321
     Role:
       description: Role data
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/RolePayload'
+            type: object
+            properties:
+              role:
+                type: string
+                example: user
+              desc:
+                type: string
+                example: user general
     UserAccess:
       description: User Access data
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UserAccessPayload'
+            type: object
+            properties:
+              user_id:
+                type: string
+                example: 82657276-c2f9-11ed-9782-0242ac130004
+              role_id:
+                type: string
+                example: a1ba6486-be2c-11ed-85b7-0242ac140004
     User:
       description: User data
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UserPayload'
+            type: object
+            properties:
+              name:
+                type: string
+                example: new user
+              username:
+                type: string
+                example: newuser
+              email:
+                type: string
+                example: newuser@mail.co
+              password:
+                type: string
+                example: newUser@123
+    ChangePassword:
+      description: Change Password data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              oldPassword:
+                type: string
+                example: P@ss4321
+              password:
+                type: string
+                example: P@ss1234
+              passwordConfirmation:
+                type: string
+                example: P@ss1234
     Book:
       description: Book data
       content:
         multipart/form-data:
           schema:
-            $ref: '#/components/schemas/BookPayload'
+            type: object
+            properties:
+              title:
+                type: string
+                example: 5 Beginner Project as Backend Developer
+              author:
+                type: string
+                example: Skuy Ngoding
+              city:
+                type: string
+                example: North Aceh
+              publisher:
+                type: string
+                example: Penerbit Skuy
+              year:
+                type: string
+                example: 2023
+              type:
+                type: string
+                example: Education
+              desc:
+                type: string
+                example: E-book for Junior Backend Developer
+              file:
+                type: string
+                format: binary
 
   # Parameters
   parameters:
@@ -706,11 +722,11 @@ components:
             allOf:
               - $ref: '#/components/schemas/StatusOK'
               - $ref: '#/components/schemas/GetOneData'
-    UpdateAndDeleted:
+    OKWithMessage:
       description: OK
       content:
         application/json:
           schema:
             allOf:
               - $ref: '#/components/schemas/StatusOK'
-              - $ref: '#/components/schemas/UpdateAndDeleted'
+              - $ref: '#/components/schemas/OKWithMessage'
