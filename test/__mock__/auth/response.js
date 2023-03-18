@@ -1,22 +1,23 @@
-const response = {
+const resBadRequest = {
   status: 'BAD_REQUEST',
   code: 400,
 };
 
 const loginWithEmptyData = () => {
-  response.errors = {
-    email: 'required',
-    password: 'required',
+  return {
+    ...resBadRequest,
+    errors: {
+      email: 'required',
+      password: 'required',
+    },
   };
-
-  return response;
 };
 
 const loginWithUserNotFound = () => {
-  delete response.errors;
-  response.message = 'User Not Found';
-
-  return response;
+  return {
+    ...resBadRequest,
+    message: 'User Not Found',
+  };
 };
 
 const loginWithInvalidPassword = () => {
