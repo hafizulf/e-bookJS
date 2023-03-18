@@ -1,11 +1,6 @@
 const loginSchema = (yup) => {
-  return yup.object().shape({
-    username: yup.string().when('email', {
-      is: (email) => !email,
-      then: () => yup.string().strict().required('required'),
-      otherwise: () => yup.string().strict().notRequired(),
-    }),
-    email: yup.string().strict(),
+  return yup.object({
+    email: yup.string().strict().required('required'),
     password: yup.string().strict().required('required'),
   });
 };

@@ -11,7 +11,7 @@ const saveSpecs = ({ request, expect, app, getUserToken }) => {
       it('should return errors message', (done) => {
         request(app)
           .post(url)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .send({})
           .end((err, res) => {
             expect(res.status).to.equal(400);
@@ -31,7 +31,7 @@ const saveSpecs = ({ request, expect, app, getUserToken }) => {
       it('should return role created successfully', (done) => {
         request(app)
           .post(url)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .send({
             role: 'author',
             desc: 'author role, can create book',
@@ -50,7 +50,7 @@ const saveSpecs = ({ request, expect, app, getUserToken }) => {
       it('given role exist should return errors', function (done) {
         request(app)
           .post(url)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .send({ role: 'author' })
           .end((err, res) => {
             expect(res.status).to.equal(400);

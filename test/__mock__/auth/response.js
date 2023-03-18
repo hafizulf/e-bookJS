@@ -1,22 +1,23 @@
-const response = {
+const resBadRequest = {
   status: 'BAD_REQUEST',
   code: 400,
 };
 
 const loginWithEmptyData = () => {
-  response.errors = {
-    username: 'required',
-    password: 'required',
+  return {
+    ...resBadRequest,
+    errors: {
+      email: 'required',
+      password: 'required',
+    },
   };
-
-  return response;
 };
 
-const loginWithUsernameNotFound = () => {
-  delete response.errors;
-  response.message = 'User Not Found';
-
-  return response;
+const loginWithUserNotFound = () => {
+  return {
+    ...resBadRequest,
+    message: 'User Not Found',
+  };
 };
 
 const loginWithInvalidPassword = () => {
@@ -29,6 +30,6 @@ const loginWithInvalidPassword = () => {
 
 module.exports = {
   loginWithEmptyData,
-  loginWithUsernameNotFound,
+  loginWithUserNotFound,
   loginWithInvalidPassword,
 };

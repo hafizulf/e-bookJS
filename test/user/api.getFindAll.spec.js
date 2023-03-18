@@ -11,7 +11,7 @@ const findAllSpecs = ({ request, expect, app, cache, getUserToken }) => {
       it('should return list of users', (done) => {
         request(app)
           .get(url)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             expect(res.body).to.be.an('object');
             expect(res.body.data).to.be.an('array');

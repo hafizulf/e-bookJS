@@ -48,7 +48,7 @@ const getUserToken = async () => {
   ]);
 
   const loggedIn = await request(app).post('/api/v1/auth/login').send({
-    username: 'skuy',
+    email: 'example@co',
     password: '@Pass123',
   });
 

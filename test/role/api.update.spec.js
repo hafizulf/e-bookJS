@@ -27,7 +27,7 @@ const updateSpecs = ({
         it('should return errors message', (done) => {
           request(app)
             .put(`${url}/${role_id}`)
-            .set({ 'x-auth-token': token })
+            .set('Authorization', `Bearer ${token}`)
             .send({
               desc: 12345678,
             })
@@ -45,7 +45,7 @@ const updateSpecs = ({
         it('when given role exist should return errors', (done) => {
           request(app)
             .put(`${url}/${role_id}`)
-            .set({ 'x-auth-token': token })
+            .set('Authorization', `Bearer ${token}`)
             .send({ role: 'example-role' })
             .end((err, res) => {
               expect(res.status).to.equal(400);
@@ -59,7 +59,7 @@ const updateSpecs = ({
         it('should return successfully updated role', (done) => {
           request(app)
             .put(`${url}/${role_id}`)
-            .set({ 'x-auth-token': token })
+            .set('Authorization', `Bearer ${token}`)
             .send({
               role: 'example role update',
               desc: 'example role description',

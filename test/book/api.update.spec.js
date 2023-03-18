@@ -22,7 +22,7 @@ const updateSpecs = ({
       it('should return book not found', function (done) {
         request(app)
           .put(`${url}/example-book-id`)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             expect(res.status).to.equal(400);
             expect(res.body).to.deep.equal(
@@ -52,7 +52,7 @@ const updateSpecs = ({
           it('should return errors message', function (done) {
             request(app)
               .put(`${url}/${mockedData.book_id}`)
-              .set({ 'x-auth-token': token })
+              .set('Authorization', `Bearer ${token}`)
               .send({})
               .end((err, res) => {
                 expect(res.status).to.equal(400);
@@ -66,7 +66,7 @@ const updateSpecs = ({
           it('should return 400 with errors', function (done) {
             request(app)
               .put(`${url}/${mockedData.book_id}`)
-              .set({ 'x-auth-token': token })
+              .set('Authorization', `Bearer ${token}`)
               .send({ title: 3423242 })
               .end((err, res) => {
                 expect(res.status).to.equal(400);
@@ -85,7 +85,7 @@ const updateSpecs = ({
           it('should return error with title is already exist', function (done) {
             request(app)
               .put(`${url}/${mockedData.book_id}`)
-              .set({ 'x-auth-token': token })
+              .set('Authorization', `Bearer ${token}`)
               .field('title', 'example title')
               .end((err, res) => {
                 expect(res.status).to.equal(400);
@@ -101,7 +101,7 @@ const updateSpecs = ({
           it('should successfully updated', function (done) {
             request(app)
               .put(`${url}/${mockedData.book_id}`)
-              .set({ 'x-auth-token': token })
+              .set('Authorization', `Bearer ${token}`)
               .field('title', 'new update title')
               .field('author', mockedData.author)
               .field('city', mockedData.city)

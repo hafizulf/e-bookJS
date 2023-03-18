@@ -1,27 +1,43 @@
 const mockData = require('./data');
 
+const resOK = {
+  status: 'OK',
+  code: 200,
+};
+
 const resBadRequest = {
   status: 'BAD_REQUEST',
   code: 400,
 };
 
-const postWithInvalidBody = () => {
-  resBadRequest.errors = {
-    username: 'required',
-    email: 'must be a valid email',
-    password:
-      'at least one uppercase, one lowercase, one number and one special character',
-  };
+const pagination = {
+  totalData: 1,
+  totalPage: 1,
+  perPage: 10,
+  showingFrom: 1,
+  showingTo: 10,
+  currentPage: 1,
+};
 
-  return resBadRequest;
+const postWithInvalidBody = () => {
+  return {
+    ...resBadRequest,
+    errors: {
+      username: 'required',
+      email: 'must be a valid email',
+      password:
+        'at least one uppercase, one lowercase, one number and one special character',
+    },
+  };
 };
 
 const postWithInvalidEmail = () => {
-  resBadRequest.errors = {
-    email: 'Email is registered, please use another email',
+  return {
+    ...resBadRequest,
+    errors: {
+      email: 'Email is registered, please use another email',
+    },
   };
-
-  return resBadRequest;
 };
 
 const postWithValidBody = () => {
@@ -34,72 +50,59 @@ const postWithValidBody = () => {
 
 const findAndReturnListData = () => {
   return {
-    status: 'OK',
-    code: 200,
+    ...resOK,
     data: mockData,
-    pagination: {
-      totalData: 1,
-      totalPage: 1,
-      perPage: 10,
-      showingFrom: 1,
-      showingTo: 10,
-      currentPage: 1,
-    },
+    pagination,
   };
 };
 
 const findAndReturnDataNotFound = () => {
   return {
-    status: 'OK',
-    code: 200,
+    ...resOK,
     message: 'User Not Found',
   };
 };
 
 const findAndReturnDetailData = () => {
   return {
-    status: 'OK',
-    code: 200,
+    ...resOK,
     data: mockData[0],
   };
 };
 
 const putOrDeleteReturnEmptyData = () => {
   return {
-    status: 'BAD_REQUEST',
-    code: 400,
+    ...resBadRequest,
     message: 'User Not Found',
   };
 };
 
 const deleteWithExistData = () => {
   return {
-    status: 'OK',
-    code: 200,
+    ...resOK,
     message: 'User has been deleted',
   };
 };
 
 const putWithEmptyBody = () => {
   return {
-    status: 'BAD_REQUEST',
-    code: 400,
+    ...resBadRequest,
     message: 'Need a field to update',
   };
 };
 
 const putWithInvalidEmail = () => {
-  resBadRequest.errors = {
-    email: 'Email already exist',
+  return {
+    ...resBadRequest,
+    errors: {
+      email: 'Email already exist',
+    },
   };
-
-  return resBadRequest;
 };
 
 const putWithValidBody = () => {
   return {
-    status: 'OK',
-    code: 200,
+    ...resOK,
     message: 'User has been updated',
   };
 };

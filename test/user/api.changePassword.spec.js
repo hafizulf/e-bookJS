@@ -20,7 +20,7 @@ const changePasswordSpecs = ({
       it('should return error user not found', (done) => {
         request(app)
           .post(`${url}/example_user_id`)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             expect(res.status).to.equal(400);
             expect(res.body).to.deep.equal({
@@ -43,7 +43,7 @@ const changePasswordSpecs = ({
       it('should return error password validation', (done) => {
         request(app)
           .post(`${url}/${user_id}`)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .send({
             password: '#Pass123',
             passwordConfirmation: 'new password',
@@ -65,7 +65,7 @@ const changePasswordSpecs = ({
       it('should return error new password cannot be same with old password', (done) => {
         request(app)
           .post(`${url}/${user_id}`)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .send({
             oldPassword: '@Pass123',
             password: '@Pass123',
@@ -87,7 +87,7 @@ const changePasswordSpecs = ({
       it('should return error old password', (done) => {
         request(app)
           .post(`${url}/${user_id}`)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .send({
             oldPassword: '*Pass123',
             password: '#Pass123',
@@ -111,7 +111,7 @@ const changePasswordSpecs = ({
       it('should successfully changed password', (done) => {
         request(app)
           .post(`${url}/${user_id}`)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .send({
             oldPassword: '@Pass123',
             password: '#Pass123',

@@ -20,7 +20,7 @@ const deleteSpecs = ({
       it('should return message with user not found', (done) => {
         request(app)
           .delete(`${url}/example_user_id`)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             expect(res.status).to.equal(400);
             expect(res.body).to.deep.equal(
@@ -40,7 +40,7 @@ const deleteSpecs = ({
       it('should deleted successfully', (done) => {
         request(app)
           .delete(`${url}/${mockData[0].user_id}`)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.deep.equal(mockResponse.deleteWithExistData());

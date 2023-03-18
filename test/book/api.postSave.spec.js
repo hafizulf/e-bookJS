@@ -20,7 +20,7 @@ const saveSpecs = ({ request, expect, app, mockResponse, getUserToken }) => {
         it('should return errors message', function (done) {
           request(app)
             .post(url)
-            .set({ 'x-auth-token': token })
+            .set('Authorization', `Bearer ${token}`)
             .send({})
             .end((err, res) => {
               expect(res.status).to.equal(400);

@@ -20,7 +20,7 @@ const saveSpecs = ({
       it('should return 400 with errors message', function (done) {
         request(app)
           .post(url)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .send({ email: 'example.email', password: '@pass' })
           .end((err, res) => {
             expect(res.status).to.equal(400);
@@ -34,7 +34,7 @@ const saveSpecs = ({
       it('should return 201 with successfully created', function (done) {
         request(app)
           .post(url)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .send({
             username: 'newuser',
             email: 'newuser@ex.co',
@@ -67,7 +67,7 @@ const saveSpecs = ({
       it('given email registered should return errors', function (done) {
         request(app)
           .post(url)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .send({
             username: 'newuser',
             email: 'newuser@ex.co',
