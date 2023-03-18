@@ -12,7 +12,7 @@ const findAllSpecs = ({ request, expect, app, getUserToken }) => {
       it('should return list of roles', (done) => {
         request(app)
           .get(url)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.be.an('object');

@@ -17,7 +17,7 @@ const deleteSpecs = ({
 
   describe('DELETE /api/v1/books', () => {
     const url = '/api/v1/books';
-    const table = 'books';
+    // const table = 'books';
 
     let token;
 
@@ -29,7 +29,7 @@ const deleteSpecs = ({
       it('should return message with book not found', (done) => {
         request(app)
           .delete(`${url}/failed-id`)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             expect(res.status).to.equal(400);
             expect(res.body).to.deep.equal(
@@ -58,7 +58,7 @@ const deleteSpecs = ({
 
     //     request(app)
     //       .delete(`${url}/${mockData[0].book_id}`)
-    //       .set({ 'x-auth-token': token })
+    //       .set('Authorization', `Bearer ${token}`)
     //       .end((err, res) => {
     //         expect(res.status).to.equal(200);
     //         expect(res.body).to.deep.equal(mockResponse.deleteWithExistData());

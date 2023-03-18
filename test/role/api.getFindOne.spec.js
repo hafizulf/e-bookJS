@@ -11,7 +11,7 @@ const findOneSpecs = ({ request, expect, app, getUserToken }) => {
       it('should return message with role not found', (done) => {
         request(app)
           .get(`${url}/example_role_id`)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body.message).to.equal('Role Not Found');

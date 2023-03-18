@@ -11,7 +11,7 @@ const deleteSpecs = ({ request, expect, app, database, getUserToken }) => {
       it('should return message with user access not found', (done) => {
         request(app)
           .delete(`${url}/example_user_access_id`)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             expect(res.status).to.equal(400);
             return done();
@@ -61,7 +61,7 @@ const deleteSpecs = ({ request, expect, app, database, getUserToken }) => {
       it('should successfully removed user access', (done) => {
         request(app)
           .delete(`${url}/${user_access_id}`)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.deep.equal({

@@ -19,7 +19,7 @@ const findOneSpecs = ({
       it('should return message with user not found', (done) => {
         request(app)
           .get(`${url}/example_user_id`)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body).to.deep.equal(
@@ -40,7 +40,7 @@ const findOneSpecs = ({
       it('should return a detail of book', (done) => {
         request(app)
           .get(`${url}/${user_id}`)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .end((err, res) => {
             expect(res.status).to.equal(200);
             expect(res.body.status).to.equal('OK');

@@ -10,18 +10,6 @@ servers:
   - url: http://localhost:3000/api/v1
     description: Development server
 paths:
-  /auth/login:
-    post:
-      tags:
-        - authentication
-      description: Login user
-      requestBody:
-        $ref: '#/components/requestBodies/UserLogin'
-      responses:
-        200:
-          $ref: '#/components/responses/LoggedIn'
-        400:
-          $ref: '#/components/responses/FailedWithErrorsAndMessage'
   /auth/register:
     post:
       tags:
@@ -34,13 +22,25 @@ paths:
           $ref: '#/components/responses/Created'
         400:
           $ref: '#/components/responses/FailedWithErrorsOnly'
+  /auth/login:
+    post:
+      tags:
+        - authentication
+      description: Login user
+      requestBody:
+        $ref: '#/components/requestBodies/UserLogin'
+      responses:
+        200:
+          $ref: '#/components/responses/LoggedIn'
+        400:
+          $ref: '#/components/responses/FailedWithErrorsAndMessage'
   /roles:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - role
       description: Add new role data
-      parameters:
-        - $ref: '#/components/parameters/authToken'
       requestBody:
         $ref: '#/components/requestBodies/Role'
       responses:
@@ -53,11 +53,11 @@ paths:
         403:
           $ref: '#/components/responses/Forbidden'
     get:
+      security:
+        - bearerAuth: []
       tags:
         - role
       description: Get All Role List
-      parameters:
-        - $ref: '#/components/parameters/authToken'
       responses:
         200:
           $ref: '#/components/responses/GetAllData'
@@ -67,11 +67,12 @@ paths:
           $ref: '#/components/responses/Forbidden'
   /roles/{role_id}:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - role
       description: Get a Role Detail
       parameters:
-        - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/roleIdParam'
       responses:
         200:
@@ -83,11 +84,12 @@ paths:
         403:
           $ref: '#/components/responses/Forbidden'
     put:
+      security:
+        - bearerAuth: []
       tags:
         - role
       description: Update role Detail
       parameters:
-        - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/roleIdParam'
       requestBody:
         $ref: '#/components/requestBodies/Role'
@@ -101,11 +103,12 @@ paths:
         403:
           $ref: '#/components/responses/Forbidden'
     delete:
+      security:
+        - bearerAuth: []
       tags:
         - role
       description: Delete a Role
       parameters:
-        - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/roleIdParam'
       responses:
         200:
@@ -118,11 +121,11 @@ paths:
           $ref: '#/components/responses/Forbidden'
   /user-access:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - user access
       description: Add new user access
-      parameters:
-        - $ref: '#/components/parameters/authToken'
       requestBody:
         $ref: '#/components/requestBodies/UserAccess'
       responses:
@@ -135,11 +138,11 @@ paths:
         403:
           $ref: '#/components/responses/Forbidden'
     get:
+      security:
+        - bearerAuth: []
       tags:
         - user access
       description: Get All Users Access
-      parameters:
-        - $ref: '#/components/parameters/authToken'
       responses:
         200:
           $ref: '#/components/responses/GetAllDataWithPagination'
@@ -149,11 +152,12 @@ paths:
           $ref: '#/components/responses/Forbidden'
   /user-access/{user_access_id}:
     delete:
+      security:
+        - bearerAuth: []
       tags:
         - user access
       description: Update User Access
       parameters:
-        - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/userAccessIdParam'
       responses:
         200:
@@ -166,11 +170,11 @@ paths:
           $ref: '#/components/responses/Forbidden'
   /users:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - user
       description: Add new user data
-      parameters:
-        - $ref: '#/components/parameters/authToken'
       requestBody:
         $ref: '#/components/requestBodies/User'
       responses:
@@ -183,11 +187,12 @@ paths:
         403:
           $ref: '#/components/responses/Forbidden'
     get:
+      security:
+        - bearerAuth: []
       tags:
         - user
       description: Get All User List
       parameters:
-        - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/pageParam'
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/searchParam'
@@ -200,11 +205,12 @@ paths:
           $ref: '#/components/responses/Forbidden'
   /users/{user_id}:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - user
       description: Get a User Detail
       parameters:
-        - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/userIdParam'
       responses:
         200:
@@ -214,11 +220,12 @@ paths:
         401:
           $ref: '#/components/responses/Unauthorized'
     put:
+      security:
+        - bearerAuth: []
       tags:
         - user
       description: Update User Detail
       parameters:
-        - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/userIdParam'
       requestBody:
         $ref: '#/components/requestBodies/User'
@@ -230,11 +237,12 @@ paths:
         401:
           $ref: '#/components/responses/Unauthorized'
     delete:
+      security:
+        - bearerAuth: []
       tags:
         - user
       description: Delete a User
       parameters:
-        - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/userIdParam'
       responses:
         200:
@@ -247,11 +255,12 @@ paths:
           $ref: '#/components/responses/Forbidden'
   /users/change-password/{user_id}:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - user
       description: Change User Passsword
       parameters:
-        - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/userIdParam'
       requestBody:
         $ref: '#/components/requestBodies/ChangePassword'
@@ -264,11 +273,11 @@ paths:
           $ref: '#/components/responses/Unauthorized'
   /books:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - book
       description: Add new e-book data
-      parameters:
-        - $ref: '#/components/parameters/authToken'
       requestBody:
         $ref: '#/components/requestBodies/Book'
       responses:
@@ -281,11 +290,12 @@ paths:
         403:
           $ref: '#/components/responses/Forbidden'
     get:
+      security:
+        - bearerAuth: []
       tags:
         - book
       description: Get All Book List
       parameters:
-        - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/pageParam'
         - $ref: '#/components/parameters/limitParam'
         - $ref: '#/components/parameters/searchParam'
@@ -298,11 +308,12 @@ paths:
           $ref: '#/components/responses/Forbidden'
   /books/{slug}:
     get:
+      security:
+        - bearerAuth: []
       tags:
         - book
       description: Get a Book Detail
       parameters:
-        - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/slugParam'
       responses:
         200:
@@ -315,11 +326,12 @@ paths:
           $ref: '#/components/responses/Forbidden'
   /books/{book_id}:
     put:
+      security:
+        - bearerAuth: []
       tags:
         - book
       description: Update a Book Detail
       parameters:
-        - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/bookIdParam'
       requestBody:
         $ref: '#/components/requestBodies/Book'
@@ -333,11 +345,12 @@ paths:
         403:
           $ref: '#/components/responses/Forbidden'
     delete:
+      security:
+        - bearerAuth: []
       tags:
         - book
       description: Delete a Book
       parameters:
-        - $ref: '#/components/parameters/authToken'
         - $ref: '#/components/parameters/bookIdParam'
       responses:
         200:
@@ -351,6 +364,13 @@ paths:
 
 # Components
 components:
+  # security schemas
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
   # schemas
   schemas:
     StatusOK:
@@ -371,6 +391,7 @@ components:
         code:
           type: integer
           example: 201
+
     StatusBadRequest:
       type: object
       properties:
@@ -380,31 +401,6 @@ components:
         code:
           type: integer
           example: 400
-
-    Unauthorized:
-      type: object
-      properties:
-        status:
-          type: string
-          example: Unauthorized
-        code:
-          type: integer
-          example: 401
-        message:
-          type: string
-          example: Token is not valid!
-    Forbidden:
-      type: object
-      properties:
-        status:
-          type: string
-          example: Forbidden
-        code:
-          type: integer
-          example: 403
-        message:
-          type: string
-          example: You don't have permission!
     FailedWithMessage:
       type: object
       properties:
@@ -572,13 +568,6 @@ components:
 
   # Parameters
   parameters:
-    authToken:
-      name: x-auth-token
-      in: header
-      description: token to access the api
-      schema:
-        type: string
-        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXXXX.xxx
     pageParam:
       name: page
       in: query
@@ -642,25 +631,34 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Unauthorized'
+            type: object
+            properties:
+              status:
+                type: string
+                example: Unauthorized
+              code:
+                type: integer
+                example: 401
+              message:
+                type: string
+                example: Token is not valid!
     Forbidden:
       description: Forbidden
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Forbidden'
-    FailedWithErrorsAndMessage:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            oneOf:
-              - allOf:
-                  - $ref: '#/components/schemas/StatusBadRequest'
-                  - $ref: '#/components/schemas/FailedWithErrors'
-              - allOf:
-                  - $ref: '#/components/schemas/StatusBadRequest'
-                  - $ref: '#/components/schemas/FailedWithMessage'
+            type: object
+            properties:
+              status:
+                type: string
+                example: Forbidden
+              code:
+                type: integer
+                example: 403
+              message:
+                type: string
+                example: You don't have permission!'
+
     FailedWithErrorsOnly:
       description: Bad request
       content:
@@ -677,6 +675,18 @@ components:
             allOf:
               - $ref: '#/components/schemas/StatusBadRequest'
               - $ref: '#/components/schemas/FailedWithMessage'
+    FailedWithErrorsAndMessage:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - allOf:
+                  - $ref: '#/components/schemas/StatusBadRequest'
+                  - $ref: '#/components/schemas/FailedWithErrors'
+              - allOf:
+                  - $ref: '#/components/schemas/StatusBadRequest'
+                  - $ref: '#/components/schemas/FailedWithMessage'
 
     LoggedIn:
       description: OK

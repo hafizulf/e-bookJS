@@ -15,7 +15,7 @@ const saveSpecs = ({ request, expect, app, database, getUserToken }) => {
         it('should return 400 with errors message', (done) => {
           request(app)
             .post(url)
-            .set({ 'x-auth-token': token })
+            .set('Authorization', `Bearer ${token}`)
             .end((err, res) => {
               expect(res.status).to.equal(400);
               expect(res.body.errors).to.deep.equal({
@@ -31,7 +31,7 @@ const saveSpecs = ({ request, expect, app, database, getUserToken }) => {
         it('should return 400 with error not found', (done) => {
           request(app)
             .post(url)
-            .set({ 'x-auth-token': token })
+            .set('Authorization', `Bearer ${token}`)
             .send({
               user_id: 'example_not_found',
               role_id: 'example_not_found',
@@ -67,7 +67,7 @@ const saveSpecs = ({ request, expect, app, database, getUserToken }) => {
         it('should return 400 with error user access already exist', (done) => {
           request(app)
             .post(url)
-            .set({ 'x-auth-token': token })
+            .set('Authorization', `Bearer ${token}`)
             .send({ user_id, role_id })
             .end((err, res) => {
               expect(res.status).to.equal(400);
@@ -103,7 +103,7 @@ const saveSpecs = ({ request, expect, app, database, getUserToken }) => {
       it('should successfully created new user access', (done) => {
         request(app)
           .post(url)
-          .set({ 'x-auth-token': token })
+          .set('Authorization', `Bearer ${token}`)
           .send({ user_id, role_id })
           .end((err, res) => {
             expect(res.status).to.equal(201);

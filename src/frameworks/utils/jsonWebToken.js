@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const getToken = (user_id) => {
   return jwt.sign({ user_id }, config.JWT_SECRET_KEY, {
-    expiresIn: '1d',
+    expiresIn: config.JWT_EXP_DATE,
   });
 };
 
