@@ -12,6 +12,7 @@ services:
 
   mysql_db:
     image: mysql
+    restart: always
     ports:
       - '${DB_PORT}:3306'
     environment:
