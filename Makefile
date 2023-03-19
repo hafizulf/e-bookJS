@@ -11,8 +11,14 @@ docker-run-dev:
 docker-run-dev-build:
 	docker-compose ${DOCKER_DEV} up -d --build
 
+docker-run-dev-recreate-volume:
+	docker-compose ${DOCKER_DEV} up -d --build -V
+
 docker-stop-dev:
 	docker-compose ${DOCKER_DEV} down
+
+docker-stop-dev-remove-volume:
+	docker-compose ${DOCKER_DEV} down -v
 
 remove-coverage:
 	rm -r coverage .nyc_output

@@ -1,9 +1,5 @@
 .git/
 node_modules/
-.nyc_output/
-coverage/
-docs/
-test/
 
 docker-compose.yml
 docker-compose.dev.yml
