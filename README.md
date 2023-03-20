@@ -26,7 +26,7 @@ cd e-bookJS
 cp .env-example .env
 ```
 
-## Locally
+## Setup Locally
 
 - Install dependencies
 
@@ -44,7 +44,7 @@ cp .env-example .env
   npm run dev
 ```
 
-## Locally Using Docker
+## Setup Locally Using Docker
 
 - Install [Nodemon](https://www.npmjs.com/package/nodemon) for development
 
@@ -55,20 +55,20 @@ cp .env-example .env
 - Build and Running App
 
 ```bash
-# docker-compose up | detach mode | recreate volume |
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d -V
+# docker-compose up | detach mode | build |
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
 
 # using Makefile
-make docker-stop-dev-recreate-volume
+make docker-run-dev-build
 ```
 
-Database Migrations and Seeder
+## Database Migrations and Seeder
 
 ```bash
   # migrate database
   npm run migrate
 
-  # Roles seeding
+  # seed database
   npm run seed
 ```
 
@@ -110,42 +110,42 @@ Make sure to setup database test `.env` before.
 ```bash
 ├───.github
 │   └───workflows            * github action workflow
-├───src                      * application sources
-│   ├───controllers          * controllers
+├───src
+│   ├───controllers          * controllers/Interface Adapter
 │   │   ├───auth
 │   │   ├───book
 │   │   ├───role
 │   │   ├───user
 │   │   └───user-access
-│   ├───entities             * entities
+│   ├───entities             * business entity
 │   ├───frameworks
-│   │   ├───config           * config, such as node env, database, jwt
-│   │   ├───database         * database config, knexfile, migration and seeder
+│   │   ├───config           * app config: node env, database, jwt, etc
+│   │   ├───database         * knexfile, database migration and seeder
 │   │   │   ├───migrations
 │   │   │   └───seeds
 │   │   ├───middleware       * middleware such as authentication, authorization, cache, etc
-│   │   ├───routes           * routes
-│   │   ├───utils            * utils such as response, file remover, paginate, etc
-│   │   ├───validators       * validators schemas
+│   │   ├───routes           * routes/Interface Adapter
+│   │   ├───utils            * utils: response, file remover, paginate, etc
+│   │   ├───validators       * validator: schema, rules, etc
 │   │   │   ├───auth
 │   │   │   ├───book
 │   │   │   ├───role
 │   │   │   ├───user
 │   │   │   └───user-access
-│   │   └───webserver        * webserver such as plugins, CORS origin, rate limiter, web listener, etc
-│   ├───repositories         * repositories such as query to database
+│   │   └───webserver        * webserver: plugins, CORS origin, rate limiter, web listener, etc
+│   ├───repositories         * business repository: database query
 │   │   ├───book
 │   │   ├───role
 │   │   ├───user
 │   │   └───user-access
-│   └───use-cases            * application use cases/services
+│   └───use-cases            * business use cases/services
 │       ├───auth
 │       ├───book
 │       ├───role
 │       ├───user
 │       └───user-access
 ├───test                     * contains all specs
-│   ├───__mock__             * test mocking such as data, response
+│   ├───__mock__             * mocks: data, response
 │       ├───auth
 │       ├───book
 │       └───user
