@@ -7,17 +7,21 @@ exports.up = async (knex) => {
   }
 
   return knex.schema.createTable(tableName, (table) => {
-    table.uuid('user_access_id').primary().defaultTo(knex.raw('(UUID())'));
+    table
+      .uuid('user_access_id')
+      .primary()
+      .defaultTo(knex.raw('(UUID())'))
+      .notNullable();
     table
       .uuid('user_id')
-      .primary()
+      .notNullable()
       .defaultTo(knex.raw('(UUID())'))
       .references('users.user_id')
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
     table
       .uuid('role_id')
-      .primary()
+      .notNullable()
       .defaultTo(knex.raw('(UUID())'))
       .references('roles.role_id')
       .onUpdate('CASCADE')
